@@ -1,0 +1,4 @@
+interface:
+  display_name: "Better Auth"
+  short_description: "Implement Better Auth across TypeScript stacks"
+  default_prompt: "Use $better-auth to set up, migrate, or debug Better Auth in this project."
