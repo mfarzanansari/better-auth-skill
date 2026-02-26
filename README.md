@@ -110,6 +110,14 @@ Expected source page pattern:
 
 - `https://skills.sh/mfarzanansari`
 
+## Public Links
+
+- GitHub repository: `https://github.com/mfarzanansari/better-auth-skill`
+- Raw skill file: `https://raw.githubusercontent.com/mfarzanansari/better-auth-skill/main/better-auth/SKILL.md`
+- Raw metadata file: `https://raw.githubusercontent.com/mfarzanansari/better-auth-skill/main/better-auth/agents/openai.yaml`
+- Raw refresh script: `https://raw.githubusercontent.com/mfarzanansari/better-auth-skill/main/better-auth/scripts/fetch_better_auth_llms.py`
+- skills.sh owner page (may appear after indexing): `https://skills.sh/mfarzanansari`
+
 ### skillsmp.com Manual Checklist
 
 Because automated workflow details are not verifiable from docs in this environment, use this manual checklist:
