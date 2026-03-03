@@ -6,7 +6,7 @@ A step-by-step guide to transitioning from WorkOS to Better Auth.
 
 In this guide, we’ll walk through how to migrate a project from WorkOS to Better Auth, covering how to move a basic WorkOS setup integrated with a Next.js app and the key considerations to keep in mind.
 
-## Before we begin
+Before we begin [#before-we-begin]
 
 Before getting started, let’s review which WorkOS authentication features are fully or partially supported in Better Auth. If a feature you use in WorkOS is available via a plugin, you’ll need to configure it in the next step.
 
@@ -48,11 +48,11 @@ Before getting started, let’s review which WorkOS authentication features are 
 
 <Steps>
   <Step>
-    ## Create Better Auth Instance
+    Create Better Auth Instance [#create-better-auth-instance]
 
     First, set up Better Auth in your project. Follow the [installation guide](/docs/installation) to get started.
 
-    ### Database
+    Database [#database]
 
     Better Auth supports various databases. Set up your preferred database. In this guide, we’ll use PostgreSQL with the default database adapter.
 
@@ -67,7 +67,7 @@ Before getting started, let’s review which WorkOS authentication features are 
     });
     ```
 
-    ### Email & Password
+    Email & Password [#email--password]
 
     Enable Email & Password authentication as shown below. Since WorkOS verifies each user’s email by default, this setup is similar to the default behavior. You can adjust it if needed. For more information, see [here](/docs/authentication/email-password).
 
@@ -95,7 +95,7 @@ Before getting started, let’s review which WorkOS authentication features are 
     });
     ```
 
-    ### Social Providers (optional)
+    Social Providers (optional) [#social-providers-optional]
 
     Set up the social providers you used in WorkOS as follows. Better Auth supports a wider range of providers, so you can add more if needed. Since WorkOS ensures emails are unique, configure `account.accountLinking` in Better Auth to ensure the same behavior.
 
@@ -122,7 +122,7 @@ Before getting started, let’s review which WorkOS authentication features are 
     });
     ```
 
-    ### Additional Fields
+    Additional Fields [#additional-fields]
 
     {/* cspell:disable-next-line */}
 
@@ -147,7 +147,7 @@ Before getting started, let’s review which WorkOS authentication features are 
     });
     ```
 
-    ### Plugins
+    Plugins [#plugins]
 
     Refer to the [section](#before-we-begin) mapping WorkOS features to Better Auth. If a feature you used in WorkOS is available as a Better Auth plugin, add it to the plugin options. Better Auth provides a wider range of out-of-the-box features through plugins. For more information, see [here](/docs/concepts/plugins).
 
@@ -172,11 +172,11 @@ Before getting started, let’s review which WorkOS authentication features are 
   </Step>
 
   <Step>
-    ## Generate Schema
+    Generate Schema [#generate-schema]
 
     Better Auth allows you to control your own database, and you can easily generate the appropriate schema for your auth instance using the CLI. For more information, see [here](/docs/concepts/cli).
 
-    ### Default database adapter
+    Default database adapter [#default-database-adapter]
 
     Run the `migrate` command to create the schema for your Better Auth instance in the database.
 
@@ -201,30 +201,30 @@ Before getting started, let’s review which WorkOS authentication features are 
 
       <CodeBlockTab value="npm">
         ```bash
-        npx @better-auth/cli migrate
+        npx auth migrate
         ```
       </CodeBlockTab>
 
       <CodeBlockTab value="pnpm">
         ```bash
-        pnpm dlx @better-auth/cli migrate
+        pnpm dlx auth migrate
         ```
       </CodeBlockTab>
 
       <CodeBlockTab value="yarn">
         ```bash
-        yarn dlx @better-auth/cli migrate
+        yarn dlx auth migrate
         ```
       </CodeBlockTab>
 
       <CodeBlockTab value="bun">
         ```bash
-        bun x @better-auth/cli migrate
+        bun x auth migrate
         ```
       </CodeBlockTab>
     </CodeBlockTabs>
 
-    ### Other database adapters
+    Other database adapters [#other-database-adapters]
 
     If you’re using a database adapter like Prisma or Drizzle, use the `generate` command to create the schema for your ORM. After that, run the migration with an external tool such as Drizzle Kit.
 
@@ -249,34 +249,34 @@ Before getting started, let’s review which WorkOS authentication features are 
 
       <CodeBlockTab value="npm">
         ```bash
-        npx @better-auth/cli generate
+        npx auth generate
         ```
       </CodeBlockTab>
 
       <CodeBlockTab value="pnpm">
         ```bash
-        pnpm dlx @better-auth/cli generate
+        pnpm dlx auth generate
         ```
       </CodeBlockTab>
 
       <CodeBlockTab value="yarn">
         ```bash
-        yarn dlx @better-auth/cli generate
+        yarn dlx auth generate
         ```
       </CodeBlockTab>
 
       <CodeBlockTab value="bun">
         ```bash
-        bun x @better-auth/cli generate
+        bun x auth generate
         ```
       </CodeBlockTab>
     </CodeBlockTabs>
   </Step>
 
   <Step>
-    ## Migration Script
+    Migration Script [#migration-script]
 
-    ### Create Migration Script
+    Create Migration Script [#create-migration-script]
 
     Create a migration script to import your user data from WorkOS into your database.
 
@@ -548,7 +548,7 @@ Before getting started, let’s review which WorkOS authentication features are 
       * This migration script covers the common cases of managing users with email+password and social login. For features like SSO or CLI Auth, which are provided as plugins in Better Auth, be sure to update the script based on the examples.
     </Callout>
 
-    ### Run Migration Script
+    Run Migration Script [#run-migration-script]
 
     ```bash title="Terminal"
     bun scripts/migration.ts # or use node, ts-node, etc.
@@ -558,7 +558,7 @@ Before getting started, let’s review which WorkOS authentication features are 
   </Step>
 
   <Step>
-    ## Create Client Instance
+    Create Client Instance [#create-client-instance]
 
     This client instance includes a set of functions for interacting with the Better Auth server instance. For more information, see [here](/docs/concepts/client).
 
@@ -574,7 +574,7 @@ Before getting started, let’s review which WorkOS authentication features are 
   </Step>
 
   <Step>
-    ## Create API Route
+    Create API Route [#create-api-route]
 
     In WorkOS, the auth API was provided as a managed service. With Better Auth, the auth API now lives directly within your application.
 
@@ -587,7 +587,7 @@ Before getting started, let’s review which WorkOS authentication features are 
   </Step>
 
   <Step>
-    ## Sign-in/Sign-up Page
+    Sign-in/Sign-up Page [#sign-insign-up-page]
 
     In WorkOS, you probably fetched and used the URL like this.
 
@@ -600,11 +600,11 @@ Before getting started, let’s review which WorkOS authentication features are 
   </Step>
 
   <Step>
-    ## Protecting Resources
+    Protecting Resources [#protecting-resources]
 
     > Proxy (Middleware) is not intended for slow data fetching. While Proxy can be helpful for optimistic checks such as permission-based redirects, it should not be used as a full session management or authorization solution. - [Next.js docs](https://nextjs.org/docs/app/getting-started/proxy#use-cases)
 
-    ### Middleware auth
+    Middleware auth [#middleware-auth]
 
     WorkOS provides Proxy (Middleware) authentication. Better Auth doesn’t recommend protecting resources directly in middleware, so we don't provide dedicated helpers for that.
 
@@ -647,11 +647,11 @@ Before getting started, let’s review which WorkOS authentication features are 
     };
     ```
 
-    ### Page based auth
+    Page based auth [#page-based-auth]
 
     In WorkOS, if resources were protected on each page, you can update the logic in Better Auth as follows.
 
-    #### Server-side
+    Server-side [#server-side]
 
     <Tabs items={["WorkOS", "Better Auth"]}>
       <Tab value="WorkOS">
@@ -697,7 +697,7 @@ Before getting started, let’s review which WorkOS authentication features are 
       </Tab>
     </Tabs>
 
-    #### Client-side
+    Client-side [#client-side]
 
     <Tabs items={["WorkOS", "Better Auth"]}>
       <Tab value="WorkOS">
@@ -758,7 +758,7 @@ Before getting started, let’s review which WorkOS authentication features are 
   </Step>
 
   <Step>
-    ## Remove WorkOS Dependencies
+    Remove WorkOS Dependencies [#remove-workos-dependencies]
 
     After verifying everything works, remove WorkOS dependencies:
 
@@ -808,7 +808,7 @@ Before getting started, let’s review which WorkOS authentication features are 
   </Step>
 </Steps>
 
-## Considerations
+Considerations [#considerations]
 
 <strong className="underline italic">
   Password hashes
@@ -834,7 +834,7 @@ WorkOS exposes data through its API, but with limitations such as the inability 
 
 Existing active sessions will not be migrated. After the migration, users will need to sign in again, so be sure to notify them in advance.
 
-## Wrapping Up
+Wrapping Up [#wrapping-up]
 
 Congratulations! You've successfully migrated from WorkOS to Better Auth. Better Auth offers greater flexibility and more features, so be sure to explore the [documentation](/docs) to unlock its full potential.
 

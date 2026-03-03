@@ -6,7 +6,7 @@ TikTok provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your TikTok Credentials
+    Get your TikTok Credentials [#get-your-tiktok-credentials]
 
     To integrate with TikTok, you need to obtain API credentials by creating an application in the [TikTok Developer Portal](https://developers.tiktok.com/apps).
 
@@ -33,7 +33,7 @@ TikTok provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -52,7 +52,7 @@ TikTok provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with TikTok
+    Sign In with TikTok [#sign-in-with-tiktok]
 
     To sign in with TikTok, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

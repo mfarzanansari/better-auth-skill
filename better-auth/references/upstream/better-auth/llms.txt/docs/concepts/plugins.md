@@ -8,7 +8,7 @@ Plugins are a key part of Better Auth, they let you extend the base functionalit
 
 Better Auth comes with many built-in plugins ready to use. Check the plugins section for details. You can also create your own plugins.
 
-## Using a Plugin
+Using a Plugin [#using-a-plugin]
 
 Plugins can be a server-side plugin, a client-side plugin, or both.
 
@@ -47,7 +47,7 @@ We recommend keeping the auth-client and your normal auth instance in separate f
   </Folder>
 </Files>
 
-## Creating a Plugin
+Creating a Plugin [#creating-a-plugin]
 
 To get started, you'll need a server plugin.
 Server plugins are the backbone of all plugins, and client plugins are there to provide an interface with frontend APIs to easily work with your server plugins.
@@ -56,7 +56,7 @@ Server plugins are the backbone of all plugins, and client plugins are there to 
   If your server plugins have endpoints that need to be called from the client, you'll also need to create a client plugin.
 </Callout>
 
-### What can a plugin do?
+What can a plugin do? [#what-can-a-plugin-do]
 
 * Create custom `endpoint`s to perform any action you want.
 * Extend database tables with custom `schemas`.
@@ -65,7 +65,7 @@ Server plugins are the backbone of all plugins, and client plugins are there to 
 * Use `onRequest` or `onResponse` if you want to do something that affects all requests or responses.
 * Create a custom `rate-limit` rule.
 
-## Create a Server plugin
+Create a Server plugin [#create-a-server-plugin]
 
 To create a server plugin, you need to pass an object that satisfies the `BetterAuthPlugin` interface.
 
@@ -86,7 +86,7 @@ export const myPlugin = () => {
   You don't have to make the plugin a function, but it's recommended to do so. This way, you can pass options to the plugin and it's consistent with the built-in plugins.
 </Callout>
 
-### Endpoints
+Endpoints [#endpoints]
 
 To add endpoints to the server, you can pass `endpoints` which requires an object with the key being any `string` and the value being an `AuthEndpoint`.
 
@@ -96,6 +96,7 @@ Better Auth uses wraps around another library called <Link href="https://github.
 
 ```ts title="plugin.ts"
 import { createAuthEndpoint } from "better-auth/api";
+import type { BetterAuthPlugin } from "better-auth";
 
 const myPlugin = () => {
     return {
@@ -143,12 +144,12 @@ For other properties, you can check the <Link href="https://github.com/bekacru/b
 * Make sure to use the `createAuthEndpoint` function to create API endpoints.
 * Make sure your paths are unique to avoid conflicts with other plugins. If you're using a common path, add the plugin name as a prefix to the path. (`/my-plugin/hello-world` instead of `/hello-world`.)
 
-### Schema
+Schema [#schema]
 
 You can define a database schema for your plugin by passing a `schema` object. The schema object should have the table name as the key and the schema definition as the value.
 
 ```ts title="plugin.ts"
-import { BetterAuthPlugin } from "better-auth/plugins";
+import type { BetterAuthPlugin } from "better-auth";
 
 const myPlugin = () => {
     return {
@@ -190,6 +191,8 @@ The key is the column name and the value is the column definition. The column de
 `disableMigration`: if the table should not be migrated. (default: `false`)
 
 ```ts title="plugin.ts"
+import type { BetterAuthPlugin } from "better-auth";
+
 const myPlugin = (opts: PluginOptions) => {
     return {
         id: "my-plugin",
@@ -210,6 +213,7 @@ const myPlugin = (opts: PluginOptions) => {
 if you add additional fields to a `user` or `session` table, the types will be inferred automatically on `getSession` and `signUpEmail` calls.
 
 ```ts title="plugin.ts"
+import type { BetterAuthPlugin } from "better-auth";
 
 const myPlugin = () => {
     return {
@@ -233,7 +237,7 @@ This will add an `age` field to the `user` table and all `user` returning endpoi
   Don't store sensitive information in the `user` or `session` table. Create a new table if you need to store sensitive information.
 </Callout>
 
-### Hooks
+Hooks [#hooks]
 
 Hooks are used to run code before or after an action is performed, either from a client or directly on the server. You can add hooks to the server by passing a `hooks` object, which should contain `before` and `after` properties.
 
@@ -270,7 +274,7 @@ const myPlugin = () => {
 }
 ```
 
-### Middleware
+Middleware [#middleware]
 
 You can add middleware to the server by passing a `middlewares` array. This array should contain middleware objects, each with a `path` and a `middleware` property. Unlike hooks, middleware only runs on `api` requests from a client. If the endpoint is invoked directly, the middleware will not run.
 
@@ -279,6 +283,9 @@ The `path` can be either a string or a path matcher, using the same path-matchin
 If you throw an `APIError` from the middleware or return a `Response` object, the request will be stopped, and the response will be sent to the client.
 
 ```ts title="plugin.ts"
+import type { BetterAuthPlugin } from "better-auth";
+import { createAuthMiddleware } from "better-auth/api";
+
 const myPlugin = () => {
     return {
         id: "my-plugin",
@@ -294,11 +301,11 @@ const myPlugin = () => {
 }
 ```
 
-### On Request & On Response
+On Request & On Response [#on-request--on-response]
 
 Additional to middlewares, you can also hook into right before a request is made and right after a response is returned. This is mostly useful if you want to do something that affects all requests or responses.
 
-#### On Request
+On Request [#on-request]
 
 The `onRequest` function is called right before the request is made. It takes two parameters: the `request` and the `context` object.
 
@@ -309,6 +316,8 @@ Here’s how it works:
 * **Modify the Request**: You can also return a modified `request` object to change the request before it's sent.
 
 ```ts title="plugin.ts"
+import type { BetterAuthPlugin } from "better-auth";
+
 const myPlugin = () => {
     return  {
         id: "my-plugin",
@@ -319,7 +328,7 @@ const myPlugin = () => {
 }
 ```
 
-#### On Response
+On Response [#on-response]
 
 The `onResponse` function is executed immediately after a response is returned. It takes two parameters: the `response` and the `context` object.
 
@@ -329,6 +338,8 @@ Here’s how to use it:
 * **Continue Normally**: If you don't return anything, the response will be sent as is.
 
 ```ts title="plugin.ts"
+import type { BetterAuthPlugin } from "better-auth";
+
 const myPlugin = () => {
     return {
         id: "my-plugin",
@@ -339,11 +350,13 @@ const myPlugin = () => {
 }
 ```
 
-### Rate Limit
+Rate Limit [#rate-limit]
 
 You can define custom rate limit rules for your plugin by passing a `rateLimit` array. The rate limit array should contain an array of rate limit objects.
 
 ```ts title="plugin.ts"
+import type { BetterAuthPlugin } from "better-auth";
+
 const myPlugin = () => {
     return {
         id: "my-plugin",
@@ -360,12 +373,13 @@ const myPlugin = () => {
 }
 ```
 
-### Trusted origins
+Trusted origins [#trusted-origins]
 
 If you're building custom plugins or endpoints, you can use the `isTrustedOrigin()` method available on the auth context to validate URLs against your trusted origins configuration.
 This ensures your custom endpoints respect the same security settings as Better Auth's built-in endpoints.
 
 ```ts title="plugin.ts"
+import type { BetterAuthPlugin } from "better-auth";
 import { createAuthEndpoint, APIError } from "better-auth/api";
 import * as z from "zod"
 
@@ -400,15 +414,16 @@ const myPlugin = () => {
 
 See the [trusted origins and security](/docs/reference/security#trusted-origins) docs for more info.
 
-### Server-plugin helper functions
+Server-plugin helper functions [#server-plugin-helper-functions]
 
 Some additional helper functions for creating server plugins.
 
-#### `getSessionFromCtx`
+getSessionFromCtx [#getsessionfromctx]
 
 Allows you to get the client's session data by passing the auth middleware's `context`.
 
 ```ts title="plugin.ts"
+import type { BetterAuthPlugin } from "better-auth";
 import { createAuthMiddleware } from "better-auth/plugins";
 import { getSessionFromCtx } from "better-auth/api";
 
@@ -432,13 +447,13 @@ const myPlugin = {
 } satisfies BetterAuthPlugin
 ```
 
-#### `sessionMiddleware`
+sessionMiddleware [#sessionmiddleware]
 
 A middleware that checks if the client has a valid session. If the client has a valid session, it'll add the session data to the context object.
 
 ```ts title="plugin.ts"
-import { createAuthMiddleware } from "better-auth/plugins";
-import { sessionMiddleware } from "better-auth/api";
+import type { BetterAuthPlugin } from "better-auth";
+import { createAuthEndpoint, sessionMiddleware } from "better-auth/api";
 
 const myPlugin = () => {
     return {
@@ -458,7 +473,7 @@ const myPlugin = () => {
 }
 ```
 
-## Creating a client plugin
+Creating a client plugin [#creating-a-client-plugin]
 
 If your endpoints need to be called from the client, you'll also need to create a client plugin. Better Auth clients can infer the endpoints from the server plugins. You can also add additional client-side logic.
 
@@ -472,7 +487,7 @@ export const myPluginClient = () => {
 }
 ```
 
-### Endpoint Interface
+Endpoint Interface [#endpoint-interface]
 
 Endpoints are inferred from the server plugin by adding a `$InferServerPlugin` key to the client plugin.
 
@@ -490,7 +505,7 @@ const myPluginClient = () => {
 }
 ```
 
-### Get actions
+Get actions [#get-actions]
 
 If you need to add additional methods or whatnot to the client, you can use the `getActions` function. This function is called with the `fetch` function from the client.
 
@@ -529,7 +544,7 @@ const myPluginClient = {
   If your use case involves actions beyond API calls, feel free to deviate from this rule.
 </Callout>
 
-### Get Atoms
+Get Atoms [#get-atoms]
 
 This is only useful if you want to provide `hooks` like `useSession`.
 
@@ -553,7 +568,7 @@ const myPluginClient = {
 
 See built-in plugins for examples of how to use atoms properly.
 
-### Path methods
+Path methods [#path-methods]
 
 By default, inferred paths use the `GET` method if they don't require a body and `POST` if they do. You can override this by passing a `pathMethods` object. The key should be the path, and the value should be the method ("POST" | "GET").
 
@@ -570,11 +585,11 @@ const myPluginClient = {
 } satisfies BetterAuthClientPlugin
 ```
 
-### Fetch plugins
+Fetch plugins [#fetch-plugins]
 
 If you need to use better fetch plugins, you can pass them to the `fetchPlugins` array. You can read more about better fetch plugins in the <Link href="https://better-fetch.vercel.app/docs/plugins">better fetch documentation</Link>.
 
-### Atom Listeners
+Atom Listeners [#atom-listeners]
 
 This is only useful if you want to provide `hooks` like `useSession` and you want to listen to atoms and re-evaluate them when they change.
 

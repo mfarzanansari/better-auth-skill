@@ -6,9 +6,9 @@ A plugin to check if a password has been compromised
 
 The Have I Been Pwned plugin helps protect user accounts by preventing the use of passwords that have been exposed in known data breaches. It uses the [Have I Been Pwned](https://haveibeenpwned.com/) API to check if a password has been compromised.
 
-## Installation
+Installation [#installation]
 
-### Add the plugin to your **auth** config
+Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth"
@@ -16,12 +16,12 @@ import { haveIBeenPwned } from "better-auth/plugins" // [!code highlight]
 
 export const auth = betterAuth({
     plugins: [
-        haveIBeenPwned()
+        haveIBeenPwned() // [!code highlight]
     ]
 })
 ```
 
-## Usage
+Usage [#usage]
 
 When a user attempts to create an account or update their password with a compromised password, they'll receive the following default error:
 
@@ -32,7 +32,7 @@ When a user attempts to create an account or update their password with a compro
 }
 ```
 
-## Config
+Config [#config]
 
 You can customize the error message:
 
@@ -42,7 +42,7 @@ haveIBeenPwned({
 })
 ```
 
-## Security Notes
+Security Notes [#security-notes]
 
 * Only the first 5 characters of the password hash are sent to the API
 * The full password is never transmitted

@@ -6,7 +6,7 @@ Better Auth client library for authentication.
 
 Better Auth offers a client library compatible with popular frontend frameworks like React, Vue, Svelte, and more. This client library includes a set of functions for interacting with the Better Auth server. Each framework's client library is built on top of a core client library that is framework-agnostic, so that all methods and hooks are consistently available across all client libraries.
 
-## Installation
+Installation [#installation]
 
 If you haven't already, install better-auth.
 
@@ -54,7 +54,7 @@ If you haven't already, install better-auth.
   </CodeBlockTab>
 </CodeBlockTabs>
 
-## Create Client Instance
+Create Client Instance [#create-client-instance]
 
 Import `createAuthClient` from the package for your framework (e.g., "better-auth/react" for React). Call the function to create your client. Pass the base URL of your auth server. If the auth server is running on the same domain as your client, you can skip this step.
 
@@ -69,7 +69,7 @@ Import `createAuthClient` from the package for your framework (e.g., "better-aut
 >
   <Tab value="vanilla">
     ```ts title="lib/auth-client.ts" 
-    import { createAuthClient } from "better-auth/client"
+    import { createAuthClient } from "better-auth/client" // [!code highlight]
     export const authClient = createAuthClient({
         baseURL: "http://localhost:3000" // The base URL of your auth server // [!code highlight]
     })
@@ -78,7 +78,7 @@ Import `createAuthClient` from the package for your framework (e.g., "better-aut
 
   <Tab value="react" title="lib/auth-client.ts">
     ```ts title="lib/auth-client.ts"  
-    import { createAuthClient } from "better-auth/react"
+    import { createAuthClient } from "better-auth/react" // [!code highlight]
     export const authClient = createAuthClient({
         baseURL: "http://localhost:3000" // The base URL of your auth server // [!code highlight]
     })
@@ -87,7 +87,7 @@ Import `createAuthClient` from the package for your framework (e.g., "better-aut
 
   <Tab value="vue" title="lib/auth-client.ts">
     ```ts title="lib/auth-client.ts" 
-    import { createAuthClient } from "better-auth/vue"
+    import { createAuthClient } from "better-auth/vue" // [!code highlight]
     export const authClient = createAuthClient({
         baseURL: "http://localhost:3000" // The base URL of your auth server // [!code highlight]
     })
@@ -96,7 +96,7 @@ Import `createAuthClient` from the package for your framework (e.g., "better-aut
 
   <Tab value="svelte" title="lib/auth-client.ts">
     ```ts title="lib/auth-client.ts" 
-    import { createAuthClient } from "better-auth/svelte"
+    import { createAuthClient } from "better-auth/svelte" // [!code highlight]
     export const authClient = createAuthClient({
         baseURL: "http://localhost:3000" // The base URL of your auth server // [!code highlight]
     })
@@ -105,7 +105,7 @@ Import `createAuthClient` from the package for your framework (e.g., "better-aut
 
   <Tab value="solid" title="lib/auth-client.ts">
     ```ts title="lib/auth-client.ts" 
-    import { createAuthClient } from "better-auth/solid"
+    import { createAuthClient } from "better-auth/solid" // [!code highlight]
     export const authClient = createAuthClient({
         baseURL: "http://localhost:3000" // The base URL of your auth server // [!code highlight]
     })
@@ -113,7 +113,7 @@ Import `createAuthClient` from the package for your framework (e.g., "better-aut
   </Tab>
 </Tabs>
 
-## Usage
+Usage [#usage]
 
 Once you've created your client instance, you can use the client to interact with the Better Auth server. The client provides a set of functions by default and they can be extended with plugins.
 
@@ -129,7 +129,7 @@ await authClient.signIn.email({
 })
 ```
 
-### Hooks
+Hooks [#hooks]
 
 In addition to the standard methods, the client provides hooks to easily access different reactive data. Every hook is available in the root object of the client and they all start with `use`.
 
@@ -243,7 +243,7 @@ In addition to the standard methods, the client provides hooks to easily access 
   </Tab>
 </Tabs>
 
-### Fetch Options
+Fetch Options [#fetch-options]
 
 The client uses a library called [better fetch](https://better-fetch.vercel.app) to make requests to the server.
 
@@ -261,7 +261,7 @@ const authClient = createAuthClient({
 })
 ```
 
-### Disabling Default Fetch Plugins
+Disabling Default Fetch Plugins [#disabling-default-fetch-plugins]
 
 The auth client includes default fetch plugins that handle browser-specific behaviors like automatic redirects. For non-browser environments (e.g., React Native/Expo), you can disable these by setting `disableDefaultFetchPlugins` to `true`:
 
@@ -275,7 +275,9 @@ const authClient = createAuthClient({
 
 You can also pass fetch options to most of the client functions. Either as the second argument or as a property in the object.
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.signIn.email({
     email: "email@email.com",
     password: "password1234",
@@ -298,7 +300,7 @@ await authClient.signIn.email({
 })
 ```
 
-### Disabling Hook Rerenders
+Disabling Hook Rerenders [#disabling-hook-rerenders]
 
 Certain endpoints, upon successful response, will trigger atom signals and cause hooks like `useSession` to rerender.
 This is useful for keeping your UI in sync with authentication state changes.
@@ -308,7 +310,9 @@ For example, when updating user preferences that don't affect the session, or wh
 
 You can disable hook rerenders for a specific endpoint call by setting `disableSignal: true` in the fetch options:
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 // As the second argument
 await authClient.updateUser({
     name: "New Name"
@@ -328,7 +332,9 @@ await authClient.updateUser({
 When `disableSignal` is set to `true`, the endpoint call will complete successfully,
 but hooks like `useSession` won't automatically rerender. You can manually trigger a refetch if needed:
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 const { refetch } = authClient.useSession()
 
 await authClient.updateUser({
@@ -342,7 +348,7 @@ await authClient.updateUser({
 })
 ```
 
-### Handling Errors
+Handling Errors [#handling-errors]
 
 Most of the client functions return a response object with the following properties:
 
@@ -355,7 +361,9 @@ The error object contains the following properties:
 * `status`: The HTTP status code.
 * `statusText`: The HTTP status text.
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 const { data, error } = await authClient.signIn.email({
     email: "email@email.com",
     password: "password1234"
@@ -367,7 +375,8 @@ if (error) {
 
 If the action accepts a `fetchOptions` option, you can pass an `onError` callback to handle errors.
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
 
 await authClient.signIn.email({
     email: "email@email.com",
@@ -392,14 +401,16 @@ await authClient.signIn.email({
 
 Hooks like `useSession` also return an error object if there was an error fetching the session. On top of that, they also return an `isPending` property to indicate if the request is still pending.
 
-```ts title="auth-client.ts"
+```ts
+import { useSession } from "@/lib/auth-client"
+
 const { data, error, isPending } = useSession()
 if (error) {
     //handle error
 }
 ```
 
-#### Error Codes
+Error Codes [#error-codes]
 
 The client instance contains $ERROR\_CODES object that contains all the error codes returned by the server. You can use this to handle error translations or custom error messages.
 
@@ -441,7 +452,7 @@ if(error?.code){
 }
 ```
 
-### Plugins
+Plugins [#plugins]
 
 You can extend the client with plugins to add more functionality. Plugins can add new functions to the client or modify existing ones.
 
@@ -460,7 +471,9 @@ const authClient = createAuthClient({
 
 once you've added the plugin, you can use the new functions provided by the plugin.
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.signIn.magicLink({
     email: "test@email.com"
 })

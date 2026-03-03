@@ -7,36 +7,76 @@ Integrate SCIM with your application.
 System for Cross-domain Identity Management ([SCIM](https://simplecloud.info/#Specification)) makes managing identities in multi-domain scenarios easier to support via a standardized protocol.
 This plugin exposes a [SCIM](https://simplecloud.info/#Specification) server that allows third party identity providers to sync identities to your service.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Install the plugin
+    Install the plugin [#install-the-plugin]
 
-    ```bash
-    npm install @better-auth/scim
-    ```
+    <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+      <CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="npm">
+          npm
+        </CodeBlockTabsTrigger>
+
+        <CodeBlockTabsTrigger value="pnpm">
+          pnpm
+        </CodeBlockTabsTrigger>
+
+        <CodeBlockTabsTrigger value="yarn">
+          yarn
+        </CodeBlockTabsTrigger>
+
+        <CodeBlockTabsTrigger value="bun">
+          bun
+        </CodeBlockTabsTrigger>
+      </CodeBlockTabsList>
+
+      <CodeBlockTab value="npm">
+        ```bash
+        npm install @better-auth/scim
+        ```
+      </CodeBlockTab>
+
+      <CodeBlockTab value="pnpm">
+        ```bash
+        pnpm add @better-auth/scim
+        ```
+      </CodeBlockTab>
+
+      <CodeBlockTab value="yarn">
+        ```bash
+        yarn add @better-auth/scim
+        ```
+      </CodeBlockTab>
+
+      <CodeBlockTab value="bun">
+        ```bash
+        bun add @better-auth/scim
+        ```
+      </CodeBlockTab>
+    </CodeBlockTabs>
   </Step>
 
   <Step>
-    ### Add Plugin to the server
+    Add Plugin to the server [#add-plugin-to-the-server]
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth"
     import { scim } from "@better-auth/scim"; // [!code highlight]
 
     const auth = betterAuth({
-        plugins: [ // [!code highlight]
+        plugins: [
             scim() // [!code highlight]
-        ] // [!code highlight]
+        ]
     })
     ```
   </Step>
 
   <Step>
-    ### Enable HTTP methods
+    Enable HTTP methods [#enable-http-methods]
 
-    SCIM requires the `POST`, `PUT`, `PATCH` and `DELETE` HTTP methods to be supported by your server.
+    SCIM requires the `POST`, `GET`, `PUT`, `PATCH` and `DELETE` HTTP methods to be supported by your server.
     For most frameworks, this will work out of the box, but some frameworks may require additional configuration:
 
     <Tabs items={["Next.js", "Solid Start"]}>
@@ -61,7 +101,7 @@ This plugin exposes a [SCIM](https://simplecloud.info/#Specification) server tha
   </Step>
 
   <Step>
-    ### Migrate the database
+    Migrate the database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary fields and tables to the database.
 
@@ -88,25 +128,25 @@ This plugin exposes a [SCIM](https://simplecloud.info/#Specification) server tha
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -134,25 +174,25 @@ This plugin exposes a [SCIM](https://simplecloud.info/#Specification) server tha
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -163,14 +203,14 @@ This plugin exposes a [SCIM](https://simplecloud.info/#Specification) server tha
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
 Upon registration, this plugin will expose compliant [SCIM 2.0](https://simplecloud.info/#Specification) server. Generally, this server is meant to be consumed by a third-party (your identity provider), and will require a:
 
 * **SCIM base URL**: This should be the fully qualified URL to the SCIM server (e.g `http://your-app.com/api/auth/scim/v2`)
 * **SCIM bearer token**: See [generating a SCIM token](#generating-a-scim-token)
 
-### Generating a SCIM token
+Generating a SCIM token [#generating-a-scim-token]
 
 Before your identity provider can start syncing information to your SCIM server,
 you need to generate a SCIM token that your identity provider will use to authenticate against it.
@@ -246,11 +286,14 @@ scim({
 
 See the [hooks](#hooks) documentation for more details about supported hooks.
 
-#### Default SCIM token
+Default SCIM token [#default-scim-token]
 
 We also provide a way for you to specify a `SCIM` token to use by default. This allows you to test a SCIM connection without setting up providers in the database:
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth"
+import { scim } from "@better-auth/scim"; 
+
 const auth = betterAuth({
     plugins: [
         scim({
@@ -272,11 +315,159 @@ const auth = betterAuth({
   In our example above, you would need to encode the `some-scim-token:default-scim:the-org` text to base64, resulting in the following scimToken: `c29tZS1zY2ltLXRva2VuOmRlZmF1bHQtc2NpbTp0aGUtb3Jn`
 </Callout>
 
-### SCIM endpoints
+SCIM provider connection ownership [#scim-provider-connection-ownership]
+
+SCIM provider connection ownership allows your application to track and restrict access to the SCIM management endpoints
+by linking each connection to the user who generated the token.
+
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+import { scim } from "@better-auth/scim";
+
+const auth = betterAuth({
+    plugins: [
+        scim({ // [!code highlight]
+            providerOwnership: { // [!code highlight]
+                enabled: true // [!code highlight]
+            } // [!code highlight]
+        }) // [!code highlight]
+    ]
+});
+```
+
+Once enabled, make sure you migrate the database schema (again).
+
+<Tabs items={["migrate", "generate"]}>
+  <Tab value="migrate">
+    ```bash
+    npx @better-auth/cli migrate
+    ```
+  </Tab>
+
+  <Tab value="generate">
+    ```bash
+    npx @better-auth/cli generate
+    ```
+  </Tab>
+</Tabs>
+
+See the [Schema](#if-you-have-provider-ownership-enabled-via-providerownershipenabled) section to add the fields manually.
+
+Managing SCIM provider connections [#managing-scim-provider-connections]
+
+You can manage SCIM provider connections from your application using the following endpoints:
+
+List SCIM provider connections [#list-scim-provider-connections]
+
+List existing connections for organizations the current user is a member of or providers that are not associated to an organization.
+
+
+### Client Side
+
+```ts
+const { data, error } = await authClient.scim.listProviderConnections({});
+```
+
+### Server Side
+
+```ts
+const data = await auth.api.listSCIMProviderConnections({
+
+    // This endpoint requires session cookies.
+    headers: await headers()
+});
+```
+
+### Type Definition
+
+```ts
+type listSCIMProviderConnections = {
+  
+}
+```
+
+
+Get SCIM provider connection details [#get-scim-provider-connection-details]
+
+Get a single connection by id. Access is allowed only if the user is a member of the connection's organization or the connection is not associated to an organization.
+
+
+### Client Side
+
+```ts
+const { data, error } = await authClient.scim.getProviderConnection({
+    providerId: acme-corp,
+});
+```
+
+### Server Side
+
+```ts
+const data = await auth.api.getSCIMProviderConnection({
+    query: {
+        providerId: acme-corp,
+    },
+    // This endpoint requires session cookies.
+    headers: await headers()
+});
+```
+
+### Type Definition
+
+```ts
+type getSCIMProviderConnection = {
+    /**
+     * Unique provider identifier
+     */
+    providerId: string = "acme-corp"
+  
+}
+```
+
+
+Delete SCIM provider connection [#delete-scim-provider-connection]
+
+Delete an existing connection. This will immediately invalidate the connection's associated token.
+
+
+### Client Side
+
+```ts
+const { data, error } = await authClient.scim.deleteProviderConnection({
+    providerId: acme-corp,
+});
+```
+
+### Server Side
+
+```ts
+const data = await auth.api.deleteSCIMProviderConnection({
+    body: {
+        providerId: acme-corp,
+    },
+    // This endpoint requires session cookies.
+    headers: await headers()
+});
+```
+
+### Type Definition
+
+```ts
+type deleteSCIMProviderConnection = {
+    /**
+     * Unique provider identifier
+     */
+    providerId: string = "acme-corp"
+  
+}
+```
+
+
+SCIM endpoints [#scim-endpoints]
 
 The following subset of the specification is currently supported:
 
-#### List users
+List users [#list-users]
 
 Get a list of available users in the database. This is restricted to list only users associated to the same provider and organization than your SCIM token.
 
@@ -312,7 +503,7 @@ type listSCIMUsers = {
 ```
 
 
-#### Get user
+Get user [#get-user]
 
 Get an user from the database. The user will be only returned if it belongs to the same provider and organization than the SCIM token.
 
@@ -348,7 +539,7 @@ type getSCIMUser = {
 ```
 
 
-#### Create new user
+Create new user [#create-new-user]
 
 Provisions a new user to the database. The user will have an account associated to the same provider and will be member of the same org than the SCIM token.
 
@@ -408,7 +599,7 @@ type createSCIMUser = {
 ```
 
 
-#### Update an existing user
+Update an existing user [#update-an-existing-user]
 
 Replaces an existing user details in the database. This operation can only update users that belong to the same provider and organization than the SCIM token.
 
@@ -468,7 +659,7 @@ type updateSCIMUser = {
 ```
 
 
-#### Partial update an existing user
+Partial update an existing user [#partial-update-an-existing-user]
 
 Allows to apply a partial update to the user details. This operation can only update users that belong to the same provider and organization than the SCIM token.
 
@@ -509,7 +700,7 @@ type patchSCIMUser = {
 ```
 
 
-#### Deletes a user resource
+Deletes a user resource [#deletes-a-user-resource]
 
 Completely deletes a user resource from the database. This operation can only delete users that belong to the same provider and organization than the SCIM token.
 
@@ -542,7 +733,7 @@ type deleteSCIMUser = {
 ```
 
 
-#### Get service provider config
+Get service provider config [#get-service-provider-config]
 
 Get SCIM metadata describing supported features of this server.
 
@@ -568,7 +759,7 @@ type getSCIMServiceProviderConfig = {
 ```
 
 
-#### Get SCIM schemas
+Get SCIM schemas [#get-scim-schemas]
 
 Get the list of supported SCIM schemas.
 
@@ -594,7 +785,7 @@ type getSCIMSchemas = {
 ```
 
 
-#### Get SCIM schema
+Get SCIM schema [#get-scim-schema]
 
 Get the details of a supported SCIM schema.
 
@@ -620,7 +811,7 @@ type getSCIMSchema = {
 ```
 
 
-#### Get SCIM resource types
+Get SCIM resource types [#get-scim-resource-types]
 
 Get the list of supported SCIM types.
 
@@ -646,7 +837,7 @@ type getSCIMResourceTypes = {
 ```
 
 
-#### Get SCIM resource type
+Get SCIM resource type [#get-scim-resource-type]
 
 Get the details of a supported SCIM resource type.
 
@@ -672,7 +863,7 @@ type getSCIMResourceType = {
 ```
 
 
-#### SCIM attribute mapping
+SCIM attribute mapping [#scim-attribute-mapping]
 
 By default, the SCIM provisioning will automatically map the following fields:
 
@@ -682,7 +873,7 @@ By default, the SCIM provisioning will automatically map the following fields:
 * `account.accountId`: Defaults to `externalId` and fallbacks to `userName`
 * `member.organizationId`: Organization associated to the provider
 
-## Schema
+Schema [#schema]
 
 The plugin requires additional fields in the `scimProvider` table to store the provider's configuration.
 
@@ -697,9 +888,27 @@ The plugin requires additional fields in the `scimProvider` table to store the p
   ]}
 />
 
-## Options
+If you have provider ownership enabled via providerOwnership.enabled: [#if-you-have-provider-ownership-enabled-via-providerownershipenabled]
 
-### Server
+The `scimProvider` schema is extended as follows:
+
+<DatabaseTable
+  fields={[
+      { name: "userId", type: "string", description: "The user id of the connection owner. Set automatically when generating a token via the API.", isRequired: false },
+  ]}
+/>
+
+Options [#options]
+
+Server [#server]
+
+* `providerOwnership`: `{ enabled: boolean }` — When enabled, links each provider connection to the user who generated its token. See [Connection ownership](#scim-provider-connection-ownership) for details. Default is `{ enabled: false }`.
+
+```ts title="Enable connection ownership (requires migration)"
+scim({
+    providerOwnership: { enabled: true },
+})
+```
 
 * `defaultSCIM`: Default list of SCIM tokens for testing.
 * `storeSCIMToken`: The method to store the SCIM token in your database, whether `encrypted`, `hashed` or `plain` text. Default is `plain` text.
@@ -733,7 +942,7 @@ scim({
 })
 ```
 
-### Hooks
+Hooks [#hooks]
 
 The following hooks allow to intercept the lifecycle of the `SCIM` token generation:
 

@@ -8,11 +8,11 @@ Passkeys are a secure, passwordless authentication method using cryptographic ke
 
 The passkey plugin implementation is powered by [SimpleWebAuthn](https://simplewebauthn.dev/) behind the scenes.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Install the plugin
+    Install the plugin [#install-the-plugin]
 
     <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
       <CodeBlockTabsList>
@@ -60,7 +60,7 @@ The passkey plugin implementation is powered by [SimpleWebAuthn](https://simplew
   </Step>
 
   <Step>
-    ### Add the plugin to your auth config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     To add the passkey plugin to your auth config, you need to import the plugin and pass it to the `plugins` option of the auth instance.
 
@@ -69,15 +69,15 @@ The passkey plugin implementation is powered by [SimpleWebAuthn](https://simplew
     import { passkey } from "@better-auth/passkey" // [!code highlight]
 
     export const auth = betterAuth({
-        plugins: [ // [!code highlight]
+        plugins: [ 
             passkey(), // [!code highlight]
-        ], // [!code highlight]
+        ],
     })
     ```
   </Step>
 
   <Step>
-    ### Migrate the database
+    Migrate the database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary fields and tables to the database.
 
@@ -104,25 +104,25 @@ The passkey plugin implementation is powered by [SimpleWebAuthn](https://simplew
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -150,25 +150,25 @@ The passkey plugin implementation is powered by [SimpleWebAuthn](https://simplew
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -179,24 +179,24 @@ The passkey plugin implementation is powered by [SimpleWebAuthn](https://simplew
   </Step>
 
   <Step>
-    ### Add the client plugin
+    Add the client plugin [#add-the-client-plugin]
 
     ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client"
-    import { passkeyClient } from "@better-auth/passkey/client"
+    import { passkeyClient } from "@better-auth/passkey/client" // [!code highlight]
 
     export const authClient = createAuthClient({
-        plugins: [ // [!code highlight]
+        plugins: [
             passkeyClient() // [!code highlight]
-        ] // [!code highlight]
+        ]
     })
     ```
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Add/Register a passkey
+Add/Register a passkey [#addregister-a-passkey]
 
 To add or register a passkey make sure a user is authenticated and then call the `passkey.addPasskey` function provided by the client.
 
@@ -242,7 +242,7 @@ type addPasskey = {
   Setting `throw: true` in the fetch options has no effect for the register and sign-in passkey responses — they will always return a data object containing the error object.
 </Callout>
 
-### Sign in with a passkey
+Sign in with a passkey [#sign-in-with-a-passkey]
 
 To sign in with a passkey you can use the `signIn.passkey` method. This will prompt the user to sign in with their passkey.
 
@@ -278,9 +278,11 @@ type signInPasskey = {
 ```
 
 
-#### Example Usage
+Example Usage [#example-usage]
 
 ```ts
+import { authClient } from "@/lib/auth-client";
+
 // With post authentication redirect
 await authClient.signIn.passkey({
     autoFill: true,
@@ -297,7 +299,7 @@ await authClient.signIn.passkey({
 });
 ```
 
-### List passkeys
+List passkeys [#list-passkeys]
 
 You can list all of the passkeys for the authenticated user by calling `passkey.listUserPasskeys`:
 
@@ -327,7 +329,7 @@ type listPasskeys = {
 ```
 
 
-### Deleting passkeys
+Deleting passkeys [#deleting-passkeys]
 
 You can delete a passkey by calling `passkey.delete` and providing the passkey ID.
 
@@ -365,7 +367,7 @@ type deletePasskey = {
 ```
 
 
-### Updating passkey names
+Updating passkey names [#updating-passkey-names]
 
 
 ### Client Side
@@ -407,7 +409,7 @@ type updatePasskey = {
 ```
 
 
-### Conditional UI
+Conditional UI [#conditional-ui]
 
 The plugin supports conditional UI, which allows the browser to autofill the passkey if the user has already registered a passkey.
 
@@ -415,7 +417,7 @@ There are two requirements for conditional UI to work:
 
 <Steps>
   <Step>
-    #### Update input fields
+    Update input fields [#update-input-fields]
 
     Add the `autocomplete` attribute with the value `webauthn` to your input fields. You can add this attribute to multiple input fields, but at least one is required for conditional UI to work.
 
@@ -430,7 +432,7 @@ There are two requirements for conditional UI to work:
   </Step>
 
   <Step>
-    #### Preload the passkeys
+    Preload the passkeys [#preload-the-passkeys]
 
     When your component mounts, you can preload the user's passkeys by calling the `authClient.signIn.passkey` method with the `autoFill` option set to `true`.
 
@@ -457,11 +459,11 @@ Depending on the browser, a prompt will appear to autofill the passkey. If the u
 
 Some browsers also require the user to first interact with the input field before the autofill prompt appears.
 
-### Debugging
+Debugging [#debugging]
 
 To test your passkey implementation you can use [emulated authenticators](https://developer.chrome.com/docs/devtools/webauthn). This way you can test the registration and sign-in process without even owning a physical device.
 
-## Schema
+Schema [#schema]
 
 The plugin require a new table in the database to store passkey data.
 
@@ -533,7 +535,7 @@ Table Name: `passkey`
   ]}
 />
 
-## Options
+Options [#options]
 
 **rpID**: A unique identifier for your website based on your auth server origin.
 `'localhost'` is okay for local dev. RP ID can be formed by discarding zero or more labels from the left of its effective domain
@@ -564,13 +566,13 @@ until it hits an effective TLD. So `www.example.com` can use the RP IDs `www.exa
 
 * `webAuthnChallengeCookie`: Cookie name for storing WebAuthn challenge ID during authentication flow (Default: `better-auth-passkey`)
 
-## Expo Integration
+Expo Integration [#expo-integration]
 
 When using the passkey plugin with Expo, you need to configure the `cookiePrefix` option in the Expo client to ensure passkey cookies are properly detected and stored.
 
 By default, the passkey plugin uses `"better-auth-passkey"` as the challenge cookie name. Since this starts with `"better-auth"`, it will work with the default Expo client configuration. However, if you customize the `webAuthnChallengeCookie` option, you must also update the `cookiePrefix` in your Expo client configuration.
 
-### Example Configuration
+Example Configuration [#example-configuration]
 
 If you're using a custom cookie name:
 

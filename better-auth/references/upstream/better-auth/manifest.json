@@ -1,1050 +1,1155 @@
 {
   "source_url": "https://www.better-auth.com/llms.txt",
-  "generated_at": "2026-02-26T03:35:27Z",
-  "document_count": 149,
+  "generated_at": "2026-03-03T10:48:16Z",
+  "document_count": 164,
   "documents": [
     {
       "url": "https://www.better-auth.com/llms.txt/docs/adapters/community-adapters.md",
       "relative_path": "llms.txt/docs/adapters/community-adapters.md",
       "sha256": "bdd6d0d39c8e7558f2f382ff45ae95df94542eef0f4a689f9aacf9b53ebfe726",
       "bytes": 5168,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/adapters/drizzle.md",
       "relative_path": "llms.txt/docs/adapters/drizzle.md",
-      "sha256": "e05a6c5ccfd5be18a34f923153980028cf177b008e9836ed72a0eef25e254afd",
-      "bytes": 8156,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "bc72ce6be50840617b4516750f8b467ca951213fcf9213dc37dfc89d48a70039",
+      "bytes": 8339,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/adapters/mongo.md",
       "relative_path": "llms.txt/docs/adapters/mongo.md",
-      "sha256": "a2543f6f275dc8f55584759b6c57ce0d1f722d7a6f46645cd7515c20af6c87b6",
-      "bytes": 1839,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "e6e01ebdc53a5290fa0ebb864b866db6f2efecb7eabd3a01ab6731f65b591af8",
+      "bytes": 1967,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/adapters/mssql.md",
       "relative_path": "llms.txt/docs/adapters/mssql.md",
-      "sha256": "c30d57e2c0ffa77c1a61dc5dcf5a13aba5421b8dc02a6f5a8e504cfe75b5e955",
-      "bytes": 5250,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "a0393c995d51fb7c5ba24bf5dd9307e9a9fc667431b780dd53175ce13b812f11",
+      "bytes": 5480,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/adapters/mysql.md",
       "relative_path": "llms.txt/docs/adapters/mysql.md",
-      "sha256": "4f84eda5ac84356ee442de729ea89b838f0839eeba9f61b1a78a685fe0eb8234",
-      "bytes": 4793,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "d0018b9676157b8f341f1a94781fc909a9d589171eb42232776f093dc58857d6",
+      "bytes": 5023,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/adapters/other-relational-databases.md",
       "relative_path": "llms.txt/docs/adapters/other-relational-databases.md",
-      "sha256": "32c6011b8f4fb639cd55b94449dbd5e9b48de3236247eb313875e0ff699c1966",
-      "bytes": 2124,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "5e2805eae63a1593b4984514f77c02fa761691b093f2ec7b9856e836987dd6a3",
+      "bytes": 2193,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/adapters/postgresql.md",
       "relative_path": "llms.txt/docs/adapters/postgresql.md",
-      "sha256": "0652f1259365d645ebc43a29b8861158961c2e5abe188cb72848af56261b7a0c",
-      "bytes": 7110,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "de517004b449ee2325eea019143fed3946fcbdf324cb8bf8d6fe2e1f99a7b203",
+      "bytes": 7536,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/adapters/prisma.md",
       "relative_path": "llms.txt/docs/adapters/prisma.md",
-      "sha256": "0813e218a76989dd7221d70f61150878cd791c356d3a94b8d99eb292b3b38936",
-      "bytes": 4193,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "bd83c5385c8c25b5eb0fec15c4c7d3dd248f109a382c36c71d9b648af47ad732",
+      "bytes": 4261,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/adapters/sqlite.md",
       "relative_path": "llms.txt/docs/adapters/sqlite.md",
-      "sha256": "1b4ea2ac6fb456ca2351af4b125a8902683f532429bf030ac2242d09c62c4a03",
-      "bytes": 5510,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "3d089345e8112a7146be4b40b6e07ae299df30f4c1c79821cd4e657f8f42125a",
+      "bytes": 5778,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/apple.md",
       "relative_path": "llms.txt/docs/authentication/apple.md",
-      "sha256": "b5860ddd87c72372beeb76e90cf3d212352b88e0c87626c0f0b151735d60e81d",
-      "bytes": 7145,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "f9e8a92a1c8b56a2f8e63d55a04971ae19eddd9350df81bb23b4ce239645c815",
+      "bytes": 7282,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/atlassian.md",
       "relative_path": "llms.txt/docs/authentication/atlassian.md",
-      "sha256": "3818271d95c84748d90839296bc98a0411ba1c09585a23204c5da184e4d422d2",
-      "bytes": 2326,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "68319f18a999f23b7de0bb85a3c19943621fe8f38f7ce7c4998bca80c14a5c74",
+      "bytes": 2390,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/cognito.md",
       "relative_path": "llms.txt/docs/authentication/cognito.md",
-      "sha256": "6ae52852aaab3fbe4f039cdb78b34a4e4487859be6f06b30cc135dbf0e545f46",
-      "bytes": 3307,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "b08a1d9daacc59ed63629d9e35575c8b42c117313dd883293f645a1c8f9aaaa1",
+      "bytes": 3395,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/discord.md",
       "relative_path": "llms.txt/docs/authentication/discord.md",
-      "sha256": "2ec78bdf838f91ff6e236d7255ee654ae2b971bc06cb1a38a1855c36dfb54a76",
-      "bytes": 2727,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "5cc58b5f3d8005359e2c6db9c3909202ec657256462f9dee35c89a006700c000",
+      "bytes": 2835,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/dropbox.md",
       "relative_path": "llms.txt/docs/authentication/dropbox.md",
-      "sha256": "bb73d3553d86ef6a3d5aaf2f6ee9f43ed6317fff453be5029da20c5fe1da0a09",
-      "bytes": 1956,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "debd69f9b88acaa5e3e2a3e047c61180def8d982dba405625dcfeddb194dcd9e",
+      "bytes": 2026,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/email-password.md",
       "relative_path": "llms.txt/docs/authentication/email-password.md",
-      "sha256": "a792d96de5eab1e035fb58e28f765e2d4d689f9d8e87e2b2ac45c6fc474f8ff0",
-      "bytes": 15109,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "c0cca3d3b7e12c241a91870e54df414acc2523e1fdca2ef9f1fcad91f57de2d4",
+      "bytes": 19995,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/facebook.md",
       "relative_path": "llms.txt/docs/authentication/facebook.md",
-      "sha256": "e90ad3d6e42c3d52ce3f34dfb0a74b4aea2f68922fda4156b95b5512be65e242",
-      "bytes": 4570,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "8a1dd3a957dd1e55b2454b2ef4a2960f00a7a874ff81f6a3ff171e11805c5c32",
+      "bytes": 4718,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/figma.md",
       "relative_path": "llms.txt/docs/authentication/figma.md",
-      "sha256": "5596db57198a9ea7c905b9a77dd462411853726491c4235e5863c162a919fe7e",
-      "bytes": 2226,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "5a5a30862366340a34f3cee09d056238b547276e950a88f84895e5f2ab7c0a7a",
+      "bytes": 2286,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/github.md",
       "relative_path": "llms.txt/docs/authentication/github.md",
-      "sha256": "0540f89b49c24118f5dd1d5b7588e9273f393d60c3d40f1e626e1f5db0a2b9d2",
-      "bytes": 2829,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "6e3104bd97114c146b2fda283f4b307baaa28acd5023e10b7ba2a57b428cff5e",
+      "bytes": 2960,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/gitlab.md",
       "relative_path": "llms.txt/docs/authentication/gitlab.md",
-      "sha256": "bcd52db31221c0a5b5cfb19b6fdbcc780eb362d64b52af486c26ce04d0130dc8",
-      "bytes": 2792,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "63806ae6a48a6da7dbc0af7251cc8ab34c0cc9555c588e8f6ee7097737be84cb",
+      "bytes": 2910,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/google.md",
       "relative_path": "llms.txt/docs/authentication/google.md",
-      "sha256": "ad58a18566495115953b85c85048c7a9eba0382c5beca4eda7b339d378a45781",
-      "bytes": 6302,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "0f50dee869c8ae530e03c20b6008876ea563c113ffdba05129a11e5594a89e96",
+      "bytes": 6499,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/huggingface.md",
       "relative_path": "llms.txt/docs/authentication/huggingface.md",
-      "sha256": "3cc4a37b2e7bb9af06e759ab83237235a4af59fbdaa5b0c272c462ce3c296c47",
-      "bytes": 1842,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "7f5113496091d68eb65df4a96df4ee54b775dd167309f20660b4f656f44916f0",
+      "bytes": 1922,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/kakao.md",
       "relative_path": "llms.txt/docs/authentication/kakao.md",
-      "sha256": "8cc45be3ca7d3a0a149be09ec26bd6dc576e00015740e7a402792bfcc61dec38",
-      "bytes": 2100,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "e80f1cda1253011201a9fe7c5c3fe6c22149ab9486497afa1e8eb0b0d8cb25a6",
+      "bytes": 2166,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/kick.md",
       "relative_path": "llms.txt/docs/authentication/kick.md",
-      "sha256": "5b3d910ccc91fa9f41d8c41cf3766380db123c2533bb8536b6c0751f7f2a2dfa",
-      "bytes": 1695,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "58db8c25df4fd2a89fdc5d6070c79191a3547f6c2a83dfae977afb76f01c2152",
+      "bytes": 1759,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/line.md",
       "relative_path": "llms.txt/docs/authentication/line.md",
-      "sha256": "182fb7bf3ec34e5eba362ad07499d40a3862df9ff80717a337197ac3a36629f8",
-      "bytes": 4248,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "bbf9711afad4a5def31bcc5a40082122f4325dc988a98861f2634097639147b5",
+      "bytes": 4386,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/linear.md",
       "relative_path": "llms.txt/docs/authentication/linear.md",
-      "sha256": "9d40c00c23737e63ec55e6f0ed38319793be371b194302b761849b7d70f729f2",
-      "bytes": 2815,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "50afa0b5242eb25baa0352b2b600cea4175d0d0cbf02ff884ba29fe98f87a568",
+      "bytes": 2899,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/linkedin.md",
       "relative_path": "llms.txt/docs/authentication/linkedin.md",
-      "sha256": "b2aeb0d5d087601d89da5b4d4e54d32bf72b9e0a51462c378c74d59bc7050975",
-      "bytes": 2251,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "047cf3d6be73452b6c1839266b8952b1d433b1a83bbdebd7d538b630ac231e45",
+      "bytes": 2323,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/microsoft.md",
       "relative_path": "llms.txt/docs/authentication/microsoft.md",
-      "sha256": "c72cad770fbe9ac91a968bebdd21c1363bad545444c7c0c313cec3f82fc1b0e4",
-      "bytes": 2654,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "039377e28cdf2188a31d1ebb9bb7239d2e217a154cfc61a4619c68776658b68a",
+      "bytes": 2729,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/naver.md",
       "relative_path": "llms.txt/docs/authentication/naver.md",
-      "sha256": "f6f4d920e6e1d6692500adb17774399bb82d3cac00592388275956206215d849",
-      "bytes": 1692,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "5d7129af32c298a2a74cee793c6c29ca69445e2acb4a5f8920e360496e07f7d0",
+      "bytes": 1758,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/notion.md",
       "relative_path": "llms.txt/docs/authentication/notion.md",
-      "sha256": "f0bc21245c7263fcc7ba429aff31faef441e814c7d13138fc27042d1ebfdadef",
-      "bytes": 3245,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "fa002b113b9f3f61106ffe034b4c57963ec3583df2b2f8219724b06056fcd49c",
+      "bytes": 3378,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/other-social-providers.md",
       "relative_path": "llms.txt/docs/authentication/other-social-providers.md",
-      "sha256": "904a549428ddf9bb9c47218b83c91ac875cb88d9cd6acc0bd51cfebd2043352e",
-      "bytes": 5427,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "a6938e25b968633d9bc2f486d74f20a08dac8b72e332b2e1eaa53608ddad45ef",
+      "bytes": 5603,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/paybin.md",
       "relative_path": "llms.txt/docs/authentication/paybin.md",
-      "sha256": "89516fb1766741e8e10b29053761fca1cc6f94c2e541d24656e145cc9c8af0bf",
-      "bytes": 3087,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "a34d0a668934177685a94eba2d6bcdddc4171300625fbd35a9997e6c1dc2fc3f",
+      "bytes": 3206,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/paypal.md",
       "relative_path": "llms.txt/docs/authentication/paypal.md",
-      "sha256": "a0749112aa66b950babfd86f1f320e0bd949656dc83d59eb3d465629eda26dc3",
-      "bytes": 4938,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "7dcb5e33fd3e6b205629c43d919136502bf52bb5078f4b166c33a4be4f933b60",
+      "bytes": 5030,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/polar.md",
       "relative_path": "llms.txt/docs/authentication/polar.md",
-      "sha256": "a8cf007ab13b11a1b376b91c36f1f83361bac2b1a0f577d2c7465d7a754e8dea",
-      "bytes": 2329,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "e518d97dbd39b393a6cf7ee75d44144bff32e167b3396728bf6b402b5cb619ed",
+      "bytes": 2395,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/authentication/railway.md",
+      "relative_path": "llms.txt/docs/authentication/railway.md",
+      "sha256": "c571b3cc538635b5442b1367a73afb5b4f58c7d6ebb476d2c03cc5bbda147f05",
+      "bytes": 4343,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/reddit.md",
       "relative_path": "llms.txt/docs/authentication/reddit.md",
-      "sha256": "68601dd5d99949590ed3916f84f926a133a1527aa7b257756525369c4b978cc0",
-      "bytes": 2756,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "67194823fd98f7c6e213be73790f3b9c1433ade53f285f58eef7b36046afd316",
+      "bytes": 2855,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/roblox.md",
       "relative_path": "llms.txt/docs/authentication/roblox.md",
-      "sha256": "fd3b6221a0666f63effdf26a4a987a8cc0b8e0a9220af6704eee5dfae8f4f330",
-      "bytes": 1881,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "e48658d7386bc354fa4e4149f4e526f5c1d087fdbaacdcd95b9e47932c0ed4f4",
+      "bytes": 1949,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/salesforce.md",
       "relative_path": "llms.txt/docs/authentication/salesforce.md",
-      "sha256": "510a7148a2188c8e81d7ce758c454990c9816db1343d9b523f89b8fd879e938f",
-      "bytes": 6213,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "f9718875f154da4a61c4c70d7cda3d5b394101e920d62ed11525f17b99c11b78",
+      "bytes": 6425,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/slack.md",
       "relative_path": "llms.txt/docs/authentication/slack.md",
-      "sha256": "55dbcb44d47953a237a7499dade75190e8646ba2d6a316d06a01dbf4aba116bf",
-      "bytes": 3449,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "c93b4b8cdc6c2a422233ca6c7cc9de6adf70185531361707cde9ceeb86d2e30b",
+      "bytes": 3604,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/spotify.md",
       "relative_path": "llms.txt/docs/authentication/spotify.md",
-      "sha256": "2bbeb6ac6d9668db49acaa1727788a456facf5b1390f5db9c9a3245bc088ed8a",
-      "bytes": 1758,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "f70fcf468c3810812ef81a5c8e8ea5814727cd1ec58d1f851d958f0a826a6c6e",
+      "bytes": 2345,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/tiktok.md",
       "relative_path": "llms.txt/docs/authentication/tiktok.md",
-      "sha256": "4569fb55ca4fdb7cb4fce1fab23e43c63b3750474039ef918aa601e4ccf420e9",
-      "bytes": 2942,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "6aedb686c33304082bd152b4f6fadda4160722545bd4f8bd646e62f9d1e2ca7e",
+      "bytes": 3010,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/twitch.md",
       "relative_path": "llms.txt/docs/authentication/twitch.md",
-      "sha256": "3c1396420a23cdce9a71401a41b1fdb9eb8b76baa00909e1ee10b520d7395edd",
-      "bytes": 1847,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "e5e23184e647fc00607df37f4cf62e12821669a2753ac7360b99f7a595dece8c",
+      "bytes": 1915,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/twitter.md",
       "relative_path": "llms.txt/docs/authentication/twitter.md",
-      "sha256": "dfb386bd621e812a9169fb5fa3874380b8aaea7b92f7287f1b1e219ab3fe1fe1",
-      "bytes": 1905,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "fadf8d25385dc90eb6c7c6dc3023b9ba9c00b78105742822a1d89c925ec4ef83",
+      "bytes": 1975,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/vercel.md",
       "relative_path": "llms.txt/docs/authentication/vercel.md",
-      "sha256": "3a26c792ac0eed2bbab6600aaa3f212fd19b9cfa8db12804f5b20b3140fc8686",
-      "bytes": 3203,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "79097c9a1eafe469c32b3ec915d37d32b621d6aa930aa7b01af2000e6287d574",
+      "bytes": 3301,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/vk.md",
       "relative_path": "llms.txt/docs/authentication/vk.md",
-      "sha256": "817953695c630398d0e5a53ce8fd975333cb09c609d050661b68a124eeac01e1",
-      "bytes": 1619,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "129cb30d016fa815a93e0a410b83982d9348edeab341b68334561f6347fd8ca4",
+      "bytes": 1682,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/authentication/zoom.md",
       "relative_path": "llms.txt/docs/authentication/zoom.md",
-      "sha256": "9927e3f35fe1bed65d6fde7ce67b31dc7d6e3002313ef8c1d2a03472c8664032",
-      "bytes": 2229,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "d8bc10e257b93b10e73be0221148539cb31ddced3edce29cdd2664d5ccde3b9d",
+      "bytes": 2325,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/basic-usage.md",
       "relative_path": "llms.txt/docs/basic-usage.md",
-      "sha256": "15e1851f32f136f0f1a5e7dd8eab92099b544da3d3f66a445e9799f7927970f4",
-      "bytes": 14747,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "89a19ced5cd00d3cb2ca43807e71ddbac780d0d3d1432f175baec14577984e4d",
+      "bytes": 14958,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/comparison.md",
       "relative_path": "llms.txt/docs/comparison.md",
-      "sha256": "99b2eebb1d99e3a53fe13086cfab843b780ed3be94a75cba90e3b1cc6fa407be",
-      "bytes": 1396,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "f672c3650d1fdd9801a1ce3c2d29830ac2b6387649acf809ebb1156ed62549ed",
+      "bytes": 1462,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/api.md",
       "relative_path": "llms.txt/docs/concepts/api.md",
-      "sha256": "390986da97a5c20b689b4bab0b9fbb9f755ca61ba22873d6ccb367ebac62e677",
-      "bytes": 3289,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "d0383c664046250669c1b30e329448af168c33b55d9925f78a53addf7b0e8fc3",
+      "bytes": 3628,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/cli.md",
       "relative_path": "llms.txt/docs/concepts/cli.md",
-      "sha256": "0e9a97048f0137fdb16de0c681f0dbc4b1f2191ebf0acdd735c5db1421b2f925",
-      "bytes": 8894,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "93dd7c1ea73b89f68fc6fea3f1d2b5f6ce4615fec7dbe4b934541be02cb8caf7",
+      "bytes": 8714,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/client.md",
       "relative_path": "llms.txt/docs/concepts/client.md",
-      "sha256": "389d6b760c452cfd94830706728dd8f66a5620a720c7237e41ea835c42c14486",
-      "bytes": 12715,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "bb59a54b44c13e87e2a1d59538f66b68cef1b786ff23ec7dae960a89a8ccf2d3",
+      "bytes": 13141,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/cookies.md",
       "relative_path": "llms.txt/docs/concepts/cookies.md",
-      "sha256": "45bda5656669fd276c965735fe4a2c34b5048144e7377d60db48c4099b049358",
-      "bytes": 5542,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "29145f0f5c298b0cf75c4a9f496510dfbf5e507a9d6a8c816f78bfb6e13e77a4",
+      "bytes": 5938,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/database.md",
       "relative_path": "llms.txt/docs/concepts/database.md",
-      "sha256": "0aa43fe0e8b7376c450fa25d613c283a65b32824b0e0edeea89f9ce4fe580008",
-      "bytes": 29016,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "0a7ef33e400859964972eccc351af9acfe9a189bddc9304612e8e6299175b380",
+      "bytes": 29941,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/concepts/dynamic-base-url.md",
+      "relative_path": "llms.txt/docs/concepts/dynamic-base-url.md",
+      "sha256": "6383489cbb654fd05b30a915df0d6d967bcc1d52918060b8c1585eb70855b770",
+      "bytes": 9128,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/email.md",
       "relative_path": "llms.txt/docs/concepts/email.md",
-      "sha256": "81487d65263f3a7d4c99a47190fe44b09db3386ca079ecc349181d3cac0c4d50",
-      "bytes": 7152,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "a48260b874e74fce5693607fa01d8a102e96f2cbd9aabc225cd1b9cfe26739e1",
+      "bytes": 7557,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/hooks.md",
       "relative_path": "llms.txt/docs/concepts/hooks.md",
-      "sha256": "0546bbd3568dcfbc601d4a5c87ddd97c7d8be9669567eef6fd441e58c07853f2",
-      "bytes": 7016,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "d8177e3f29f9cbb41a90825025625d833b17d9cb72eee2ec2125e53ac0016edb",
+      "bytes": 7639,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/oauth.md",
       "relative_path": "llms.txt/docs/concepts/oauth.md",
-      "sha256": "4750c560913dcb8b4865557e81a13edd752f3078e6d009b7f496520d8ec10438",
-      "bytes": 14680,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "0944ae48e2b6611486a0307c967bb2e317e3dbc0e6f5128cad547c9674bff7ea",
+      "bytes": 15246,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/plugins.md",
       "relative_path": "llms.txt/docs/concepts/plugins.md",
-      "sha256": "499c85e701cde629c7c2b680628a6cb311f8a1197dea1a1a3369e7c6606e8aa4",
-      "bytes": 21771,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "400361a7cfa4abd0a0fbfa7fdc3797a9f2f351d34abc2bf7b4f3cd62d2488eb6",
+      "bytes": 22652,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/rate-limit.md",
       "relative_path": "llms.txt/docs/concepts/rate-limit.md",
-      "sha256": "d5b4cd2258fa3bdb54b17538813b53679450d39edf2c0ac09ba23742a167b8c0",
-      "bytes": 8683,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "f680d9a0f2ed721fbe635e918c1c23406d1bf5b30aca39241c81963a5251e6e4",
+      "bytes": 10034,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/session-management.md",
       "relative_path": "llms.txt/docs/concepts/session-management.md",
-      "sha256": "cc403d50b551ab19561dbe33bf2c8c5cdd45184dd5566c231f336118ed571ca3",
-      "bytes": 17517,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "7bf70dd9d1a0ac3c22a91f698accd4ca25bf09883fcc6fe5360cacaa35e61c1d",
+      "bytes": 19890,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/typescript.md",
       "relative_path": "llms.txt/docs/concepts/typescript.md",
-      "sha256": "f95f5bd6b9d8114c20dd8a7cead6e9910ade20d10a794a97f3830d8da6adbd57",
-      "bytes": 4530,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "ebc798819bcef7ccbab053a2edd24cc1db735720d781be8ec76ebae1725ece53",
+      "bytes": 4806,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/concepts/users-accounts.md",
       "relative_path": "llms.txt/docs/concepts/users-accounts.md",
-      "sha256": "b2dcf14af178d398ce3b072758bb149544cc3a97d0dd362f543a0773bbae7347",
-      "bytes": 17589,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "a99c00f439446d5086383f94a2cfcfddb7a752a221f233ac5081828849352388",
+      "bytes": 19393,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/examples/astro.md",
       "relative_path": "llms.txt/docs/examples/astro.md",
-      "sha256": "373cb600469a198b08ff567b8cffc9d6710d1d6186555e285e53104b671cf85c",
-      "bytes": 1547,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "20f841b6a29f5f6efcbae25a6dbf0709a341b3647212241961f1f0bdcad41a70",
+      "bytes": 1558,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/examples/next-js.md",
       "relative_path": "llms.txt/docs/examples/next-js.md",
-      "sha256": "8381c4fbd3f0441a0ec0dd4aa5e70278e13ef4e894536d4230f4c8295a1844c9",
-      "bytes": 1834,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "8abc41f6951590952072831111df0662c05656e0c6b07af7e8f352506624ac9b",
+      "bytes": 1879,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/examples/nuxt.md",
       "relative_path": "llms.txt/docs/examples/nuxt.md",
-      "sha256": "070c4f152a5f37ac0ee337dd3d0c9c708eb7b62c45878ac69f1c401b003a3c06",
-      "bytes": 1114,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "b40324345fdb86c8f6b9a3d1e14d835fffc73d7904516cf85bffd3e44fb3e388",
+      "bytes": 1125,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
-      "url": "https://www.better-auth.com/llms.txt/docs/examples/remix.md",
-      "relative_path": "llms.txt/docs/examples/remix.md",
-      "sha256": "5e98fcaf67896f5f26b7a2c368e993b5fabc93ec04fb0560d7a2b8522295252a",
-      "bytes": 1264,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "url": "https://www.better-auth.com/llms.txt/docs/examples/react-router.md",
+      "relative_path": "llms.txt/docs/examples/react-router.md",
+      "sha256": "8126700158c98816c8c22c02302d530273f2f733dcb6d3691d573e6656bfb7af",
+      "bytes": 1329,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/examples/svelte-kit.md",
       "relative_path": "llms.txt/docs/examples/svelte-kit.md",
-      "sha256": "2d08bc6aab562b4d9649cb1b9422ef6b77829a10fbf3ff80c1c9e67f8973b9bb",
-      "bytes": 1268,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "9e69acd1556a0d4407fed15fcfb1d784d37b7c538e434983f18449e57f0668b7",
+      "bytes": 1279,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/auth0-migration-guide.md",
       "relative_path": "llms.txt/docs/guides/auth0-migration-guide.md",
-      "sha256": "e04ea6c86084c1e47d811a35e14cfe69a4ad37150e60bdd960da807c87b76390",
-      "bytes": 27560,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "bc41d5d18c390e1aa64eb63484e0aa28894de60ec5d9cca2e02834887fb1f56b",
+      "bytes": 27943,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/browser-extension-guide.md",
       "relative_path": "llms.txt/docs/guides/browser-extension-guide.md",
-      "sha256": "a1cf1ad61e9f20b34876c8ac10ab655793f5677e6d12d80624ba2aaa433f5470",
-      "bytes": 6463,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "e7188ea485430db6cac4c7f6f37e2bd3585509f71f01701b8a33f478d5481d6c",
+      "bytes": 6652,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/clerk-migration-guide.md",
       "relative_path": "llms.txt/docs/guides/clerk-migration-guide.md",
-      "sha256": "bcafba6b6237ca41fa016e25aeb7f09b93de4f9c63bcb93ca32710c4cbc60d8f",
-      "bytes": 20665,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "9c80fee0343e340f4134ba6e0d5bc03bf42761bece21b70af1ddf5aaec61094a",
+      "bytes": 20965,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/create-a-db-adapter.md",
       "relative_path": "llms.txt/docs/guides/create-a-db-adapter.md",
-      "sha256": "118c37ff7f325735a3cdce951a403f8383ae4688f444da1f3ab8420fff2f8bfe",
-      "bytes": 20444,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "056f9c1eefc8b2bc5bcac27167268c152c82b45a62d90e4afda42993533ea4a8",
+      "bytes": 21001,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/next-auth-migration-guide.md",
       "relative_path": "llms.txt/docs/guides/next-auth-migration-guide.md",
-      "sha256": "367b4aa01ee1b3ea619ec39c2616935e194965d02bcf26253e5aa470d9f36133",
-      "bytes": 20657,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "20b971818f9dcd392175f76d96c35530f32e430cfe45cb22621890ad5ba62efb",
+      "bytes": 20988,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/optimizing-for-performance.md",
       "relative_path": "llms.txt/docs/guides/optimizing-for-performance.md",
-      "sha256": "923e569900efc5ff6ebf150988487d69e8a753ef873fd881aeaf2640b9cc8318",
-      "bytes": 6784,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "c934236e510b20b54f5fafbe8985500995d121cb637920c0c5007b7af626c2bc",
+      "bytes": 7027,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/saml-sso-with-okta.md",
       "relative_path": "llms.txt/docs/guides/saml-sso-with-okta.md",
-      "sha256": "c1b9e8816e9d02d6424d580f6187d7abca27ed9bafe17b713a5285d8698defec",
-      "bytes": 5874,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "bd569a453214d2005bad7706191de845d4a08e47fd5f9fb8be88e273a7370539",
+      "bytes": 6088,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/supabase-migration-guide.md",
       "relative_path": "llms.txt/docs/guides/supabase-migration-guide.md",
-      "sha256": "c1905bfdd68022799903e4816eab76d9c3e17d526ce3d023bfd6790b0e034d0d",
-      "bytes": 55077,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "82d2e8238651cc3614353224fe86acde09d68c83ef83c1e3227d19d628b70825",
+      "bytes": 55721,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/workos-migration-guide.md",
       "relative_path": "llms.txt/docs/guides/workos-migration-guide.md",
-      "sha256": "d8c0ab0143955b43de233abca2358976e46eb7f4ae97b9a44b3bd1db90d3417d",
-      "bytes": 29729,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "c6f3177aba50605f915eef70ebfb99c4ac000e5412a1b64d48284592d9abc3a3",
+      "bytes": 30057,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/guides/your-first-plugin.md",
       "relative_path": "llms.txt/docs/guides/your-first-plugin.md",
-      "sha256": "1d45bdef273cc4104cb6e90ffe6d765c4bc41ce494b9c38142a29902cd4b4a63",
-      "bytes": 8323,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "aee536d53a012636039f8ef3cdc9bd7512b27a94ebde9683c55dfb2f837b0696",
+      "bytes": 8508,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/infrastructure/getting-started.md",
+      "relative_path": "llms.txt/docs/infrastructure/getting-started.md",
+      "sha256": "aeaa5471794e7024f4aa7c0625fdb74a8a27a9df6e2d6d759174cb2c9ce9e1cd",
+      "bytes": 4256,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/infrastructure/introduction.md",
+      "relative_path": "llms.txt/docs/infrastructure/introduction.md",
+      "sha256": "6940ddb0237e6f46ab24665545b6b6456940d5c33e41498180de03283a296120",
+      "bytes": 1832,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/infrastructure/plugins/audit-logs.md",
+      "relative_path": "llms.txt/docs/infrastructure/plugins/audit-logs.md",
+      "sha256": "731545f346d9f41535a8d6bb838d53ab8191f8f4eb5ca92c75d21f77a19283df",
+      "bytes": 7542,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/infrastructure/plugins/dashboard.md",
+      "relative_path": "llms.txt/docs/infrastructure/plugins/dashboard.md",
+      "sha256": "e3b06085e6f9ba08fa7c6b89e1016a23472bd25b2acb96d18ce25357455d6a4e",
+      "bytes": 3139,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/infrastructure/plugins/sentinel.md",
+      "relative_path": "llms.txt/docs/infrastructure/plugins/sentinel.md",
+      "sha256": "afe12b2f8f3e5aba1fbc3fc262716dbfa055b23fb22aef28abab88e31d09b710",
+      "bytes": 12837,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/infrastructure/services/email.md",
+      "relative_path": "llms.txt/docs/infrastructure/services/email.md",
+      "sha256": "e16f15e525f36e32f5f868940452b75a3ad69bbc34bb2fd0f7df593415ebece0",
+      "bytes": 10624,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/infrastructure/services/sms.md",
+      "relative_path": "llms.txt/docs/infrastructure/services/sms.md",
+      "sha256": "f8a86ed59fda1d0ee9d44ed5070d61799a76dd04546da05ce61a30f01e5ae54e",
+      "bytes": 6416,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/installation.md",
       "relative_path": "llms.txt/docs/installation.md",
-      "sha256": "54215677ac5876e3948753b11e2d84ffe1f4a9ae7fef61b73b15c90f22b69f9e",
-      "bytes": 20826,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "aa7fd7fe2ece5271738bdcded13a42b06d2fa41c1a61d98062bc42dffaed7d13",
+      "bytes": 23214,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/astro.md",
       "relative_path": "llms.txt/docs/integrations/astro.md",
-      "sha256": "69409a4e5436f32ea9f3ce84be95654e1e1edf61341439a83ccc449da1d4f73a",
-      "bytes": 4280,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "82c726da209c408cbd16a6200309129e360a867d84f2c7954f0277664fc68940",
+      "bytes": 4402,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/convex.md",
       "relative_path": "llms.txt/docs/integrations/convex.md",
-      "sha256": "e51dbb991343dec16906efcca5d5624776f317f23473f26f903942ef74a9a71d",
-      "bytes": 21774,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "1a78b3d7f8d1cb36b382c48e4ff0325d03db85883ff78c71f510370fda7cfc45",
+      "bytes": 22237,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/integrations/electron.md",
+      "relative_path": "llms.txt/docs/integrations/electron.md",
+      "sha256": "7d77a493d6959365e35d3aa6f5dd5fdecf614ee0de7235d5ba144c3d299d5145",
+      "bytes": 25095,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/elysia.md",
       "relative_path": "llms.txt/docs/integrations/elysia.md",
-      "sha256": "1a2131ac139031fcaded937cd8a77eddf129b5335d7ae4c3355cf753d9293ede",
-      "bytes": 2204,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "ca70a8589cf0f428e3cd920cd981ea5f7168ba9e9c371e96df1b0aac347e729a",
+      "bytes": 2230,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/expo.md",
       "relative_path": "llms.txt/docs/integrations/expo.md",
-      "sha256": "7ce4b8b4d4e88d377a587457cc055141c96539400ba005e62561f116dd4352d1",
-      "bytes": 24538,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "7e5d917dedc18144b264ac8798fda0d278ae77eb97b9c012a15094ece77dc356",
+      "bytes": 24964,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/express.md",
       "relative_path": "llms.txt/docs/integrations/express.md",
-      "sha256": "f2a674079e99d192969a11a3fcf8a8dc1a89e9c8ac1f166ceb857658f632ba44",
-      "bytes": 3291,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "1debfdea1890f01d61b59945d140bc0629cfb4d723c74b7c937a88541796c3a4",
+      "bytes": 3350,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/fastify.md",
       "relative_path": "llms.txt/docs/integrations/fastify.md",
-      "sha256": "b86b3959b05c0b843d7533b21543dff0b3f753bb129726d97c568bbe44793b47",
-      "bytes": 4507,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "9c37f31efd84c0b219af692adb9dba551ad202adc79dbf4afff6d36f7af48900",
+      "bytes": 5273,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/hono.md",
       "relative_path": "llms.txt/docs/integrations/hono.md",
-      "sha256": "fbaae55aaa5969585f1c1eb329fc96f0db295db32172fb5f20b761afa6af63f3",
-      "bytes": 9380,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "2ddc06b721dfc1029a985a584029a3135fa6110fd0646d582731c4a2fd3ca00a",
+      "bytes": 5168,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/lynx.md",
       "relative_path": "llms.txt/docs/integrations/lynx.md",
-      "sha256": "422c52ca4f03fe8f838c2d4a91fa26c7fe8e3de499e71b26941b7991f93aeebd",
-      "bytes": 6674,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "f711da59343085916cc588e1ba1e392664bcaa70111aa78c7ec4f8d1c43ab66d",
+      "bytes": 6828,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/nestjs.md",
       "relative_path": "llms.txt/docs/integrations/nestjs.md",
-      "sha256": "7ae8d68ff90d138f2ff5f46554e4b12ed58e73ca8575b4b9f1f3da824cb574dc",
-      "bytes": 3571,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "06ce103c863abde180d9130d1833f5bc2cf94fc609cb127e7c6618fa41b4c818",
+      "bytes": 3673,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/next.md",
       "relative_path": "llms.txt/docs/integrations/next.md",
-      "sha256": "309f5bf802d2c730a4a74e1abd2352db956f2f7723118bfd2a20e73123c2cffe",
-      "bytes": 13063,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "827a4f2541988a418b62f0319ed72b1d7d3bee15be3edb31f510fd11d33ef12f",
+      "bytes": 13433,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/nitro.md",
       "relative_path": "llms.txt/docs/integrations/nitro.md",
-      "sha256": "cd81374c6040c4ccc49a69d066b8157401fb120f241ce4b2f00f9ab18fd86ef5",
-      "bytes": 8254,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "ca9d04284d9f995468110f5ad1f3b85c4642813070e576f1ab09c00c60032b1d",
+      "bytes": 8392,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/nuxt.md",
       "relative_path": "llms.txt/docs/integrations/nuxt.md",
-      "sha256": "814c106afc18f3b00bdaa318daf092528bad2eb6d4ad2b7a6c14be4095775f29",
-      "bytes": 4075,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "b7a739836bce3d8a0109d118a76dcf2cd2857ccae58223a18c41955947e41192",
+      "bytes": 4026,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
-      "url": "https://www.better-auth.com/llms.txt/docs/integrations/remix.md",
-      "relative_path": "llms.txt/docs/integrations/remix.md",
-      "sha256": "3fa3336bc7712628668f963a04bdeca936a1e80ab46531f74a32abfb1d8ef73f",
-      "bytes": 4834,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "url": "https://www.better-auth.com/llms.txt/docs/integrations/react-router.md",
+      "relative_path": "llms.txt/docs/integrations/react-router.md",
+      "sha256": "40eb8d1b5ba73e34a73e3fa04e77364003fbb712dcaebf9c78c82d60cf9b9d8b",
+      "bytes": 8907,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/solid-start.md",
       "relative_path": "llms.txt/docs/integrations/solid-start.md",
-      "sha256": "7942147eb2b6d2703a098f79fdfeb1d44f313b7d04d609659509c4b47132757e",
-      "bytes": 560,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "3ae8cfde743ad46606968c570447bf8247ec86d7d9c3234c456b5b82186bcdc1",
+      "bytes": 577,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/svelte-kit.md",
       "relative_path": "llms.txt/docs/integrations/svelte-kit.md",
-      "sha256": "9fe1035e7cd4fcbdf56ee5a821f299564b4743ca88d72dcbe5f7062296412151",
-      "bytes": 3706,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "5bd7f1cdd238b936932b1163be15b6b42594942d3241557c72cc0b96bfa6d411",
+      "bytes": 3817,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/tanstack.md",
       "relative_path": "llms.txt/docs/integrations/tanstack.md",
-      "sha256": "795b51308b1659a102ebeacba21e20e8f183fbb43244b8399d26454584003d2a",
-      "bytes": 6834,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "3c4e8c49ff973e78163f695cad94936294bd49108a1f60a3568a0f8d9c34f790",
+      "bytes": 6973,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/integrations/waku.md",
       "relative_path": "llms.txt/docs/integrations/waku.md",
-      "sha256": "e0015b6c7f8db666c48ad7d755251cf5f8effde023cce3df11008eea758a4835",
-      "bytes": 13293,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "f998938edd4893162430026af48d5fab7ead88b5126abdee4f600153ceeb838d",
+      "bytes": 13469,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/introduction.md",
       "relative_path": "llms.txt/docs/introduction.md",
-      "sha256": "686d7ec929c42490d1ae518db6c8cf0a85cd0ffaa9ca5c1ce72a1f5540e9465a",
-      "bytes": 3025,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "e20fad819129a3349c762c49c74d1a5501c73759fb5042cd6a97ab5da392ab59",
+      "bytes": 3042,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/plugins.md",
+      "relative_path": "llms.txt/docs/plugins.md",
+      "sha256": "76995efc6533645e6d54f9df0f9caf9a42e1f727614d3358a0c30478ace126e5",
+      "bytes": 6212,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/2fa.md",
       "relative_path": "llms.txt/docs/plugins/2fa.md",
-      "sha256": "8b2c4c27d9d7a710437d3ab923d9362177521d71b5a1310650d37e2bb84a1e19",
-      "bytes": 20661,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "093e1ada309cdf9618a4b4fe4653070df554be8f415a7d5ddbab1838fdf177d4",
+      "bytes": 21056,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/admin.md",
       "relative_path": "llms.txt/docs/plugins/admin.md",
-      "sha256": "d72e7e1f2e6ff7a75e5a92095c4938fc7af329a5ffb3a929b1b60285b52a1e3a",
-      "bytes": 28061,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "6bf5581e697d618d8da028a42048dcd037b2dbf602d116b3b22fa7e930730a6e",
+      "bytes": 29894,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/anonymous.md",
       "relative_path": "llms.txt/docs/plugins/anonymous.md",
-      "sha256": "6d5005bb5e6afe539f5d57be7ba8cc6aebe097067482e54a76818309006b5fc5",
-      "bytes": 7805,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "5cc39ad5aafcf1d7d89cf68799fe0cd33721e9408cbe334d3ae468701bfb4eda",
+      "bytes": 8179,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/api-key.md",
       "relative_path": "llms.txt/docs/plugins/api-key.md",
-      "sha256": "b403f2bb6116dd53e60d45f7b06f62a7fb6aa4a6587ea998d12ad48b3f1e57b9",
-      "bytes": 37079,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "c90d5ee53694052881ab03533b4253aa76c21cfbb6d5340dfc47dcc533735eaf",
+      "bytes": 16259,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/plugins/api-key/advanced.md",
+      "relative_path": "llms.txt/docs/plugins/api-key/advanced.md",
+      "sha256": "0b547591d8ddea4b84564ae53616657db22a58cb30b43cbc9b2a01b405327aca",
+      "bytes": 23148,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/plugins/api-key/reference.md",
+      "relative_path": "llms.txt/docs/plugins/api-key/reference.md",
+      "sha256": "e5f45f8c419454026b54649bd748452fd20edbb441e982ed973b14e9bf6b2c4a",
+      "bytes": 17686,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/autumn.md",
       "relative_path": "llms.txt/docs/plugins/autumn.md",
-      "sha256": "be880e9257233c89c4f7e5fac3c3fc589946d5cc5b5a542977562e2ee208bf90",
-      "bytes": 9975,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "1a5644bf891c8fc34a4c1ab036e31021fdeb30da480225541a046edced71ae56",
+      "bytes": 10230,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/bearer.md",
       "relative_path": "llms.txt/docs/plugins/bearer.md",
-      "sha256": "ac6d04682469777b96e36996bf888d5ba3d3fd328cb957542cb7124bc6c2bdd9",
-      "bytes": 3894,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "3f71837b67456e85920c5cfa67b5e773ec090381ab8b2755980868a87d83b545",
+      "bytes": 4299,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/captcha.md",
       "relative_path": "llms.txt/docs/plugins/captcha.md",
-      "sha256": "dcf5dd3b529076d9d7f85230db7a1128ec5127a5608196d04a4da84ab283f5e6",
-      "bytes": 4771,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "b775c929cea94046e0d1b236de45ec7e8ebfb56388cbe5c6cf390393db889243",
+      "bytes": 4918,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/commet.md",
       "relative_path": "llms.txt/docs/plugins/commet.md",
-      "sha256": "8f204ffa5c1c5135473b3a80c67f0bfcdf124f42420bf7845d06e84ec53f63b9",
-      "bytes": 8040,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "40a265fa46cc328eeb67092423da452d848564ce08ea2aa12818516630603296",
+      "bytes": 8253,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/community-plugins.md",
       "relative_path": "llms.txt/docs/plugins/community-plugins.md",
-      "sha256": "509486b9d2e47d097eb4a2f8f2fe67fd5ac0a9b246322daaf732a98101b0c037",
-      "bytes": 588,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "f3972a23aa1ac5585968c2c79e66e0d8a1f702ddbbc7f9b7608af586f0f3c6f4",
+      "bytes": 636,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/creem.md",
       "relative_path": "llms.txt/docs/plugins/creem.md",
-      "sha256": "d8f9a9e6a1490be63de09a18452a2270fc1e55a81d147153b4a5ca282f545b85",
-      "bytes": 31823,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "15cc20a970dcc749cf7bd8abc1d2a7f94ffc65c00452c4fa98f5c06fe7f35921",
+      "bytes": 32739,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/device-authorization.md",
       "relative_path": "llms.txt/docs/plugins/device-authorization.md",
-      "sha256": "70807cbde88e22d1cfc2debb4e888833c8ddadbff207df3267f8f8207d364fa2",
-      "bytes": 21623,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "91a61abe68988f23dda238cc10b5e399de154cd8fdf1fd470f70e6f7efdd4951",
+      "bytes": 22764,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/dodopayments.md",
       "relative_path": "llms.txt/docs/plugins/dodopayments.md",
-      "sha256": "5a2eb6a5f6d65f9e5d91b67a70f6e5f5427ec261f94ca0cc1b0e709e80e5a21b",
-      "bytes": 8564,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "eb656c8922bac0e57d22b73ab54e88fc13b55efa8add7ad141a6b75b0ba73b91",
+      "bytes": 6027,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/dub.md",
       "relative_path": "llms.txt/docs/plugins/dub.md",
-      "sha256": "58d3e5d5d3e0fa00a3f53be06bb6fc768caec64a438856a0a0d5885a7c707976",
-      "bytes": 5240,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "1a82bc5b0e2cfceb0810d252455d9221b4620612550bf661a2b7fc6df00ecfb3",
+      "bytes": 5434,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/email-otp.md",
       "relative_path": "llms.txt/docs/plugins/email-otp.md",
-      "sha256": "2ffde84e4ed8ea2ea3674a0fb8bbac1303ca2591865856d543c31e502c02dd2f",
-      "bytes": 12014,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "c114c3d72236656b02ee9fbd5ea690e21570304d7aef4eeb305d5046d51086fc",
+      "bytes": 16871,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/generic-oauth.md",
       "relative_path": "llms.txt/docs/plugins/generic-oauth.md",
-      "sha256": "983e0e8dca88ab8be394358e0abef4ca5b3c1a8efb09d992faed291da8ef722c",
-      "bytes": 19291,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "09b7a14fa8575c0582bce4d60d68bc1b766b3806ddd8cd2aca09bf1778675c98",
+      "bytes": 19823,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/have-i-been-pwned.md",
       "relative_path": "llms.txt/docs/plugins/have-i-been-pwned.md",
-      "sha256": "aaedbf5fb04945671eff6d2ca4779f5c8ea5e06c561fab948d56fa2bbceebcb7",
-      "bytes": 1196,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "546f609ac3637f514f3a398be0a2a89355d0aeb79edd2b495a1e5bc3e695cd3c",
+      "bytes": 1288,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/plugins/i18n.md",
+      "relative_path": "llms.txt/docs/plugins/i18n.md",
+      "sha256": "4745ba13beef273d748ee3f0091ade2030e9d1acd29e7e91ca689cfebc2a0d15",
+      "bytes": 8104,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/jwt.md",
       "relative_path": "llms.txt/docs/plugins/jwt.md",
-      "sha256": "b883dd3522e432bc111a143c02d5a37328e1bc3fbcffbe8a959468759056a27b",
-      "bytes": 16299,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "dcb9f6fb9f06074a603a1e338dd4a8122a0057421b26efa8a0ecc2e7477a99b3",
+      "bytes": 16818,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/last-login-method.md",
       "relative_path": "llms.txt/docs/plugins/last-login-method.md",
-      "sha256": "0ef1492f5b2a02a54fa8bf8ac5ba349834e18cfa15218a3b2ca648ab76720d61",
-      "bytes": 12227,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "babf8b58fb39130a891c4ef4cb1d5f692075ff906686de1bd71d82e3cf036433",
+      "bytes": 14790,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/magic-link.md",
       "relative_path": "llms.txt/docs/plugins/magic-link.md",
-      "sha256": "578ff3a403119872a27f7813add2e3f7ee0631fd4934058cf75998113c319112",
-      "bytes": 5806,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "8ddf1ffb65f6f55b40c812f348b0dd629dea1106033ec461d26c3eba1f04190f",
+      "bytes": 6374,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/mcp.md",
       "relative_path": "llms.txt/docs/plugins/mcp.md",
-      "sha256": "ee2cc5fc1a5a55a4ac43ee5e788dd516eef6c70c79a792be8f772643907cab5a",
-      "bytes": 9623,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "05dd2ffe82d34d51b8707ee838cc97efd6ff0fc41d1afcd845cc3a930f3273f5",
+      "bytes": 16583,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/multi-session.md",
       "relative_path": "llms.txt/docs/plugins/multi-session.md",
-      "sha256": "31fe1df44af215d3c98d510e5d5457dda36aecfe0b3e7d9c681183ec54c8b8d1",
-      "bytes": 3625,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "dcd0211e6ed6c1a6fc41c1e648c9659323ce1dfafe476fc1b860c3e9f54a9aa5",
+      "bytes": 3871,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/oauth-provider.md",
       "relative_path": "llms.txt/docs/plugins/oauth-provider.md",
-      "sha256": "b7776ddece2731def283a608cc39abd729a8d3f624b846fb0223d815fefc4582",
-      "bytes": 69027,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "fa2eff880ff64f8303b39c29379589af9b49fabf0fc037495f90015f956c9443",
+      "bytes": 74607,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/oauth-proxy.md",
       "relative_path": "llms.txt/docs/plugins/oauth-proxy.md",
-      "sha256": "1dc03bdff7a4feff83764b60c65c3610c39a51a838fe790b072e23af38c44007",
-      "bytes": 3576,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "4687847565b83920f05a4df4326fb0ff08afbd2a46953b56b49a95095328b1a8",
+      "bytes": 3597,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/oidc-provider.md",
       "relative_path": "llms.txt/docs/plugins/oidc-provider.md",
-      "sha256": "d8cd43297f30d6628968b7c48ee18dd33037468d1f13e2655a694268a093d27c",
-      "bytes": 22496,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "17c477a1d5bade620e495a186af0cc1699610a5bc9670b7fccef0d042b11c7bd",
+      "bytes": 23226,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/one-tap.md",
       "relative_path": "llms.txt/docs/plugins/one-tap.md",
-      "sha256": "808836ce7f1b5c6613fd45e3069b4a06fafe52dc7ab9180d3356c66a1218eea6",
-      "bytes": 7074,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "80ffa0d2c8cd3c8728e04461fbaeaccf84b6db67d4e3a25cd6991327581c8aab",
+      "bytes": 8004,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/one-time-token.md",
       "relative_path": "llms.txt/docs/plugins/one-time-token.md",
-      "sha256": "54b27f409f2e737a014bac9571438e3fa0829eb59663f5cd774c8ec53878c79d",
-      "bytes": 3720,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "c4465db18ae606e05723136f89717a519e2efa72dfc0a38aa5163272c048edbd",
+      "bytes": 3922,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/open-api.md",
       "relative_path": "llms.txt/docs/plugins/open-api.md",
-      "sha256": "aa4c9cf6480945a2d59b08404c11bae7bb68e2797d101d8414217c6d4a104c28",
-      "bytes": 3256,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "60475bc27c29816f4a158cfd47a10a4938652ac8381d37756372ca27ddf141a3",
+      "bytes": 3405,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/organization.md",
       "relative_path": "llms.txt/docs/plugins/organization.md",
-      "sha256": "55695f8487210e1aee4886cd06aeb2dad2f7727c451de40c3ae9ab6ae5c0ccaf",
-      "bytes": 83551,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "a9b81b725c9ccebb10f4b89a1de36c7deb246830503ae47f04aa953e7006a0e3",
+      "bytes": 85897,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/passkey.md",
       "relative_path": "llms.txt/docs/plugins/passkey.md",
-      "sha256": "d8c2df13a918bbdcbdc2f83c9574d99a1fd9c7a2e1cfc1c4ff9211cd27201cb3",
-      "bytes": 17157,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "7b5800520e5deac3bd9290e5fc0fabbca9a4996ccf8a31829d5001792351e30c",
+      "bytes": 17380,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/phone-number.md",
       "relative_path": "llms.txt/docs/plugins/phone-number.md",
-      "sha256": "ce578d56a49a663513deeb6c67ffdc2e3f732dace78e7a5a357ccbc4c9e1993b",
-      "bytes": 15236,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "d9f24e80341853ee6d58c5e6569e3508e8f9cdeb202a54da6daba3f755456b50",
+      "bytes": 15934,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/polar.md",
       "relative_path": "llms.txt/docs/plugins/polar.md",
-      "sha256": "11810e7312ad61f4c73ea2d1b1bc53cc45f9308b408e8c37aa0b826af2c5b534",
-      "bytes": 15203,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "e57c640de73f522aa40da7b1a95d83bbc97598621a1d5ce883ebdc59398efa7d",
+      "bytes": 15561,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/scim.md",
       "relative_path": "llms.txt/docs/plugins/scim.md",
-      "sha256": "30e7f63a82e490404687e8971900ac78132ace66130bd44268caa3484c99e59d",
-      "bytes": 18312,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "ff2b027daa1e46a49c0c8ff40ca2c618afd2030933df3d0a2da172deb895e3a2",
+      "bytes": 23557,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/siwe.md",
       "relative_path": "llms.txt/docs/plugins/siwe.md",
-      "sha256": "accd54394959dff5320024bfc306dda6e5fef7ea2fabcedeb55db689307b14b2",
-      "bytes": 10795,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "2542ee17070d872d4e342ddde2f5863ba7440dd83cef9ddac9e9dfbe9e15c5cb",
+      "bytes": 11153,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/sso.md",
       "relative_path": "llms.txt/docs/plugins/sso.md",
-      "sha256": "03dcdfda8f09ae72702a7622c656c306070a211dec674c4cdadbf3a4fce86d63",
-      "bytes": 61315,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "ad4da8110e2e86ce25cafa97852a2a1becc0eb13d36abdc07b7ce8977e191dd1",
+      "bytes": 67159,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/stripe.md",
       "relative_path": "llms.txt/docs/plugins/stripe.md",
-      "sha256": "2fe01db6dfc0f4103af31875a02bdc4af1e31f49f207b41039a65b256b1ed062",
-      "bytes": 43707,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "5c0318004e8a17fb35213f38562656134f34582d6c21b00f1a3a0e7695f0a791",
+      "bytes": 47224,
+      "fetched_at": "2026-03-03T10:48:16Z"
+    },
+    {
+      "url": "https://www.better-auth.com/llms.txt/docs/plugins/test-utils.md",
+      "relative_path": "llms.txt/docs/plugins/test-utils.md",
+      "sha256": "90e26e70ee1ad521505b59750ba9af57680f35c5d1b8b227e1d61b3ad535c673",
+      "bytes": 8685,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/plugins/username.md",
       "relative_path": "llms.txt/docs/plugins/username.md",
-      "sha256": "b1899506ee08d65608a557fcda76a7765ca8dbc8f87977d8569f11c91c93749b",
-      "bytes": 12501,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "0d7d62b91bb413ed83b75ab86da6891ff8d842a2775bd3c2ea749cc2cf394f2e",
+      "bytes": 12784,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/contributing.md",
       "relative_path": "llms.txt/docs/reference/contributing.md",
-      "sha256": "b07c07f7367b1a01dde149b689fbef882018f08e669f5e8ee9ddfb424013651a",
-      "bytes": 5153,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "274180aabb218db075cf70c7b4b0e58a3ffbf9b2d5926f1ed6a9a39c6dd938fb",
+      "bytes": 5490,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors.md",
       "relative_path": "llms.txt/docs/reference/errors.md",
-      "sha256": "3cceeb98b0196467e1e89ae704180a65a0002766574431c2a11e9f2be8d01eca",
-      "bytes": 1026,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "d5ed3d945e0717c7fc337cc78fdd8f339e8a2c4c8dceffa3fc6d891e0c900bd9",
+      "bytes": 1041,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/account_already_linked_to_different_user.md",
       "relative_path": "llms.txt/docs/reference/errors/account_already_linked_to_different_user.md",
-      "sha256": "cf8db2092d7ffe0d53b92dac013b52ee0c18189e3d7610e8bc7a03f39f1511ce",
-      "bytes": 3276,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "ae86eea8abbf2b748fd9e95f29b3cbf50a4f82b35368160939960562e47aa118",
+      "bytes": 3399,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/email_doesn't_match.md",
       "relative_path": "llms.txt/docs/reference/errors/email_doesn't_match.md",
-      "sha256": "b810ddfa14ccd9ec3893fc6792b4c3721382ee7dcd33e61375af7c4f74ba27b4",
-      "bytes": 1567,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "749883479c743d8d8201010c07a2d4b1176594af90d60d7b2994022d0c56d4da",
+      "bytes": 1652,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/email_not_found.md",
       "relative_path": "llms.txt/docs/reference/errors/email_not_found.md",
-      "sha256": "75c5f1853b9d4f667eb5f1748d18bbdeb646e854dc355fdc49f4ae209de637ad",
-      "bytes": 1760,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "14b36327d58db0ca5e14d7f360bca45f987d932d485e150250a0f4bcda41241e",
+      "bytes": 1876,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/invalid_callback_request.md",
       "relative_path": "llms.txt/docs/reference/errors/invalid_callback_request.md",
-      "sha256": "0b56457776c4f65083508b573db1aef829ce2012fbdda9988b3e9a11b0eaeb03",
-      "bytes": 2266,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "749fcf653b245809d1883e025a0011eeb48d4365061269c0322ac0affe29e424",
+      "bytes": 2419,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/no_callback_url.md",
       "relative_path": "llms.txt/docs/reference/errors/no_callback_url.md",
-      "sha256": "705da0f3a73c516b7a1892f10cc921e8469e31ae78e2af5b80d27069610cda22",
-      "bytes": 837,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "514a32c8522cf5987ecbdef43436de126f1bfb5b1f8d7eccacedf2b15cba0939",
+      "bytes": 911,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/no_code.md",
       "relative_path": "llms.txt/docs/reference/errors/no_code.md",
-      "sha256": "920e1f750c13a88e867abd3b7cbfeb23674b2a264b943c9857f1d55faf1942ef",
-      "bytes": 1978,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "ee3246abcd73254dfd094dda9b2a7866d19e691bac67ce882714dd4c9846080b",
+      "bytes": 2114,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/oauth_provider_not_found.md",
       "relative_path": "llms.txt/docs/reference/errors/oauth_provider_not_found.md",
-      "sha256": "519128ab8f3681376244c3453cc66ad0b6e3dda75ebda53c83128979cf1a0b39",
-      "bytes": 1933,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "d181e7587e67d902026de1045133ced7538937c12df78c680a87311d929b0796",
+      "bytes": 2137,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/signup_disabled.md",
       "relative_path": "llms.txt/docs/reference/errors/signup_disabled.md",
-      "sha256": "5035e9777ebb3242a7fabccdd0ce109e98267d92fb926705e2fe69686e7fbfb2",
-      "bytes": 887,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "85d4055dbe1346386320ae55b3876b0412bb39d1ca54072f928f861241e99dbd",
+      "bytes": 898,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/state_mismatch.md",
       "relative_path": "llms.txt/docs/reference/errors/state_mismatch.md",
-      "sha256": "919d16dd69c15d1969cc3b4cefc89e25c4cdb566ef58f26e802990837952f711",
-      "bytes": 2213,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "083524519018f90f5ad6b6899d5b7e4c2e891fdc226afff6c452679f1e7f3a1b",
+      "bytes": 2341,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/state_not_found.md",
       "relative_path": "llms.txt/docs/reference/errors/state_not_found.md",
-      "sha256": "8d6dfaf6acc810626ffb139e49f363151cfb9482a75cbd1ecbaedfb33e610b2c",
-      "bytes": 3034,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "c182fc3d6fd2e170c8455852a6e9872401fffadca965a6daf4256500297698cb",
+      "bytes": 3215,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/unable_to_get_user_info.md",
       "relative_path": "llms.txt/docs/reference/errors/unable_to_get_user_info.md",
-      "sha256": "229542e67cd8af17a61d603f26764668b6187cd5ca065927758fd183b29109b3",
-      "bytes": 1398,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "ef8e8d87418e4919d23fd0b58dcfab3ad872af48c6b5f409d75ecb267122b7e6",
+      "bytes": 1496,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/unable_to_link_account.md",
       "relative_path": "llms.txt/docs/reference/errors/unable_to_link_account.md",
-      "sha256": "b3ad8a4b31c8c72db98b00e9f2fe7f08452eefe3fe9128ec29b4c3a372399f3c",
-      "bytes": 1662,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "269f9181a4872296a8c03825cfc484a3bd9bf902557ddde594b1b5380b3e6939",
+      "bytes": 1813,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/errors/unknown.md",
       "relative_path": "llms.txt/docs/reference/errors/unknown.md",
       "sha256": "4b2912f915e4d6861b45e5df11119d2b4bf08a2aa79e1805384b15ea5c7cec33",
       "bytes": 542,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/faq.md",
       "relative_path": "llms.txt/docs/reference/faq.md",
-      "sha256": "8041d95db0d680eb7458c9f7f5438657a27f40281f36b12a0a76304b9e5ede7b",
-      "bytes": 8975,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "4f759aec28e55d1184262b4442b1bdf0319d59c0e6aeff6b740ad718bb773611",
+      "bytes": 9079,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/options.md",
       "relative_path": "llms.txt/docs/reference/options.md",
-      "sha256": "ad875c893b09b1180481ade550d62be7afc1d19b324a2f3b00a606e53120918b",
-      "bytes": 24282,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "7a2c1ba5dcadccfabfdf4b9066ae80336d2c8338ec6de259da7247cc0ec520bc",
+      "bytes": 26775,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/resources.md",
       "relative_path": "llms.txt/docs/reference/resources.md",
-      "sha256": "8b1ece11b53a9ed49d8a5334c111f6352e208542c70ee7d85415b6c1c6ccfc3e",
-      "bytes": 5561,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "db8cb4cde59c5aee617976beb53e93bcf6b623c9e616b90599676100dae90838",
+      "bytes": 5588,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/security.md",
       "relative_path": "llms.txt/docs/reference/security.md",
-      "sha256": "c3c273210d06932c2ae5ba8cc8f6317da620e11d1dee5144c27af754ed6dd86a",
-      "bytes": 13540,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "2a188362bf9129a3fbd91f88de49955ea23ca46be82d5fd88ce9a54ec85577ba",
+      "bytes": 15373,
+      "fetched_at": "2026-03-03T10:48:16Z"
     },
     {
       "url": "https://www.better-auth.com/llms.txt/docs/reference/telemetry.md",
       "relative_path": "llms.txt/docs/reference/telemetry.md",
-      "sha256": "0ba45f48df0a15ec4322d5dfa94c42213d765d9ee461ee4003b4727544b1f8d6",
-      "bytes": 4297,
-      "fetched_at": "2026-02-26T03:35:27Z"
+      "sha256": "5a735aaac906104824a0de0422878f39ae9b482d20f03eb6c73c52ccd86218ed",
+      "bytes": 4422,
+      "fetched_at": "2026-03-03T10:48:16Z"
     }
   ]
 }

@@ -6,11 +6,11 @@ A guide to optimizing your Better Auth application for performance.
 
 In this guide, we’ll go over some of the ways you can optimize your application for a more performant Better Auth app.
 
-## Caching
+Caching [#caching]
 
 Caching is a powerful technique that can significantly improve the performance of your Better Auth application by reducing the number of database queries and speeding up response times.
 
-### Cookie Cache
+Cookie Cache [#cookie-cache]
 
 Calling your database every time `useSession` or `getSession` is invoked isn’t ideal, especially if sessions don’t change frequently. Cookie caching handles this by storing session data in a short-lived, signed cookie similar to how JWT access tokens are used with refresh tokens.
 
@@ -31,11 +31,11 @@ export const auth = betterAuth({
 
 Read more about [cookie caching](/docs/concepts/session-management#cookie-cache).
 
-### Framework Caching
+Framework Caching [#framework-caching]
 
 Here are examples of how you can do caching in different frameworks and environments:
 
-<Tabs items={["Next", "Remix", "SolidStart", "TanStack Query"]}>
+<Tabs items={["Next", "react-router", "SolidStart", "TanStack Query"]}>
   <Tab value="Next">
     Since Next v15, we can use the `"use cache"` directive to cache the response of a server function.
 
@@ -50,23 +50,27 @@ Here are examples of how you can do caching in different frameworks and environm
     Learn more about NextJS use cache directive <Link href="https://nextjs.org/docs/app/api-reference/directives/use-cache">here</Link>.
   </Tab>
 
-  <Tab value="Remix">
-    In Remix, you can use the `cache` option in the `loader` function to cache responses on the server. Here’s an example:
+  <Tab value="react-router">
+    In React Router v7, you use HTTP `Cache-Control` headers in the loader function to cache responses. You must also export a headers function to send these headers. Here's an example:
 
     ```ts
-    import { json } from '@remix-run/node';
+    import { data } from 'react-router';
+    import type { Route } from './+types/your-route-name';
 
-    export const loader = async () => {
-    const { users } = await auth.api.listUsers();
-    return json(users, {
+    export const loader = async ({ request }: Route.LoaderArgs) => {
+      const { users } = await auth.api.listUsers();
+      
+      return data(users, {
         headers: {
-        'Cache-Control': 'max-age=3600', // Cache for 1 hour
+          'Cache-Control': 'max-age=3600', // Cache for 1 hour
         },
-    });
+      });
     };
-    ```
 
-    You can read a nice guide on Loader vs Route Cache Headers in Remix <Link href="https://sergiodxa.com/articles/loader-vs-route-cache-headers-in-remix">here</Link>.
+    export function headers({ loaderHeaders }: Route.HeadersArgs) {
+      return loaderHeaders;
+    }
+    ```
   </Tab>
 
   <Tab value="SolidStart">
@@ -114,7 +118,7 @@ Here are examples of how you can do caching in different frameworks and environm
   </Tab>
 </Tabs>
 
-## SSR Optimizations
+SSR Optimizations [#ssr-optimizations]
 
 If you're using a framework that supports server-side rendering, it's usually best to pre-fetch the user session on the server and use it as a fallback on the client.
 
@@ -125,11 +129,11 @@ const session = await auth.api.getSession({
 //then pass the session to the client
 ```
 
-## Database optimizations
+Database optimizations [#database-optimizations]
 
 Optimizing database performance is essential to get the best out of Better Auth.
 
-#### Recommended fields to index
+Recommended fields to index [#recommended-fields-to-index]
 
 | Table         | Fields                     | Plugin       |
 | ------------- | -------------------------- | ------------ |
@@ -147,11 +151,11 @@ Optimizing database performance is essential to get the best out of Better Auth.
   We intend to add indexing support in our schema generation tool in the future.
 </Callout>
 
-## Bundle Size Optimization
+Bundle Size Optimization [#bundle-size-optimization]
 
 If you're using custom adapters (like Prisma, Drizzle, or MongoDB), you can reduce your bundle size by using `better-auth/minimal` instead of `better-auth`. This version excludes Kysely, which is only needed when using direct database connections.
 
-### Usage
+Usage [#usage]
 
 Simply import from `better-auth/minimal` instead of `better-auth`:
 

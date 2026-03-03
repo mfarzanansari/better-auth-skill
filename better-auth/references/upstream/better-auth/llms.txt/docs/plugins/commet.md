@@ -11,7 +11,7 @@ Better Auth Plugin for Billing and Subscriptions using Commet
   please contact [Commet support](https://commet.co).
 </Callout>
 
-## Features
+Features [#features]
 
 * Automatic customer creation on signup
 * Customer Portal for self-service billing management
@@ -21,13 +21,13 @@ Better Auth Plugin for Billing and Subscriptions using Commet
 * Seat management for per-user pricing
 * Optional webhook handling with signature verification
 
-## Installation
+Installation [#installation]
 
 ```bash
 pnpm add better-auth @commet/better-auth @commet/node
 ```
 
-## Preparation
+Preparation [#preparation]
 
 Get your API key from the [Commet dashboard](https://sandbox.commet.co).
 
@@ -36,7 +36,7 @@ COMMET_API_KEY=ck_...
 COMMET_ENVIRONMENT=sandbox # or production
 ```
 
-## Server Configuration
+Server Configuration [#server-configuration]
 
 ```typescript title="auth.ts"
 import { betterAuth } from "better-auth";
@@ -73,7 +73,7 @@ export const auth = betterAuth({
 });
 ```
 
-## Client Configuration
+Client Configuration [#client-configuration]
 
 ```typescript title="auth-client.ts"
 import { createAuthClient } from "better-auth/react";
@@ -84,7 +84,7 @@ export const authClient = createAuthClient({
 });
 ```
 
-## Configuration Options
+Configuration Options [#configuration-options]
 
 ```typescript
 commet({
@@ -100,7 +100,7 @@ commet({
 
 When `createCustomerOnSignUp` is enabled, a Commet customer is automatically created with `externalId` set to the user's ID. No database mapping required.
 
-## Portal Plugin
+Portal Plugin [#portal-plugin]
 
 Redirects users to the Commet customer portal for self-service billing management.
 
@@ -120,7 +120,7 @@ commet({
 await authClient.customer.portal();
 ```
 
-## Subscriptions Plugin
+Subscriptions Plugin [#subscriptions-plugin]
 
 Manage customer subscriptions.
 
@@ -152,7 +152,7 @@ await authClient.subscription.cancel({
 });
 ```
 
-## Features Plugin
+Features Plugin [#features-plugin]
 
 Check feature access for the authenticated user.
 
@@ -180,7 +180,7 @@ const { data: canUse } = await authClient.features.canUse("api_calls");
 // Returns: { allowed: boolean, willBeCharged: boolean }
 ```
 
-## Usage Plugin
+Usage Plugin [#usage-plugin]
 
 Track usage events for metered billing.
 
@@ -204,7 +204,7 @@ await authClient.usage.track({
 
 The authenticated user is automatically associated with the event.
 
-## Seats Plugin
+Seats Plugin [#seats-plugin]
 
 Manage seat-based licenses.
 
@@ -234,7 +234,7 @@ await authClient.seats.set({ seatType: "admin", count: 3 });
 await authClient.seats.setAll({ admin: 2, member: 10, viewer: 50 });
 ```
 
-## Webhooks Plugin (Optional)
+Webhooks Plugin (Optional) [#webhooks-plugin-optional]
 
 Handle Commet webhooks. This is optional since you can always query state directly.
 
@@ -260,7 +260,7 @@ commet({
 
 Configure the webhook endpoint in your Commet dashboard: `/api/auth/commet/webhooks`
 
-## Full Example
+Full Example [#full-example]
 
 ```typescript title="auth.ts"
 import { betterAuth } from "better-auth";

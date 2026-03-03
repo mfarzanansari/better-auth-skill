@@ -1,11 +1,13 @@
 # Publishing Status
 
-Date: 2026-02-26
+Date: 2026-03-03
 
 ## Completed
 
 - Created and pushed public repo: `https://github.com/mfarzanansari/better-auth-skill`
 - Published one enhanced skill: `better-auth`
+- Synced latest official Better Auth skill-pack guidance (`npx skills add better-auth/skills --list`)
+- Refreshed bundled Better Auth upstream corpus to `164` markdown files
 - Verified raw file accessibility:
   - `better-auth/SKILL.md`
   - `better-auth/agents/openai.yaml`

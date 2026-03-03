@@ -6,7 +6,7 @@ Twitch provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Twitch Credentials
+    Get your Twitch Credentials [#get-your-twitch-credentials]
 
     To use Twitch sign in, you need a client ID and client secret. You can get them from the [Twitch Developer Portal](https://dev.twitch.tv/console/apps).
 
@@ -14,7 +14,7 @@ Twitch provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -33,7 +33,7 @@ Twitch provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Twitch
+    Sign In with Twitch [#sign-in-with-twitch]
 
     To sign in with Twitch, you can use the `signIn.social` function provided by the client.
     The `signIn` function takes an object with the following properties:

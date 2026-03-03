@@ -6,7 +6,7 @@ LINE provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your LINE credentials
+    Get your LINE credentials [#get-your-line-credentials]
 
     1. Create a channel in the LINE Developers Console.
     2. Note your Channel ID (client\_id) and Channel secret (client\_secret).
@@ -17,7 +17,7 @@ LINE provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     Add your LINE credentials to `socialProviders.line` in your auth configuration.
 
@@ -39,9 +39,9 @@ LINE provider setup and usage.
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Sign In with LINE
+Sign In with LINE [#sign-in-with-line]
 
 Use the client `signIn.social` with `provider: "line"`.
 
@@ -54,7 +54,7 @@ async function signInWithLINE() {
 }
 ```
 
-### Sign In with LINE using ID Token (optional)
+Sign In with LINE using ID Token (optional) [#sign-in-with-line-using-id-token-optional]
 
 If you obtain the LINE ID token on the client, you can sign in directly without redirection.
 
@@ -68,7 +68,7 @@ await authClient.signIn.social({
 });
 ```
 
-### Notes
+Notes [#notes]
 
 * Default scopes include `openid profile email`. Adjust as needed via provider options.
 * Verify redirect URI exactly matches the value configured in LINE Developers Console.
@@ -76,7 +76,7 @@ await authClient.signIn.social({
 
 Designing a login button? Follow LINE's button [guidelines](https://developers.line.biz/en/docs/line-login/login-button/).
 
-## Multi-Channel Support
+Multi-Channel Support [#multi-channel-support]
 
 LINE requires separate OAuth channels for different countries (Japan, Thailand, Taiwan, etc.), each with its own `clientId` and `clientSecret`. The standard `socialProviders.line` configuration only supports a single channel.
 

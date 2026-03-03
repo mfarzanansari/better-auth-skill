@@ -6,7 +6,7 @@ Atlassian provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Credentials
+    Get your Credentials [#get-your-credentials]
 
     1. Sign in to your Atlassian account and go to the [Atlassian Developer Console](https://developer.atlassian.com/console/myapps/)
     2. Click "Create new app"
@@ -22,7 +22,7 @@ Atlassian provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -41,7 +41,7 @@ Atlassian provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Atlassian
+    Sign In with Atlassian [#sign-in-with-atlassian]
 
     To sign in with Atlassian, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

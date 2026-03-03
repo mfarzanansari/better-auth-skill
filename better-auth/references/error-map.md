@@ -58,3 +58,6 @@ If token is not listed:
 1. Check `upstream/better-auth/llms.txt/docs/reference/errors.md`.
 2. Search category docs tied to the failing endpoint (provider/plugin/integration).
 3. Verify env vars, callback URLs, trusted origins, and plugin-specific schema state.
+4. Check proxy/ingress rewrites and `dynamic-base-url` behavior:
+- `upstream/better-auth/llms.txt/docs/concepts/dynamic-base-url.md`
+- `upstream/better-auth/llms.txt/docs/infrastructure/`

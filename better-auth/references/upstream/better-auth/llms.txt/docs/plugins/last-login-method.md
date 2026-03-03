@@ -6,11 +6,11 @@ Track and display the last authentication method used by users
 
 The last login method plugin tracks the most recent authentication method used by users (email, OAuth providers, etc.). This enables you to display helpful indicators on login pages, such as "Last signed in with Google" or prioritize certain login methods based on user preferences.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the plugin to your auth config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth"
@@ -26,7 +26,7 @@ The last login method plugin tracks the most recent authentication method used b
   </Step>
 
   <Step>
-    ### Add the client plugin to your auth client
+    Add the client plugin to your auth client [#add-the-client-plugin-to-your-auth-client]
 
     ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client"
@@ -41,11 +41,11 @@ The last login method plugin tracks the most recent authentication method used b
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
 Once installed, the plugin automatically tracks the last authentication method used by users. You can then retrieve and display this information in your application.
 
-### Getting the Last Used Method
+Getting the Last Used Method [#getting-the-last-used-method]
 
 The client plugin provides several methods to work with the last login method:
 
@@ -63,7 +63,7 @@ const wasGoogle = authClient.isLastUsedLoginMethod("google")
 authClient.clearLastUsedLoginMethod()
 ```
 
-### UI Integration Example
+UI Integration Example [#ui-integration-example]
 
 Here's how to use the plugin to enhance your login page:
 
@@ -124,13 +124,13 @@ export function SignInPage() {
 }
 ```
 
-## Database Persistence
+Database Persistence [#database-persistence]
 
 By default, the last login method is stored only in cookies. For more persistent tracking and analytics, you can enable database storage.
 
 <Steps>
   <Step>
-    ### Enable database storage
+    Enable database storage [#enable-database-storage]
 
     Set `storeInDatabase` to `true` in your plugin configuration:
 
@@ -149,27 +149,107 @@ By default, the last login method is stored only in cookies. For more persistent
   </Step>
 
   <Step>
-    ### Run database migration
+    Run database migration [#run-database-migration]
 
     The plugin will automatically add a `lastLoginMethod` field to your user table. Run the migration to apply the changes:
 
     <Tabs items={["migrate", "generate"]}>
       <Tab value="migrate">
-        ```bash
-        npx @better-auth/cli migrate
-        ```
+        <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+          <CodeBlockTabsList>
+            <CodeBlockTabsTrigger value="npm">
+              npm
+            </CodeBlockTabsTrigger>
+
+            <CodeBlockTabsTrigger value="pnpm">
+              pnpm
+            </CodeBlockTabsTrigger>
+
+            <CodeBlockTabsTrigger value="yarn">
+              yarn
+            </CodeBlockTabsTrigger>
+
+            <CodeBlockTabsTrigger value="bun">
+              bun
+            </CodeBlockTabsTrigger>
+          </CodeBlockTabsList>
+
+          <CodeBlockTab value="npm">
+            ```bash
+            npx auth@latest migrate
+            ```
+          </CodeBlockTab>
+
+          <CodeBlockTab value="pnpm">
+            ```bash
+            pnpm dlx auth@latest migrate
+            ```
+          </CodeBlockTab>
+
+          <CodeBlockTab value="yarn">
+            ```bash
+            yarn dlx auth@latest migrate
+            ```
+          </CodeBlockTab>
+
+          <CodeBlockTab value="bun">
+            ```bash
+            bun x auth@latest migrate
+            ```
+          </CodeBlockTab>
+        </CodeBlockTabs>
       </Tab>
 
       <Tab value="generate">
-        ```bash
-        npx @better-auth/cli generate
-        ```
+        <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+          <CodeBlockTabsList>
+            <CodeBlockTabsTrigger value="npm">
+              npm
+            </CodeBlockTabsTrigger>
+
+            <CodeBlockTabsTrigger value="pnpm">
+              pnpm
+            </CodeBlockTabsTrigger>
+
+            <CodeBlockTabsTrigger value="yarn">
+              yarn
+            </CodeBlockTabsTrigger>
+
+            <CodeBlockTabsTrigger value="bun">
+              bun
+            </CodeBlockTabsTrigger>
+          </CodeBlockTabsList>
+
+          <CodeBlockTab value="npm">
+            ```bash
+            npx auth@latest generate
+            ```
+          </CodeBlockTab>
+
+          <CodeBlockTab value="pnpm">
+            ```bash
+            pnpm dlx auth@latest generate
+            ```
+          </CodeBlockTab>
+
+          <CodeBlockTab value="yarn">
+            ```bash
+            yarn dlx auth@latest generate
+            ```
+          </CodeBlockTab>
+
+          <CodeBlockTab value="bun">
+            ```bash
+            bun x auth@latest generate
+            ```
+          </CodeBlockTab>
+        </CodeBlockTabs>
       </Tab>
     </Tabs>
   </Step>
 
   <Step>
-    ### Access database field
+    Access database field [#access-database-field]
 
     When database storage is enabled, the `lastLoginMethod` field becomes available in user objects:
 
@@ -187,7 +267,7 @@ By default, the last login method is stored only in cookies. For more persistent
   </Step>
 </Steps>
 
-### Database Schema
+Database Schema [#database-schema]
 
 When `storeInDatabase` is enabled, the plugin adds the following field to the `user` table:
 
@@ -199,7 +279,7 @@ Table: `user`
   ]}
 />
 
-### Custom Schema Configuration
+Custom Schema Configuration [#custom-schema-configuration]
 
 You can customize the database field name:
 
@@ -221,11 +301,11 @@ export const auth = betterAuth({
 })
 ```
 
-## Configuration Options
+Configuration Options [#configuration-options]
 
 The last login method plugin accepts the following options:
 
-### Server Options
+Server Options [#server-options]
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth"
@@ -290,7 +370,7 @@ export const auth = betterAuth({
 * Customize database field names when `storeInDatabase` is enabled
 * Allows mapping the `lastLoginMethod` field to a custom column name
 
-### Client Options
+Client Options [#client-options]
 
 ```ts title="auth-client.ts"
 import { createAuthClient } from "better-auth/client"
@@ -311,7 +391,7 @@ export const authClient = createAuthClient({
 * Must match the server-side `cookieName` configuration
 * Default: `"better-auth.last_used_login_method"`
 
-### Default Method Resolution
+Default Method Resolution [#default-method-resolution]
 
 By default, the plugin tracks these authentication methods:
 
@@ -327,7 +407,7 @@ The plugin automatically detects the method from these endpoints:
 * `/sign-in/email` - Email sign in
 * `/sign-up/email` - Email sign up
 
-## Cross-Domain Support
+Cross-Domain Support [#cross-domain-support]
 
 The plugin automatically inherits cookie settings from Better Auth's centralized cookie system. This solves the problem where the last login method wouldn't persist across:
 
@@ -336,9 +416,9 @@ The plugin automatically inherits cookie settings from Better Auth's centralized
 
 When you enable `crossSubDomainCookies` or `crossOriginCookies` in your Better Auth config, the plugin will automatically use the same domain, secure, and sameSite settings as your session cookies, ensuring consistent behavior across your application.
 
-## Advanced Examples
+Advanced Examples [#advanced-examples]
 
-### Custom Provider Tracking
+Custom Provider Tracking [#custom-provider-tracking]
 
 If you have custom OAuth providers or authentication methods, you can use the `customResolveMethod` option:
 
@@ -373,7 +453,7 @@ export const auth = betterAuth({
 })
 ```
 
-### Usage with Expo
+Usage with Expo [#usage-with-expo]
 
 When using Better Auth with Expo, make sure to import the client plugin from `@better-auth/expo/plugins` rather than from `better-auth/plugins/client`. This ensures the last login method is stored correctly using the configured storage.
 

@@ -8,7 +8,7 @@ Better Auth comes with first class support for Astro. This guide will show you h
 
 Before you start, make sure you have a Better Auth instance configured. If you haven't done that yet, check out the [installation](/docs/installation).
 
-### Mount the handler
+Mount the handler [#mount-the-handler]
 
 To enable Better Auth to handle requests, we need to mount the handler to a catch all API route. Create a file inside `/pages/api/auth` called `[...all].ts` and add the following code:
 
@@ -27,7 +27,7 @@ export const ALL: APIRoute = async (ctx) => {
   You can change the path on your better-auth configuration but it's recommended to keep it as `/api/auth/[...all]`
 </Callout>
 
-## Create a client
+Create a client [#create-a-client]
 
 Astro supports multiple frontend frameworks, so you can easily import your client based on the framework you're using.
 
@@ -74,9 +74,9 @@ If you're not using a frontend framework, you can still import the vanilla clien
   </Tab>
 </Tabs>
 
-## Auth Middleware
+Auth Middleware [#auth-middleware]
 
-### Astro Locals types
+Astro Locals types [#astro-locals-types]
 
 To have types for your Astro locals, you need to set it inside the `env.d.ts` file.
 
@@ -93,7 +93,7 @@ declare namespace App {
 }
 ```
 
-### Middleware
+Middleware [#middleware]
 
 To protect your routes, you can check if the user is authenticated using the `getSession` method in middleware and set the user and session data using the Astro locals with the types we set before. Start by creating a `middleware.ts` file in the root of your project and follow the example below:
 
@@ -119,7 +119,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
 });
 ```
 
-### Getting session on the server inside `.astro` file
+Getting session on the server inside .astro file [#getting-session-on-the-server-inside-astro-file]
 
 You can use `Astro.locals` to check if the user has session and get the user data from the server side. Here is an example of how you can get the session inside an `.astro` file:
 

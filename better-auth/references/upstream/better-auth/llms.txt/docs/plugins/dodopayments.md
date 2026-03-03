@@ -15,19 +15,18 @@ Better Auth Plugin for Dodo Payments
   Have questions? Our team is available on Discord to assist you anytime.
 </Card>
 
-## Features
+Features [#features]
 
 * Automatic customer creation on sign-up
 * Type-safe checkout flows with product slug mapping
 * Self-service customer portal
-* Metered usage ingestion and recent usage reporting
 * Real-time webhook event processing with signature verification
 
 <Card href="https://app.dodopayments.com" title="Get started with Dodo Payments">
   You need a Dodo Payments account and API keys to use this integration.
 </Card>
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step title="Install dependencies">
@@ -57,7 +56,6 @@ Better Auth Plugin for Dodo Payments
       checkout,
       portal,
       webhooks,
-      usage,
     } from "@dodopayments/better-auth";
     import DodoPayments from "dodopayments";
 
@@ -89,7 +87,6 @@ Better Auth Plugin for Dodo Payments
                 console.log("Received webhook:", payload.event_type);
               },
             }),
-            usage(),
           ],
         }),
       ],
@@ -115,66 +112,9 @@ Better Auth Plugin for Dodo Payments
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Creating a Checkout Session (preferred)
-
-<Callout type="info">
-  Use <code>authClient.dodopayments.checkoutSession</code> for new integrations.
-  It maps one-to-one with Dodo Payments' Create Checkout Session API and honors
-  the product slugs you configured on the server.
-</Callout>
-
-#### Using a configured slug
-
-```typescript
-const { data: session, error } = await authClient.dodopayments.checkoutSession({
-  slug: "premium-plan",
-  referenceId: "order_123",
-});
-
-if (session) {
-  window.location.href = session.url;
-}
-```
-
-#### Using a product cart
-
-```typescript
-const { data: session, error } = await authClient.dodopayments.checkoutSession({
-  product_cart: [
-    {
-      product_id: "pdt_xxxxxxxxxxxxxxxxxxxxx",
-      quantity: 1,
-    },
-  ],
-  referenceId: "order_123",
-});
-
-if (session) {
-  window.location.href = session.url;
-}
-```
-
-<Callout type="info">
-  Checkout Sessions automatically pull the customer's email and name from their
-  Better Auth session. Override them (or supply billing details upfront) by
-  passing <code>customer</code> or <code>billing</code> in the request body when
-  necessary.
-</Callout>
-
-<Callout>
-  The redirect URL comes from the <code>successUrl</code> configured in the
-  server-side checkout plugin, so you do not need to send a <code>return\_url</code>
-  from the client.
-</Callout>
-
-### Legacy Checkout (deprecated)
-
-<Callout type="warn">
-  The <code>authClient.dodopayments.checkout</code> helper remains for backward
-  compatibility only. Prefer <code>checkoutSession</code> for new builds.
-</Callout>
+Creating a Checkout Session [#creating-a-checkout-session]
 
 ```typescript
 const { data: checkout, error } = await authClient.dodopayments.checkout({
@@ -198,7 +138,7 @@ if (checkout) {
 }
 ```
 
-### Accessing the Customer Portal
+Accessing the Customer Portal [#accessing-the-customer-portal]
 
 ```typescript
 const { data: customerPortal, error } = await authClient.dodopayments.customer.portal();
@@ -207,7 +147,7 @@ if (customerPortal && customerPortal.redirect) {
 }
 ```
 
-### Listing Customer Data
+Listing Customer Data [#listing-customer-data]
 
 ```typescript
 // Get subscriptions
@@ -230,53 +170,7 @@ const { data: payments, error } = await authClient.dodopayments.customer.payment
 });
 ```
 
-### Tracking Metered Usage
-
-Enable the <code>usage()</code> plugin (shown in the server setup) to ingest
-metered events for the signed-in, email-verified customer and expose recent
-usage history.
-
-```typescript
-const { error: ingestError } = await authClient.dodopayments.usage.ingest({
-  event_id: crypto.randomUUID(),
-  event_name: "api_request",
-  metadata: {
-    route: "/reports",
-    method: "GET",
-  },
-  timestamp: new Date(),
-});
-
-if (ingestError) {
-  console.error("Failed to record usage", ingestError);
-}
-
-const { data: usage, error: usageError } =
-  await authClient.dodopayments.usage.meters.list({
-    query: {
-      page_size: 20,
-      meter_id: "mtr_yourMeterId",
-    },
-  });
-
-if (usage?.items) {
-  usage.items.forEach((event) => {
-    console.log(event.event_name, event.timestamp, event.metadata);
-  });
-}
-```
-
-<Callout type="info">
-  Usage timestamps older than one hour or more than five minutes in the future
-  are rejected.
-</Callout>
-
-<Callout type="info">
-  Omit <code>meter\_id</code> to return all meters tied to the customer's active
-  subscriptions.
-</Callout>
-
-### Webhooks
+Webhooks [#webhooks]
 
 <Card>
   The webhooks plugin processes real-time payment events from Dodo Payments with secure signature verification. The default endpoint is `/api/auth/dodopayments/webhooks`.
@@ -305,15 +199,15 @@ if (usage?.items) {
   </Step>
 </Steps>
 
-## Configuration Reference
+Configuration Reference [#configuration-reference]
 
-### Plugin Options
+Plugin Options [#plugin-options]
 
 * **client** (required): DodoPayments client instance
 * **createCustomerOnSignUp** (optional): Auto-create customers on user signup
-* **use** (required): Array of plugins to enable (checkout, portal, usage, webhooks)
+* **use** (required): Array of plugins to enable (checkout, portal, webhooks)
 
-### Checkout Plugin Options
+Checkout Plugin Options [#checkout-plugin-options]
 
 * **products**: Array of products or async function returning products
 * **successUrl**: URL to redirect after successful payment

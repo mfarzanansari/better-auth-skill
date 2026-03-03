@@ -6,7 +6,7 @@ Introduction to Better Auth.
 
 Better Auth is a framework-agnostic, universal authentication and authorization framework for TypeScript. It provides a comprehensive set of features out of the box and includes a plugin ecosystem that simplifies adding advanced functionalities. Whether you need 2FA, passkey, multi-tenancy, multi-session support, or even enterprise features like SSO, creating your own IDP, it lets you focus on building your application instead of reinventing the wheel.
 
-## Features
+Features [#features]
 
 Better Auth aims to be the most comprehensive auth library. It provides a wide range of features out of the box and allows you to extend it with plugins. Here are some of the features:
 
@@ -16,13 +16,13 @@ Better Auth aims to be the most comprehensive auth library. It provides a wide r
 
 ***
 
-## AI tooling
+AI tooling [#ai-tooling]
 
-### LLMs.txt
+LLMs.txt [#llmstxt]
 
 Better Auth exposes an `LLMs.txt` that helps AI models understand how to integrate and interact with your authentication system. See it at [https://better-auth.com/llms.txt](https://better-auth.com/llms.txt).
 
-### Skills
+Skills [#skills]
 
 Better Auth provides skills that can be added to your AI coding assistant to help it understand Better Auth best practices and implementation patterns.
 
@@ -30,43 +30,43 @@ Better Auth provides skills that can be added to your AI coding assistant to hel
 npx skills add better-auth/skills
 ```
 
-### MCP
+MCP [#mcp]
 
 Better Auth provides an MCP server so you can use it with any AI model that supports the Model Context Protocol (MCP).
 
 <AddToCursor />
 
-#### CLI Options
+CLI Options [#cli-options]
 
 Use the Better Auth CLI to easily add the MCP server to your preferred client:
 
 <Tabs items={["Cursor", "Claude Code", "Open Code", "Manual"]}>
   <Tab value="Cursor">
     ```bash title="terminal"
-    npx @better-auth/cli mcp --cursor
+    npx auth mcp --cursor
     ```
   </Tab>
 
   <Tab value="Claude Code">
     ```bash title="terminal"
-    npx @better-auth/cli mcp --claude-code
+    npx auth mcp --claude-code
     ```
   </Tab>
 
   <Tab value="Open Code">
     ```bash title="terminal"
-    npx @better-auth/cli mcp --open-code
+    npx auth mcp --open-code
     ```
   </Tab>
 
   <Tab value="Manual">
     ```bash title="terminal"
-    npx @better-auth/cli mcp --manual
+    npx auth mcp --manual
     ```
   </Tab>
 </Tabs>
 
-#### Manual Configuration
+Manual Configuration [#manual-configuration]
 
 Alternatively, you can manually configure the MCP server for each client:
 

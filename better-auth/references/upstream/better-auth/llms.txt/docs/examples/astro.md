@@ -25,7 +25,7 @@ Email & Password . Social Sign-in with Google . Passkeys . Email Verification . 
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
 
-## How to run
+How to run [#how-to-run]
 
 1. Clone the code sandbox (or the repo) and open it in your code editor
 

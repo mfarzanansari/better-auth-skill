@@ -7,11 +7,11 @@ Integrate Better Auth with SQLite.
 SQLite is a lightweight, serverless, self-contained SQL database engine that is widely used for local data storage in applications.
 Read more [here.](https://www.sqlite.org/)
 
-## Example Usage
+Example Usage [#example-usage]
 
 Better Auth supports multiple SQLite drivers. Choose the one that best fits your environment:
 
-### Better-SQLite3 (Recommended)
+Better-SQLite3 (Recommended) [#better-sqlite3-recommended]
 
 The most popular and stable SQLite driver for Node.js:
 
@@ -29,7 +29,7 @@ export const auth = betterAuth({
   [SqliteDialect](https://kysely-org.github.io/kysely-apidoc/classes/SqliteDialect.html).
 </Callout>
 
-### Node.js Built-in SQLite (Experimental)
+Node.js Built-in SQLite (Experimental) [#nodejs-built-in-sqlite-experimental]
 
 <Callout type="warning">
   The `node:sqlite` module is still experimental and may change at any time. It requires Node.js 22.5.0 or later.
@@ -52,19 +52,20 @@ To run your application with Node.js SQLite:
 node your-app.js
 ```
 
-### Bun Built-in SQLite
+Bun Built-in SQLite [#bun-built-in-sqlite]
 
 You can also use the built-in [SQLite](https://bun.com/docs/api/sqlite) module in Bun, which is similar to the Node.js version:
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth";
 import { Database } from "bun:sqlite";
+
 export const auth = betterAuth({
   database: new Database("database.sqlite"),
 });
 ```
 
-## Schema generation & migration
+Schema generation & migration [#schema-generation--migration]
 
 The [Better Auth CLI](/docs/concepts/cli) allows you to generate or migrate
 your database schema based on your Better Auth configuration and plugins.
@@ -99,95 +100,101 @@ your database schema based on your Better Auth configuration and plugins.
   </tbody>
 </table>
 
-<CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
-  <CodeBlockTabsList>
-    <CodeBlockTabsTrigger value="npm">
-      npm
-    </CodeBlockTabsTrigger>
+<Tabs items={["migrate", "generate"]}>
+  <Tab value="migrate">
+    <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+      <CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="npm">
+          npm
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="pnpm">
-      pnpm
-    </CodeBlockTabsTrigger>
+        <CodeBlockTabsTrigger value="pnpm">
+          pnpm
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="yarn">
-      yarn
-    </CodeBlockTabsTrigger>
+        <CodeBlockTabsTrigger value="yarn">
+          yarn
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="bun">
-      bun
-    </CodeBlockTabsTrigger>
-  </CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="bun">
+          bun
+        </CodeBlockTabsTrigger>
+      </CodeBlockTabsList>
 
-  <CodeBlockTab value="npm">
-    ```bash title="Schema Generation"
-    npx @better-auth/cli@latest generate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="npm">
+        ```bash
+        npx auth@latest migrate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="pnpm">
-    ```bash title="Schema Generation"
-    pnpm dlx @better-auth/cli@latest generate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="pnpm">
+        ```bash
+        pnpm dlx auth@latest migrate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="yarn">
-    ```bash title="Schema Generation"
-    yarn dlx @better-auth/cli@latest generate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="yarn">
+        ```bash
+        yarn dlx auth@latest migrate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="bun">
-    ```bash title="Schema Generation"
-    bun x @better-auth/cli@latest generate
-    ```
-  </CodeBlockTab>
-</CodeBlockTabs>
+      <CodeBlockTab value="bun">
+        ```bash
+        bun x auth@latest migrate
+        ```
+      </CodeBlockTab>
+    </CodeBlockTabs>
+  </Tab>
 
-<CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
-  <CodeBlockTabsList>
-    <CodeBlockTabsTrigger value="npm">
-      npm
-    </CodeBlockTabsTrigger>
+  <Tab value="generate">
+    <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+      <CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="npm">
+          npm
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="pnpm">
-      pnpm
-    </CodeBlockTabsTrigger>
+        <CodeBlockTabsTrigger value="pnpm">
+          pnpm
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="yarn">
-      yarn
-    </CodeBlockTabsTrigger>
+        <CodeBlockTabsTrigger value="yarn">
+          yarn
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="bun">
-      bun
-    </CodeBlockTabsTrigger>
-  </CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="bun">
+          bun
+        </CodeBlockTabsTrigger>
+      </CodeBlockTabsList>
 
-  <CodeBlockTab value="npm">
-    ```bash title="Schema Migration"
-    npx @better-auth/cli@latest migrate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="npm">
+        ```bash
+        npx auth@latest generate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="pnpm">
-    ```bash title="Schema Migration"
-    pnpm dlx @better-auth/cli@latest migrate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="pnpm">
+        ```bash
+        pnpm dlx auth@latest generate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="yarn">
-    ```bash title="Schema Migration"
-    yarn dlx @better-auth/cli@latest migrate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="yarn">
+        ```bash
+        yarn dlx auth@latest generate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="bun">
-    ```bash title="Schema Migration"
-    bun x @better-auth/cli@latest migrate
-    ```
-  </CodeBlockTab>
-</CodeBlockTabs>
+      <CodeBlockTab value="bun">
+        ```bash
+        bun x auth@latest generate
+        ```
+      </CodeBlockTab>
+    </CodeBlockTabs>
+  </Tab>
+</Tabs>
 
-## Joins (Experimental)
+Joins (Experimental) [#joins-experimental]
 
 Database joins is useful when Better-Auth needs to fetch related data from multiple tables in a single query.
 Endpoints like `/get-session`, `/get-full-organization` and many others benefit greatly from this feature,
@@ -206,7 +213,7 @@ export const auth = betterAuth({
   It's possible that you may need to run migrations after enabling this feature.
 </Callout>
 
-## Additional Information
+Additional Information [#additional-information]
 
 SQLite is supported under the hood via the [Kysely](https://kysely.dev/) adapter, any database supported by Kysely would also be supported. (<Link href="/docs/adapters/other-relational-databases">Read more here</Link>)
 

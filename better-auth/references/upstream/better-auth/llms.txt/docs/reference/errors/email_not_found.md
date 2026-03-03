@@ -4,7 +4,7 @@ The provider did not return an email address.
 
 
 
-## What is it?
+What is it? [#what-is-it]
 
 This error occurs during the OAuth flow when the provider does not return an email address for the user.
 Better Auth uses the email from the provider to identify or create a user account. If the provider omits
@@ -12,7 +12,7 @@ the email (or returns it as empty/undefined), we cannot proceed and the request 
 
 This error is only possible through OAuth providers. It will not occur in non-OAuth flows.
 
-## Common Causes
+Common Causes [#common-causes]
 
 * Missing or insufficient scopes in the provider configuration (e.g., not requesting `email`).
 * The user's email is private or not exposed by default (e.g., GitHub private email).
@@ -21,17 +21,17 @@ This error is only possible through OAuth providers. It will not occur in non-OA
 * Provider project or tenant misconfiguration (consent screen, admin consent, restricted claims/attributes).
 * Using different credentials between environments (preview/staging/prod) that do not request the same scopes.
 
-## How to resolve
+How to resolve [#how-to-resolve]
 
-### Request the correct scopes
+Request the correct scopes [#request-the-correct-scopes]
 
 * Ensure your provider configuration requests the email-related scopes.
 
-### Verify provider app/dashboard settings
+Verify provider app/dashboard settings [#verify-provider-appdashboard-settings]
 
 * In the provider's dashboard, confirm the app has permission to request email and the consent screen allows it.
 
-### Debug locally
+Debug locally [#debug-locally]
 
 * Inspect the outgoing authorize request to confirm the scopes include `email` where required.
 * Inspect the callback payload (query, `id_token` claims, userinfo response) to see if an email claim exists.

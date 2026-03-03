@@ -12,11 +12,11 @@ Our hope is to allow you to focus on writing database logic, and not have to wor
 Anything from custom schema configurations, custom ID generation, safe JSON parsing, key mapping, joins, and more is handled by the `createAdapterFactory` function.
 All you need to do is provide the database logic, and the `createAdapterFactory` function will handle the rest.
 
-## Quick Start
+Quick Start [#quick-start]
 
 <Steps>
   <Step>
-    ### Get things ready
+    Get things ready [#get-things-ready]
 
     1. Import `createAdapterFactory`.
     2. Create `CustomAdapterConfig` interface that represents your adapter config options.
@@ -45,7 +45,7 @@ All you need to do is provide the database logic, and the `createAdapterFactory`
   </Step>
 
   <Step>
-    ### Configure the adapter
+    Configure the adapter [#configure-the-adapter]
 
     The `config` object is mostly used to provide information about the adapter to Better-Auth.
     We try to minimize the amount of code you need to write in your adapter functions, and these `config` options are used to help us do that.
@@ -70,7 +70,7 @@ All you need to do is provide the database logic, and the `createAdapterFactory`
   </Step>
 
   <Step>
-    ### Create the adapter
+    Create the adapter [#create-the-adapter]
 
     The `adapter` function is where you write the code that interacts with your database.
 
@@ -107,7 +107,7 @@ All you need to do is provide the database logic, and the `createAdapterFactory`
   </Step>
 </Steps>
 
-## Adapter
+Adapter [#adapter]
 
 The `adapter` function is where you write the code that interacts with your database.
 
@@ -147,14 +147,14 @@ adapter: ({
 };
 ```
 
-### Adapter Methods
+Adapter Methods [#adapter-methods]
 
 * All `model` values are already transformed into the correct model name for the database based on the end-user's schema configuration.
   * This also means that if you need access to the `schema` version of a given model, you can't use this exact `model` value, you'll need to use the `getDefaultModelName` function provided in the options to convert the `model` to the `schema` version.
 * We will automatically fill in any missing fields you return based on the user's `schema` configuration.
 * Any method that includes a `select` parameter, is only for the purpose of getting data from your database more efficiently. You do not need to worry about only returning what the `select` parameter states, as we will handle that for you.
 
-### `create` method
+create method [#create-method]
 
 The `create` method is used to create a new record in the database.
 
@@ -180,7 +180,7 @@ create: async ({ model, data, select }) => {
 };
 ```
 
-### `update` method
+update method [#update-method]
 
 The `update` method is used to update a record in the database.
 
@@ -202,7 +202,7 @@ update: async ({ model, where, update }) => {
 };
 ```
 
-### `updateMany` method
+updateMany method [#updatemany-method]
 
 The `updateMany` method is used to update multiple records in the database.
 
@@ -223,7 +223,7 @@ updateMany: async ({ model, where, update }) => {
 };
 ```
 
-### `delete` method
+delete method [#delete-method]
 
 The `delete` method is used to delete a record from the database.
 
@@ -239,7 +239,7 @@ delete: async ({ model, where }) => {
 }
 ```
 
-### `deleteMany` method
+deleteMany method [#deletemany-method]
 
 The `deleteMany` method is used to delete multiple records from the database.
 
@@ -259,7 +259,7 @@ deleteMany: async ({ model, where }) => {
 };
 ```
 
-### `findOne` method
+findOne method [#findone-method]
 
 The `findOne` method is used to find a single record in the database.
 
@@ -281,7 +281,7 @@ findOne: async ({ model, where, select, join }) => {
 };
 ```
 
-### `findMany` method
+findMany method [#findmany-method]
 
 The `findMany` method is used to find multiple records in the database.
 
@@ -311,7 +311,7 @@ findMany: async ({ model, where, limit, sortBy, offset, join }) => {
 };
 ```
 
-### `count` method
+count method [#count-method]
 
 The `count` method is used to count the number of records in the database.
 
@@ -331,7 +331,7 @@ count: async ({ model, where }) => {
 };
 ```
 
-### `options` (optional)
+options (optional) [#options-optional]
 
 The `options` object is for any potential config that you got from your custom adapter options.
 
@@ -349,7 +349,7 @@ const myAdapter = (config: CustomAdapterConfig) =>
   });
 ```
 
-### `createSchema` (optional)
+createSchema (optional) [#createschema-optional]
 
 The `createSchema` method allows the [Better Auth CLI](/docs/concepts/cli) to [generate](/docs/concepts/cli/#generate) a schema for the database.
 
@@ -364,7 +364,7 @@ createSchema: async ({ file, tables }) => {
 };
 ```
 
-## Test your adapter
+Test your adapter [#test-your-adapter]
 
 We've provided a test suite that you can use to test your adapter. It requires you to use `vitest`.
 
@@ -392,7 +392,7 @@ describe("My Adapter Tests", async () => {
 });
 ```
 
-### Numeric ID tests
+Numeric ID tests [#numeric-id-tests]
 
 If your database supports numeric IDs, then you should run this test as well:
 
@@ -420,41 +420,41 @@ describe("My Adapter Numeric ID Tests", async () => {
 });
 ```
 
-## Config
+Config [#config]
 
 The `config` object is used to provide information about the adapter to Better-Auth.
 
 We **highly recommend** going through and reading each provided option below, as it will help you understand how to properly configure your adapter.
 
-### Required Config
+Required Config [#required-config]
 
-### `adapterId`
+adapterId [#adapterid]
 
 A unique identifier for the adapter.
 
-### `adapterName`
+adapterName [#adaptername]
 
 The name of the adapter.
 
-### Optional Config
+Optional Config [#optional-config]
 
-### `supportsNumericIds`
+supportsNumericIds [#supportsnumericids]
 
 Whether the database supports numeric IDs. If this is set to `false` and the user's config has enabled `useNumberId`, then we will throw an error.
 
-### `supportsJSON`
+supportsJSON [#supportsjson]
 
 Whether the database supports JSON. If the database doesn't support JSON, we will use a `string` to save the JSON data.And when we retrieve the data, we will safely parse the `string` back into a JSON object.
 
-### `supportsDates`
+supportsDates [#supportsdates]
 
 Whether the database supports dates. If the database doesn't support dates, we will use a `string` to save the date. (ISO string) When we retrieve the data, we will safely parse the `string` back into a `Date` object.
 
-### `supportsBooleans`
+supportsBooleans [#supportsbooleans]
 
 Whether the database supports booleans. If the database doesn't support booleans, we will use a `0` or `1` to save the boolean value. When we retrieve the data, we will safely parse the `0` or `1` back into a boolean value.
 
-### `usePlural`
+usePlural [#useplural]
 
 Whether the table names in the schema are plural. This is often defined by the user, and passed down through your custom adapter options. If you do not intend to allow the user to customize the table names, you can ignore this option, or set this to `false`.
 
@@ -466,7 +466,7 @@ const adapter = myAdapter({
 });
 ```
 
-### `transaction`
+transaction [#transaction]
 
 Whether the adapter supports transactions. If `false`, operations run sequentially; otherwise provide a function that executes a callback with a `TransactionAdapter`.
 
@@ -476,7 +476,7 @@ Whether the adapter supports transactions. If `false`, operations run sequential
   for better data integrity.
 </Callout>
 
-### `debugLogs`
+debugLogs [#debuglogs]
 
 Used to enable debug logs for the adapter. You can pass in a boolean, or an object with the following keys: `create`, `update`, `updateMany`, `findOne`, `findMany`, `delete`, `deleteMany`, `count`.
 If any of the keys are `true`, the debug logs will be enabled for that method.
@@ -498,15 +498,15 @@ const adapter = myAdapter({
 });
 ```
 
-### `disableIdGeneration`
+disableIdGeneration [#disableidgeneration]
 
 Whether to disable ID generation. If this is set to `true`, then the user's `generateId` option will be ignored.
 
-### `customIdGenerator`
+customIdGenerator [#customidgenerator]
 
 If your database only supports a specific custom ID generation, then you can use this option to generate your own IDs.
 
-### `mapKeysTransformInput`
+mapKeysTransformInput [#mapkeystransforminput]
 
 If your database uses a different key name for a given situation, you can use this option to map the keys. This is useful for databases that expect a different key name for a given situation.
 For example, MongoDB uses `_id` while in Better-Auth we use `id`.
@@ -522,7 +522,7 @@ mapKeysTransformInput: {
 },
 ```
 
-### `mapKeysTransformOutput`
+mapKeysTransformOutput [#mapkeystransformoutput]
 
 If your database uses a different key name for a given situation, you can use this option to map the keys. This is useful for databases that use a different key name for a given situation.
 For example, MongoDB uses `_id` while in Better-Auth we use `id`.
@@ -538,7 +538,7 @@ mapKeysTransformOutput: {
 },
 ```
 
-### `customTransformInput`
+customTransformInput [#customtransforminput]
 
 If you need to transform the input data before it is saved to the database, you can use this option to transform the data.
 
@@ -570,7 +570,7 @@ customTransformInput: ({ field, data }) => {
 };
 ```
 
-### `customTransformOutput`
+customTransformOutput [#customtransformoutput]
 
 If you need to transform the output data before it is returned to the user, you can use this option to transform the data. The `customTransformOutput` function is used to transform the output data.
 Similar to the `customTransformInput` function, it runs at every key in the data object of a given action, but it runs after the data is retrieved from the database.
@@ -597,7 +597,7 @@ const some_data = await adapter.create({
 console.log(some_data.name);
 ```
 
-### `disableTransformInput`
+disableTransformInput [#disabletransforminput]
 
 Whether to disable input transformation. This should only be used if you know what you're doing and are manually handling all transformations.
 
@@ -605,7 +605,7 @@ Whether to disable input transformation. This should only be used if you know wh
   Disabling input transformation can break important adapter functionality like ID generation, boolean/date/JSON conversion, and key mapping.
 </Callout>
 
-### `disableTransformOutput`
+disableTransformOutput [#disabletransformoutput]
 
 Whether to disable output transformation. This should only be used if you know what you're doing and are manually handling all transformations.
 
@@ -613,7 +613,7 @@ Whether to disable output transformation. This should only be used if you know w
   Disabling output transformation can break important adapter functionality like boolean/date/JSON parsing and key mapping.
 </Callout>
 
-### `disableTransformJoin`
+disableTransformJoin [#disabletransformjoin]
 
 Whether to disable join transformation. This should only be used if you know what you're doing and are manually handling joins.
 
@@ -621,7 +621,7 @@ Whether to disable join transformation. This should only be used if you know wha
   Disabling join transformation can break join functionality.
 </Callout>
 
-### `supportsJoin`
+supportsJoin [#supportsjoin]
 
 Whether the adapter supports native joins. If set to `false` (the default), Better-Auth will handle joins by making multiple queries and combining the results. If set to `true`, the adapter is expected to handle joins natively (e.g., SQL JOIN operations).
 

@@ -8,7 +8,7 @@ import { Resource } from "@/components/resource-section";
 
 A curated collection of resources to help you learn and master Better Auth. From blog posts to video tutorials, find everything you need to get started.
 
-## Video tutorials
+Video tutorials [#video-tutorials]
 
 <Resource
   resources={
@@ -78,7 +78,7 @@ A curated collection of resources to help you learn and master Better Auth. From
   		title: "Nextjs 15 Authentication Made EASY with Better Auth",
   		description:
   			"A practical guide showing how to seamlessly integrate Better Auth with Next.js 15 for robust authentication.",
-  		href: "https://www.youtube.com/watch?v=lxslnp-ZEMw",
+  		href: "https://www.youtube.com/watch?v=D2f_gN1uZbc",
   		tags: ["nextjs", "implementation", "tutorial"],
   	},
   	{
@@ -97,7 +97,7 @@ A curated collection of resources to help you learn and master Better Auth. From
 }
 />
 
-## Blog posts
+Blog posts [#blog-posts]
 
 <Resource
   resources={

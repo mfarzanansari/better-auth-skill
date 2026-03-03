@@ -6,7 +6,7 @@ Integrate Better Auth with Hono.
 
 Before you start, make sure you have a Better Auth instance configured. If you haven't done that yet, check out the [installation](/docs/installation).
 
-### Mount the handler
+Mount the handler [#mount-the-handler]
 
 We need to mount the handler to Hono endpoint.
 
@@ -24,7 +24,7 @@ app.on(["POST", "GET"], "/api/auth/*", (c) => {
 serve(app);
 ```
 
-### Cors
+Cors [#cors]
 
 To configure cors, you need to use the `cors` plugin from `hono/cors`.
 
@@ -57,7 +57,7 @@ serve(app);
 
 > **Important:** CORS middleware must be registered before your routes. This ensures that cross-origin requests are properly handled before they reach your authentication endpoints.
 
-### Middleware
+Middleware [#middleware]
 
 You can add a middleware to save the `session` and `user` in a `context` and also add validations for every route.
 
@@ -113,7 +113,7 @@ app.get("/session", (c) => {
 });
 ```
 
-### Cross-Domain Cookies
+Cross-Domain Cookies [#cross-domain-cookies]
 
 By default, all Better Auth cookies are set with `SameSite=Lax`. If you need to use cookies across different domains, you’ll need to set `SameSite=None` and `Secure=true`. However, we recommend using subdomains whenever possible, as this allows you to keep `SameSite=Lax`. To enable cross-subdomain cookies, simply turn on `crossSubDomainCookies` in your auth config.
 
@@ -159,7 +159,7 @@ export const auth = createAuth({
 })
 ```
 
-### Client-Side Configuration
+Client-Side Configuration [#client-side-configuration]
 
 When using the Hono client (`@hono/client`) to make requests to your Better Auth-protected endpoints, you need to configure it to send credentials (cookies) with cross-origin requests.
 
@@ -186,140 +186,4 @@ This configuration is necessary when:
 The `credentials: "include"` option tells the fetch client to send cookies even for cross-origin requests. This works in conjunction with the CORS configuration on your server that has `credentials: true`.
 
 > **Note:** Make sure your CORS configuration on the server matches your client's domain, and that `credentials: true` is set in both the server's CORS config and the client's fetch config.
-
-### Cloudflare Workers
-
-When deploying Better Auth with Hono on Cloudflare Workers, you may encounter issues with the CLI if your auth configuration depends on runtime environment variables (like `env.DB` for D1 databases).
-
-#### The Problem
-
-In Cloudflare Workers, environment variables are passed at runtime through request handlers, not available via `process.env` at build time. This makes it challenging to use the Better Auth CLI for migrations since the CLI needs to import your auth configuration file.
-
-```typescript title="auth.ts"
-// This won't work with the CLI because env is not available
-export const createAuth = (env: Env) => betterAuth({
-  database: env.DB, // env.DB is only available at runtime
-  // ... rest of config
-});
-```
-
-#### Solution 1: Programmatic Migrations (Built-in Kysely Adapter)
-
-If you're using the built-in Kysely adapter (SQLite/D1, PostgreSQL, MySQL), you can run migrations programmatically through a custom endpoint:
-
-```typescript title="src/index.ts"
-import { Hono } from "hono";
-import { getMigrations } from "better-auth/db";
-import { betterAuth } from "better-auth";
-
-type Env = {
-  DB: D1Database;
-  // ... other bindings
-};
-
-const app = new Hono<{ Bindings: Env }>();
-
-// Migration endpoint - call this to set up your database
-app.post("/migrate", async (c) => {
-  const authConfig = {
-    database: c.env.DB,
-    // Add all your other auth config options here
-    // (socialProviders, plugins, etc.)
-  };
-
-  try {
-    const { toBeCreated, toBeAdded, runMigrations } = await getMigrations(authConfig);
-
-    if (toBeCreated.length === 0 && toBeAdded.length === 0) {
-      return c.json({ message: "No migrations needed" });
-    }
-
-    await runMigrations();
-
-    return c.json({
-      message: "Migrations completed successfully",
-      tablesCreated: toBeCreated.map(t => t.table),
-      tablesUpdated: toBeAdded.map(t => t.table)
-    });
-  } catch (error) {
-    return c.json({
-      error: error instanceof Error ? error.message : "Migration failed"
-    }, 500);
-  }
-});
-
-// Your auth handler
-app.on(["POST", "GET"], "/api/auth/*", async (c) => {
-  const auth = betterAuth({
-    database: c.env.DB,
-    // ... your config
-  });
-  return auth.handler(c.req.raw);
-});
-
-export default app;
-```
-
-**Usage:**
-
-1. Deploy your worker
-2. Call the migration endpoint once: `curl -X POST https://your-worker.workers.dev/migrate`
-3. Remove or protect the migration endpoint after running
-
-<Callout type="warn">
-  **Security Note**: Protect your migration endpoint in production! Consider:
-
-  * Adding authentication/authorization
-  * Using environment-based checks to only allow migrations in development
-  * Removing the endpoint entirely after initial setup
-</Callout>
-
-#### Solution 2: Use `cloudflare:workers` Import (Prisma/Drizzle)
-
-For Prisma or Drizzle users, Cloudflare now supports importing environment variables from `cloudflare:workers`:
-
-```typescript title="auth.ts"
-import { env } from "cloudflare:workers";
-import { drizzle } from "drizzle-orm/d1";
-import { betterAuth } from "better-auth";
-
-export const auth = betterAuth({
-  database: drizzle(env.DB),
-  // ... rest of your config
-});
-```
-
-This allows you to use the standard CLI commands:
-
-```bash
-npx @better-auth/cli generate
-```
-
-See the [Cloudflare changelog](https://developers.cloudflare.com/changelog/2025-03-17-importable-env/) for more details on this feature.
-
-#### Solution 3: Use `process.env` with Compatibility Flag
-
-Add the `nodejs_compat_populate_process_env` flag to your `wrangler.toml`:
-
-```toml title="wrangler.toml"
-compatibility_flags = ["nodejs_compat_populate_process_env"]
-```
-
-Then use `process.env` in your auth config:
-
-```typescript title="auth.ts"
-import { drizzle } from "drizzle-orm/d1";
-import { betterAuth } from "better-auth";
-
-export const auth = betterAuth({
-  database: drizzle(process.env.DB as any),
-  // ... rest of config
-});
-```
-
-For compatibility dates on or after `2025-04-01`, this is the default behavior when `nodejs_compat` is enabled. See the [Cloudflare documentation](https://developers.cloudflare.com/workers/runtime-apis/nodejs/process/) for more details.
-
-<Callout type="info">
-  For more information on programmatic migrations, see the [Database documentation](/docs/concepts/database#programmatic-migrations).
-</Callout>
 

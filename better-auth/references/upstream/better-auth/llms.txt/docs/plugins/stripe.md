@@ -6,7 +6,7 @@ Stripe plugin for Better Auth to manage subscriptions and payments.
 
 The Stripe plugin integrates Stripe's payment and subscription functionality with Better Auth. Since payment and authentication are often tightly coupled, this plugin simplifies the integration of Stripe into your application, handling customer creation, subscription management, and webhook processing.
 
-## Features
+Features [#features]
 
 * Create Stripe Customers automatically when users sign up
 * Manage subscription plans and pricing
@@ -18,11 +18,11 @@ The Stripe plugin integrates Stripe's payment and subscription functionality wit
 * Flexible reference system to associate subscriptions with users or organizations
 * Team subscription support with seats management
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Install the plugin
+    Install the plugin [#install-the-plugin]
 
     First, install the plugin:
 
@@ -76,7 +76,7 @@ The Stripe plugin integrates Stripe's payment and subscription functionality wit
   </Step>
 
   <Step>
-    ### Install the Stripe SDK
+    Install the Stripe SDK [#install-the-stripe-sdk]
 
     Next, install the Stripe SDK on your server:
 
@@ -126,7 +126,7 @@ The Stripe plugin integrates Stripe's payment and subscription functionality wit
   </Step>
 
   <Step>
-    ### Add the plugin to your auth config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth"
@@ -155,7 +155,7 @@ The Stripe plugin integrates Stripe's payment and subscription functionality wit
   </Step>
 
   <Step>
-    ### Add the client plugin
+    Add the client plugin [#add-the-client-plugin]
 
     ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client"
@@ -173,7 +173,7 @@ The Stripe plugin integrates Stripe's payment and subscription functionality wit
   </Step>
 
   <Step>
-    ### Migrate the database
+    Migrate the database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary tables to the database.
 
@@ -200,25 +200,25 @@ The Stripe plugin integrates Stripe's payment and subscription functionality wit
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -246,25 +246,25 @@ The Stripe plugin integrates Stripe's payment and subscription functionality wit
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -275,7 +275,7 @@ The Stripe plugin integrates Stripe's payment and subscription functionality wit
   </Step>
 
   <Step>
-    ### Set up Stripe webhooks
+    Set up Stripe webhooks [#set-up-stripe-webhooks]
 
     Create a webhook endpoint in your Stripe dashboard pointing to:
 
@@ -296,9 +296,9 @@ The Stripe plugin integrates Stripe's payment and subscription functionality wit
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Customer Management
+Customer Management [#customer-management]
 
 You can use this plugin solely for customer management without enabling subscriptions. This is useful if you just want to link Stripe customers to your users.
 
@@ -324,9 +324,9 @@ stripe({
 })
 ```
 
-### Subscription Management
+Subscription Management [#subscription-management]
 
-#### Defining Plans
+Defining Plans [#defining-plans]
 
 You can define your subscription plans either statically or dynamically:
 
@@ -374,7 +374,7 @@ subscription: {
 
 see [plan configuration](#plan-configuration) for more.
 
-#### Creating a Subscription
+Creating a Subscription [#creating-a-subscription]
 
 To create a subscription, use the `subscription.upgrade` method:
 
@@ -395,6 +395,7 @@ const { data, error } = await authClient.subscription.upgrade({
     cancelUrl,
     returnUrl, // optional
     disableRedirect,
+    scheduleAtPeriodEnd, // optional
 });
 ```
 
@@ -415,6 +416,7 @@ const data = await auth.api.upgradeSubscription({
         cancelUrl,
         returnUrl, // optional
         disableRedirect,
+        scheduleAtPeriodEnd, // optional
     },
     // This endpoint requires session cookies.
     headers: await headers()
@@ -474,6 +476,11 @@ type upgradeSubscription = {
        * Disable redirect after successful subscription.
        */
       disableRedirect: boolean = false
+      /**
+       * Schedule the plan change at the end of the current billing period
+       * instead of applying it immediately.
+       */
+      scheduleAtPeriodEnd?: boolean = false
   
 }
 ```
@@ -514,7 +521,7 @@ if(error) {
 }
 ```
 
-#### Switching Plans
+Switching Plans [#switching-plans]
 
 To switch a subscription to a different plan, use the `subscription.upgrade` method:
 
@@ -529,7 +536,32 @@ await authClient.subscription.upgrade({
 
 This ensures that the user only pays for the new plan, and not both.
 
-#### Listing Active Subscriptions
+Scheduling Plan Changes at Period End [#scheduling-plan-changes-at-period-end]
+
+By default, plan changes take effect immediately with prorated billing. You may want to defer the change to the end of the current billing period so the user can continue using their current plan until it expires:
+
+```ts title="client.ts"
+await authClient.subscription.upgrade({
+    plan: "pro",
+    successUrl: "/dashboard",
+    cancelUrl: "/pricing",
+    returnUrl: "/billing",
+    scheduleAtPeriodEnd: true, // [!code highlight] Default: false
+});
+```
+
+This uses the [Stripe Subscription Schedules API](https://docs.stripe.com/billing/subscriptions/subscription-schedules) to create a two-phase schedule: the current plan continues until the billing period ends, then the new plan starts automatically with no proration.
+
+<Callout type="info">
+  When `scheduleAtPeriodEnd` is `true`:
+
+  * The subscription plan is **not changed** until the billing period ends — only `stripeScheduleId` is stored so clients can detect the pending change
+  * No redirect to Stripe Checkout or Billing Portal occurs, the change is applied server-side
+  * At the end of the billing period, Stripe fires a `customer.subscription.updated` webhook which updates the subscription record automatically
+  * If a new upgrade or schedule is requested before the period ends, the existing pending schedule is released first
+</Callout>
+
+Listing Active Subscriptions [#listing-active-subscriptions]
 
 To get the user's active subscriptions:
 
@@ -597,7 +629,7 @@ stripe({
 })
 ```
 
-#### Canceling a Subscription
+Canceling a Subscription [#canceling-a-subscription]
 
 To cancel a subscription:
 
@@ -669,12 +701,12 @@ This will redirect the user to the Stripe Billing Portal where they can cancel t
   | `status`            | Changes to "canceled" only after the subscription has actually ended.                                                          |
 </Callout>
 
-#### Restoring a Canceled Subscription
+Restoring a Subscription [#restoring-a-subscription]
 
 > <small className="font-normal">
 >   **Note:**
 >
->    This only works for subscriptions that are still active but scheduled to cancel. It cannot restore subscriptions that have already ended (
+>    This only works for subscriptions that are still active but have a pending cancellation or a scheduled plan change. It cannot restore subscriptions that have already ended (
 >
 >   `status: "canceled"`
 >
@@ -685,7 +717,7 @@ This will redirect the user to the Stripe Billing Portal where they can cancel t
 >    set).
 > </small>
 
-If a user changes their mind after canceling a subscription (but before the subscription period ends), you can restore the subscription:
+If a user changes their mind after canceling a subscription or scheduling a plan change, you can restore the subscription:
 
 
 ### Client Side
@@ -733,17 +765,14 @@ type restoreSubscription = {
 ```
 
 
-This will reactivate a subscription that was previously scheduled to cancel. The subscription will continue to renew automatically.
-
 <Callout type="info">
-  When a subscription is restored:
+  This endpoint handles two cases:
 
-  * `cancelAtPeriodEnd` is set to `false`
-  * `cancelAt` is cleared to `null`
-  * `canceledAt` is cleared to `null`
+  * **Pending cancellation**: Sets `cancelAtPeriodEnd` to `false` and clears `cancelAt` / `canceledAt`, so the subscription continues to renew.
+  * **Pending plan change** (via `scheduleAtPeriodEnd`): Releases the Stripe subscription schedule and clears `stripeScheduleId`, so the current plan remains unchanged.
 </Callout>
 
-#### Creating Billing Portal Sessions
+Creating Billing Portal Sessions [#creating-billing-portal-sessions]
 
 To create a [Stripe billing portal session](https://docs.stripe.com/api/customer_portal/sessions/create) where customers can manage their subscriptions, update payment methods, and view billing history:
 
@@ -813,7 +842,7 @@ type createBillingPortal = {
 
 This endpoint creates a Stripe billing portal session and returns a URL in the response as `data.url`. You can redirect users to this URL to allow them to manage their subscription, payment methods, and billing history.
 
-### Reference System
+Reference System [#reference-system]
 
 By default, subscriptions are associated with the user ID. However, you can use a custom reference ID to associate subscriptions with other entities, such as organizations:
 
@@ -835,7 +864,7 @@ const { data: subscriptions } = await authClient.subscription.list({
 });
 ```
 
-#### Team Subscriptions with Seats
+Team Subscriptions with Seats [#team-subscriptions-with-seats]
 
 For team or organization plans, you can specify the number of seats:
 
@@ -872,7 +901,7 @@ subscription: {
 }
 ```
 
-### Webhook Handling
+Webhook Handling [#webhook-handling]
 
 The plugin automatically handles common webhook events:
 
@@ -900,7 +929,7 @@ stripe({
 })
 ```
 
-### Subscription Lifecycle Hooks
+Subscription Lifecycle Hooks [#subscription-lifecycle-hooks]
 
 You can hook into various subscription lifecycle events:
 
@@ -930,7 +959,7 @@ subscription: {
 }
 ```
 
-### Trial Periods
+Trial Periods [#trial-periods]
 
 You can configure trial periods for your plans:
 
@@ -956,11 +985,11 @@ You can configure trial periods for your plans:
 }
 ```
 
-## Schema
+Schema [#schema]
 
 The Stripe plugin adds the following tables to your database:
 
-### User
+User [#user]
 
 Table Name: `user`
 
@@ -975,7 +1004,7 @@ Table Name: `user`
 ]}
 />
 
-### Organization
+Organization [#organization]
 
 Table Name: `organization` <small className="text-xs">(only when `organization.enabled` is `true`)</small>
 
@@ -990,7 +1019,7 @@ Table Name: `organization` <small className="text-xs">(only when `organization.e
 ]}
 />
 
-### Subscription
+Subscription [#subscription]
 
 Table Name: `subscription`
 
@@ -1080,16 +1109,28 @@ Table Name: `subscription`
     description: "Start date of the trial period",
     isOptional: true
   },
-  { 
-    name: "trialEnd", 
-    type: "Date", 
+  {
+    name: "trialEnd",
+    type: "Date",
     description: "End date of the trial period",
+    isOptional: true
+  },
+  {
+    name: "billingInterval",
+    type: "string",
+    description: "The billing interval of the subscription (e.g. 'month', 'year')",
+    isOptional: true
+  },
+  {
+    name: "stripeScheduleId",
+    type: "string",
+    description: "Stripe Subscription Schedule ID, present when a scheduled plan change is pending",
     isOptional: true
   }
 ]}
 />
 
-### Customizing the Schema
+Customizing the Schema [#customizing-the-schema]
 
 To change the schema table names or fields, you can pass a `schema` option to the Stripe plugin:
 
@@ -1107,7 +1148,7 @@ stripe({
 })
 ```
 
-## Options
+Options [#options]
 
 | Option                    | Type       | Description                                                                                   |
 | ------------------------- | ---------- | --------------------------------------------------------------------------------------------- |
@@ -1121,7 +1162,7 @@ stripe({
 | `organization`            | `object`   | Enable Organization Customer support. See [below](#organization-options).                     |
 | `schema`                  | `object`   | Customize the database schema for the Stripe plugin.                                          |
 
-### Subscription Options
+Subscription Options [#subscription-options]
 
 | Option                     | Type                         | Description                                                                                                                   |
 | -------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
@@ -1136,20 +1177,26 @@ stripe({
 | `onSubscriptionCancel`     | `function`                   | Called when a subscription is canceled. Receives `{ event, subscription, stripeSubscription, cancellationDetails }`.          |
 | `onSubscriptionDeleted`    | `function`                   | Called when a subscription is deleted. Receives `{ event, stripeSubscription, subscription }`.                                |
 
-#### Plan Configuration
+Plan Configuration [#plan-configuration]
 
-| Option                    | Type     | Description                                                  |
-| ------------------------- | -------- | ------------------------------------------------------------ |
-| `name`                    | `string` | The name of the plan. **Required.**                          |
-| `priceId`                 | `string` | The Stripe price ID. **Required** unless using `lookupKey`.  |
-| `lookupKey`               | `string` | The Stripe price lookup key. Alternative to `priceId`.       |
-| `annualDiscountPriceId`   | `string` | A price ID for annual billing.                               |
-| `annualDiscountLookupKey` | `string` | The Stripe price lookup key for annual billing.              |
-| `limits`                  | `object` | Limits for plan (e.g. `{ projects: 10, storage: 5 }`).       |
-| `group`                   | `string` | A group name for categorizing plans.                         |
-| `freeTrial`               | `object` | Trial configuration. See [below](#free-trial-configuration). |
+| Option                    | Type         | Description                                                    |
+| ------------------------- | ------------ | -------------------------------------------------------------- |
+| `name`                    | `string`     | The name of the plan. **Required.**                            |
+| `priceId`                 | `string`     | The Stripe price ID. **Required** unless using `lookupKey`.    |
+| `lookupKey`               | `string`     | The Stripe price lookup key. Alternative to `priceId`.         |
+| `annualDiscountPriceId`   | `string`     | A price ID for annual billing.                                 |
+| `annualDiscountLookupKey` | `string`     | The Stripe price lookup key for annual billing.                |
+| `limits`                  | `object`     | Limits for plan (e.g. `{ projects: 10, storage: 5 }`).         |
+| `group`                   | `string`     | A group name for categorizing plans.                           |
+| `seatPriceId`             | `string`     | Per-seat billing price ID. Requires the `organization` plugin. |
+| `lineItems`               | `LineItem[]` | Additional line items to include in the checkout session.      |
+| `freeTrial`               | `object`     | Trial configuration. See [below](#free-trial-configuration).   |
 
-#### Free Trial Configuration
+<Callout type="info">
+  Stripe does not support [mixed-interval subscriptions](https://docs.stripe.com/billing/subscriptions/mixed-interval) via Checkout Sessions. All line items in a checkout should use the **same billing interval** (e.g. all monthly or all yearly). If intervals differ, the Stripe API will reject the request.
+</Callout>
+
+Free Trial Configuration [#free-trial-configuration]
 
 | Option           | Type       | Description                                                                          |
 | ---------------- | ---------- | ------------------------------------------------------------------------------------ |
@@ -1158,7 +1205,7 @@ stripe({
 | `onTrialEnd`     | `function` | Called when a trial ends. Receives `{ subscription }` and context.                   |
 | `onTrialExpired` | `function` | Called when a trial expires without conversion. Receives `subscription` and context. |
 
-### Organization Options
+Organization Options [#organization-options]
 
 | Option                    | Type       | Description                                                                                                |
 | ------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------- |
@@ -1166,9 +1213,9 @@ stripe({
 | `getCustomerCreateParams` | `function` | Customize Stripe customer creation parameters for organizations. Receives `organization` and context.      |
 | `onCustomerCreate`        | `function` | Called after an organization customer is created. Receives `{ stripeCustomer, organization }` and context. |
 
-## Advanced Usage
+Advanced Usage [#advanced-usage]
 
-### Using with Organizations
+Using with Organizations [#using-with-organizations]
 
 The Stripe plugin integrates with the [organization plugin](/docs/plugins/organization) to enable organizations as Stripe Customers. Instead of individual users, organizations become the billing entity for subscriptions. This is useful for B2B services where billing is tied to the organization rather than individual user.
 
@@ -1180,7 +1227,7 @@ The Stripe plugin integrates with the [organization plugin](/docs/plugins/organi
   * Organizations with active subscriptions cannot be deleted
 </Callout>
 
-#### Enabling Organization Customer
+Enabling Organization Customer [#enabling-organization-customer]
 
 To enable Organization Customer, set `organization.enabled` to `true` and ensure the organization plugin is installed:
 
@@ -1200,7 +1247,7 @@ plugins: [
 ]
 ```
 
-#### Creating Organization Subscriptions
+Creating Organization Subscriptions [#creating-organization-subscriptions]
 
 Even with Organization Customer enabled, user subscriptions remain available and are the default. To use the organization as the billing entity, pass `customerType: "organization"`:
 
@@ -1215,7 +1262,7 @@ await authClient.subscription.upgrade({
 });
 ```
 
-#### Authorization
+Authorization [#authorization]
 
 Make sure to implement the `authorizeReference` function to verify that the user has permission to manage subscriptions for the organization:
 
@@ -1235,7 +1282,7 @@ subscription: {
 }
 ```
 
-#### Organization Billing Email
+Organization Billing Email [#organization-billing-email]
 
 Unlike users, organization billing email is not automatically synced because organization itself doesn't have a unique email. Organizations often use a dedicated billing email separate from user accounts.
 To change the billing email after checkout, update it through the Stripe Dashboard or implement custom logic using `stripeClient`:
@@ -1246,7 +1293,7 @@ await stripeClient.customers.update(organization.stripeCustomerId, {
 });
 ```
 
-### Custom Checkout Session Parameters
+Custom Checkout Session Parameters [#custom-checkout-session-parameters]
 
 You can customize the Stripe Checkout session with additional parameters:
 
@@ -1276,7 +1323,7 @@ getCheckoutSessionParams: async ({ user, session, plan, subscription }, ctx) => 
 }
 ```
 
-### Tax Collection
+Tax Collection [#tax-collection]
 
 To collect tax IDs from the customer, set `tax_id_collection` to true:
 
@@ -1295,7 +1342,7 @@ subscription: {
 }
 ```
 
-### Automatic Tax Calculation
+Automatic Tax Calculation [#automatic-tax-calculation]
 
 To enable automatic tax calculation using the customer's location, set `automatic_tax` to true. Enabling this parameter causes Checkout to collect any billing address information necessary for tax calculation. You need to have tax registration setup and configured in the Stripe dashboard first for this to work.
 
@@ -1314,7 +1361,7 @@ subscription: {
 }
 ```
 
-### Trial Period Management
+Trial Period Management [#trial-period-management]
 
 The Stripe plugin automatically prevents users from getting multiple free trials. Once a user has used a trial period (regardless of which plan), they will not be eligible for additional trials on any plan.
 
@@ -1334,9 +1381,9 @@ The Stripe plugin automatically prevents users from getting multiple free trials
 
 This behavior is automatic and requires no additional configuration. The trial eligibility is determined at the time of subscription creation and cannot be overridden through configuration.
 
-## Troubleshooting
+Troubleshooting [#troubleshooting]
 
-### Webhook Issues
+Webhook Issues [#webhook-issues]
 
 If webhooks aren't being processed correctly:
 
@@ -1345,7 +1392,7 @@ If webhooks aren't being processed correctly:
 3. Ensure you've selected all the necessary events in the Stripe dashboard
 4. Check your server logs for any errors during webhook processing
 
-### Subscription Status Issues
+Subscription Status Issues [#subscription-status-issues]
 
 If subscription statuses aren't updating correctly:
 
@@ -1353,7 +1400,7 @@ If subscription statuses aren't updating correctly:
 2. Check that the `stripeCustomerId` and `stripeSubscriptionId` fields are correctly populated
 3. Verify that the reference IDs match between your application and Stripe
 
-### Testing Webhooks Locally
+Testing Webhooks Locally [#testing-webhooks-locally]
 
 For local development, you can use the Stripe CLI to forward webhooks to your local environment:
 

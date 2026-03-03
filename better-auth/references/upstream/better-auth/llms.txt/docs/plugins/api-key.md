@@ -6,36 +6,86 @@ API Key plugin for Better Auth.
 
 The API Key plugin allows you to create and manage API keys for your application. It provides a way to authenticate and authorize API requests by verifying API keys.
 
-## Features
+Features [#features]
 
 * Create, manage, and verify API keys
-* [Built-in rate limiting](/docs/plugins/api-key#rate-limiting)
-* [Custom expiration times, remaining count, and refill systems](/docs/plugins/api-key#remaining-refill-and-expiration)
-* [metadata for API keys](/docs/plugins/api-key#metadata)
+* [Built-in rate limiting](/docs/plugins/api-key/advanced#rate-limiting)
+* [Custom expiration times, remaining count, and refill systems](/docs/plugins/api-key/advanced#remaining-refill-and-expiration)
+* [Metadata for API keys](/docs/plugins/api-key/advanced#metadata)
 * Custom prefix
-* [Sessions from API keys](/docs/plugins/api-key#sessions-from-api-keys)
-* [Secondary storage support](/docs/plugins/api-key#secondary-storage) for high-performance API key lookups
+* [Sessions from API keys](/docs/plugins/api-key/advanced#sessions-from-api-keys)
+* [Secondary storage support](/docs/plugins/api-key/advanced#storage-modes) for high-performance API key lookups
+* [Multiple configurations](/docs/plugins/api-key/advanced#multiple-configurations) for different API key types
+* [Organization-owned API keys](/docs/plugins/api-key/advanced#organization-owned-api-keys) in addition to user-owned keys
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add Plugin to the server
+    Install the plugin [#install-the-plugin]
+
+    <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+      <CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="npm">
+          npm
+        </CodeBlockTabsTrigger>
+
+        <CodeBlockTabsTrigger value="pnpm">
+          pnpm
+        </CodeBlockTabsTrigger>
+
+        <CodeBlockTabsTrigger value="yarn">
+          yarn
+        </CodeBlockTabsTrigger>
+
+        <CodeBlockTabsTrigger value="bun">
+          bun
+        </CodeBlockTabsTrigger>
+      </CodeBlockTabsList>
+
+      <CodeBlockTab value="npm">
+        ```bash
+        npm install @better-auth/api-key
+        ```
+      </CodeBlockTab>
+
+      <CodeBlockTab value="pnpm">
+        ```bash
+        pnpm add @better-auth/api-key
+        ```
+      </CodeBlockTab>
+
+      <CodeBlockTab value="yarn">
+        ```bash
+        yarn add @better-auth/api-key
+        ```
+      </CodeBlockTab>
+
+      <CodeBlockTab value="bun">
+        ```bash
+        bun add @better-auth/api-key
+        ```
+      </CodeBlockTab>
+    </CodeBlockTabs>
+  </Step>
+
+  <Step>
+    Add Plugin to the server [#add-plugin-to-the-server]
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth"
-    import { apiKey } from "better-auth/plugins"
+    import { apiKey } from "@better-auth/api-key" // [!code highlight]
 
     export const auth = betterAuth({
-        plugins: [ // [!code highlight]
+        plugins: [
             apiKey() // [!code highlight]
-        ] // [!code highlight]
+        ]
     })
     ```
   </Step>
 
   <Step>
-    ### Migrate the database
+    Migrate the database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary fields and tables to the database.
 
@@ -62,25 +112,25 @@ The API Key plugin allows you to create and manage API keys for your application
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -108,64 +158,66 @@ The API Key plugin allows you to create and manage API keys for your application
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
       </Tab>
     </Tabs>
 
-    See the [Schema](#schema) section to add the fields manually.
+    See the [Schema](/docs/plugins/api-key/reference#schema) section to add the fields manually.
   </Step>
 
   <Step>
-    ### Add the client plugin
+    Add the client plugin [#add-the-client-plugin]
 
     ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client"
-    import { apiKeyClient } from "better-auth/client/plugins"
+    import { apiKeyClient } from "@better-auth/api-key/client"  // [!code highlight]
 
     export const authClient = createAuthClient({
-        plugins: [ // [!code highlight]
+        plugins: [
             apiKeyClient() // [!code highlight]
-        ] // [!code highlight]
+        ]
     })
     ```
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-You can view the list of API Key plugin options [here](/docs/plugins/api-key#api-key-plugin-options).
+You can view the list of API Key plugin options [here](/docs/plugins/api-key/reference#api-key-plugin-options).
 
-### Create an API key
+Create an API key [#create-an-api-key]
 
 
 ### Client Side
 
 ```ts
 const { data, error } = await authClient.apiKey.create({
+    configId, // optional
     name: project-api-key, // optional
     expiresIn, // optional
     userId: user-id, // optional
+    organizationId: org-id, // optional
     prefix: project-api-key, // optional
     remaining, // optional
     metadata, // optional
@@ -177,9 +229,11 @@ const { data, error } = await authClient.apiKey.create({
 ```ts
 const data = await auth.api.createApiKey({
     body: {
+        configId, // optional
         name: project-api-key, // optional
         expiresIn, // optional
         userId: user-id, // optional
+        organizationId: org-id, // optional
         prefix: project-api-key, // optional
         remaining, // optional
         metadata, // optional
@@ -192,6 +246,10 @@ const data = await auth.api.createApiKey({
 ```ts
 type createApiKey = {
       /**
+       * The configuration ID to use. If not provided, the default configuration is used.
+       */
+      configId?: string
+      /**
        * Name of the Api Key.
        */
       name?: string = 'project-api-key'
@@ -201,9 +259,15 @@ type createApiKey = {
       expiresIn?: number = 60 * 60 * 24 * 7
       /**
        * User Id of the user that the Api Key belongs to. server-only.
+       * Required for user-owned keys when not using session headers.
        * @serverOnly
        */
       userId?: string = "user-id"
+      /**
+       * Organization Id that the Api Key belongs to. 
+       * Required for organization-owned keys (when config has `references: "organization"`).
+       */
+      organizationId?: string = "org-id"
       /**
        * Prefix of the Api Key.
        */
@@ -222,23 +286,28 @@ type createApiKey = {
 
 
 <Callout>
-  API keys are assigned to a user.
+  API keys can be owned by either a user or an organization, depending on the configuration's 
+
+  `references`
+
+   setting.
 </Callout>
 
-#### Result
+Result [#result]
 
 It'll return the `ApiKey` object which includes the `key` value for you to use.
 Otherwise if it throws, it will throw an `APIError`.
 
 ***
 
-### Verify an API key
+Verify an API key [#verify-an-api-key]
 
 
 ### Client Side
 
 ```ts
 const { data, error } = await authClient.apiKey.verify({
+    configId, // optional
     key: your_api_key_here,
     permissions, // optional
 });
@@ -249,6 +318,7 @@ const { data, error } = await authClient.apiKey.verify({
 ```ts
 const data = await auth.api.verifyApiKey({
     body: {
+        configId, // optional
         key: your_api_key_here,
         permissions, // optional
     }
@@ -259,6 +329,10 @@ const data = await auth.api.verifyApiKey({
 
 ```ts
 type verifyApiKey = {
+      /**
+       * The configuration ID to use for verification. If not provided, the default configuration is used.
+       */
+      configId?: string
       /**
        * The key to verify.
        */
@@ -272,7 +346,7 @@ type verifyApiKey = {
 ```
 
 
-#### Result
+Result [#result-1]
 
 ```ts
 type Result = {
@@ -284,13 +358,14 @@ type Result = {
 
 ***
 
-### Get an API key
+Get an API key [#get-an-api-key]
 
 
 ### Client Side
 
 ```ts
 const { data, error } = await authClient.apiKey.get({
+    configId, // optional
     id: some-api-key-id,
 });
 ```
@@ -300,6 +375,7 @@ const { data, error } = await authClient.apiKey.get({
 ```ts
 const data = await auth.api.getApiKey({
     query: {
+        configId, // optional
         id: some-api-key-id,
     },
     // This endpoint requires session cookies.
@@ -312,6 +388,10 @@ const data = await auth.api.getApiKey({
 ```ts
 type getApiKey = {
       /**
+       * The configuration ID to use for the API key lookup. If not provided, the default configuration is used.
+       */
+      configId?: string
+      /**
        * The id of the Api Key.
        */
       id: string = "some-api-key-id"
@@ -320,7 +400,7 @@ type getApiKey = {
 ```
 
 
-#### Result
+Result [#result-2]
 
 You'll receive everything about the API key details, except for the `key` value itself.
 If it fails, it will throw an `APIError`.
@@ -331,13 +411,14 @@ type Result = Omit<ApiKey, "key">;
 
 ***
 
-### Update an API key
+Update an API key [#update-an-api-key]
 
 
 ### Client Side
 
 ```ts
 const { data, error } = await authClient.apiKey.update({
+    configId, // optional
     keyId: some-api-key-id,
     userId: some-user-id, // optional
     name: some-api-key-name, // optional
@@ -354,6 +435,7 @@ const { data, error } = await authClient.apiKey.update({
 ```ts
 const data = await auth.api.updateApiKey({
     body: {
+        configId, // optional
         keyId: some-api-key-id,
         userId: some-user-id, // optional
         name: some-api-key-name, // optional
@@ -370,6 +452,10 @@ const data = await auth.api.updateApiKey({
 
 ```ts
 type updateApiKey = {
+      /**
+       * The configuration ID to use for the API key lookup. If not provided, the default configuration is used.
+       */
+      configId?: string
       /**
        * The id of the Api Key to update.
        */
@@ -412,20 +498,21 @@ type updateApiKey = {
 ```
 
 
-#### Result
+Result [#result-3]
 
 If fails, throws `APIError`.
 Otherwise, you'll receive the API Key details, except for the `key` value itself.
 
 ***
 
-### Delete an API Key
+Delete an API Key [#delete-an-api-key]
 
 
 ### Client Side
 
 ```ts
 const { data, error } = await authClient.apiKey.delete({
+    configId, // optional
     keyId: some-api-key-id,
 });
 ```
@@ -435,6 +522,7 @@ const { data, error } = await authClient.apiKey.delete({
 ```ts
 const data = await auth.api.deleteApiKey({
     body: {
+        configId, // optional
         keyId: some-api-key-id,
     },
     // This endpoint requires session cookies.
@@ -447,6 +535,10 @@ const data = await auth.api.deleteApiKey({
 ```ts
 type deleteApiKey = {
       /**
+       * The configuration ID to use for the API key lookup. If not provided, the default configuration is used.
+       */
+      configId?: string
+      /**
        * The id of the Api Key to delete.
        */
       keyId: string = "some-api-key-id"
@@ -455,7 +547,7 @@ type deleteApiKey = {
 ```
 
 
-#### Result
+Result [#result-4]
 
 If fails, throws `APIError`.
 Otherwise, you'll receive:
@@ -468,20 +560,34 @@ type Result = {
 
 ***
 
-### List API keys
+List API keys [#list-api-keys]
 
 
 ### Client Side
 
 ```ts
-const { data, error } = await authClient.apiKey.list({});
+const { data, error } = await authClient.apiKey.list({
+    configId, // optional
+    organizationId, // optional
+    limit, // optional
+    offset, // optional
+    sortBy, // optional
+    sortDirection, // optional
+});
 ```
 
 ### Server Side
 
 ```ts
 const data = await auth.api.listApiKeys({
-
+    query: {
+        configId, // optional
+        organizationId, // optional
+        limit, // optional
+        offset, // optional
+        sortBy, // optional
+        sortDirection, // optional
+    },
     // This endpoint requires session cookies.
     headers: await headers()
 });
@@ -491,23 +597,95 @@ const data = await auth.api.listApiKeys({
 
 ```ts
 type listApiKeys = {
+      /**
+       * Filter by configuration ID. If not provided, returns keys from all configurations.
+       */
+      configId?: string
+      /**
+       * Organization ID to list keys for. If provided, returns organization-owned keys.
+       * If not provided, returns user-owned keys for the current session user.
+       */
+      organizationId?: string
+      /**
+       * The number of API keys to return.
+       */
+      limit?: number
+      /**
+       * The offset to start from (for pagination).
+       */
+      offset?: number
+      /**
+       * The field to sort by (e.g., "createdAt", "name", "expiresAt").
+       */
+      sortBy?: string
+      /**
+       * The direction to sort by.
+       */
+      sortDirection?: "asc" | "desc"
   
 }
 ```
 
 
-#### Result
+Result [#result-5]
 
 If fails, throws `APIError`.
-Otherwise, you'll receive:
+Otherwise, you'll receive a paginated response:
 
 ```ts
-type Result = ApiKey[];
+type Result = {
+  apiKeys: Omit<ApiKey, "key">[];
+  total: number;
+  limit?: number;
+  offset?: number;
+};
+```
+
+Pagination Examples [#pagination-examples]
+
+```ts
+// Get first 10 API keys for the current user
+const result = await authClient.apiKey.list({
+  query: { limit: 10 }
+});
+
+// Get second page (10 items per page)
+const page2 = await authClient.apiKey.list({
+  query: { limit: 10, offset: 10 }
+});
+
+// Sort by creation date (newest first)
+const sorted = await authClient.apiKey.list({
+  query: { sortBy: "createdAt", sortDirection: "desc" }
+});
+
+// Combined pagination and sorting
+const combined = await authClient.apiKey.list({
+  query: { 
+    limit: 20, 
+    offset: 0, 
+    sortBy: "name", 
+    sortDirection: "asc" 
+  }
+});
+
+// List organization-owned keys
+const orgKeys = await authClient.apiKey.list({
+  query: { organizationId: "org_123" }
+});
+
+// List organization keys with specific config
+const orgPublicKeys = await authClient.apiKey.list({
+  query: { 
+    organizationId: "org_123",
+    configId: "public" 
+  }
+});
 ```
 
 ***
 
-### Delete all expired API keys
+Delete all expired API keys [#delete-all-expired-api-keys]
 
 This function will delete all API keys that have an expired expiration date.
 
@@ -539,897 +717,15 @@ type deleteAllExpiredApiKeys = {
   each call to prevent multiple calls to the database.
 </Callout>
 
-***
-
-## Sessions from API keys
-
-Any time an endpoint in Better Auth is called that has a valid API key in the headers, you can automatically create a mock session to represent the user by enabling `sessionForAPIKeys` option.
-
-<Callout type="warn">
-  This is generally not recommended, as it can lead to security issues if not used carefully. A leaked api key can be used to impersonate a user.
-</Callout>
-
-<Callout>
-  **Rate Limiting Note**: When `enableSessionForAPIKeys` is enabled, the API key is validated once per request, and rate limiting is applied accordingly.
-  If you manually verify an API key and then fetch a session separately, both operations will increment the rate limit counter. Using `enableSessionForAPIKeys` avoids this double increment.
-</Callout>
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      enableSessionForAPIKeys: true,
-    }),
-  ],
-});
-```
-
-<Tabs items={['Server']}>
-  <Tab value="Server">
-    ```ts
-    const session = await auth.api.getSession({
-          headers: new Headers({
-                'x-api-key': apiKey,
-          }),
-    });
-    ```
-  </Tab>
-</Tabs>
-
-The default header key is `x-api-key`, but this can be changed by setting the `apiKeyHeaders` option in the plugin options.
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      apiKeyHeaders: ["x-api-key", "xyz-api-key"], // or you can pass just a string, eg: "x-api-key"
-    }),
-  ],
-});
-```
-
-Or optionally, you can pass an `apiKeyGetter` function to the plugin options, which will be called with the `GenericEndpointContext`, and from there, you should return the API key, or `null` if the request is invalid.
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      apiKeyGetter: (ctx) => {
-        const has = ctx.request.headers.has("x-api-key");
-        if (!has) return null;
-        return ctx.request.headers.get("x-api-key");
-      },
-    }),
-  ],
-});
-```
-
-## Storage Modes
-
-The API Key plugin supports multiple storage modes for flexible API key management, allowing you to choose the best strategy for your use case.
-
-### Storage Mode Options
-
-#### `"database"` (Default)
-
-Store API keys only in the database adapter. This is the default mode and requires no additional configuration.
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      storage: "database", // Default, can be omitted
-    }),
-  ],
-});
-```
-
-#### `"secondary-storage"`
-
-Store API keys only in secondary storage (e.g., Redis).
-No fallback to database. Best for high-performance scenarios where all keys are migrated to secondary storage.
-
-```ts
-import { createClient } from "redis";
-import { betterAuth } from "better-auth";
-import { apiKey } from "better-auth/plugins";
-
-const redis = createClient();
-await redis.connect();
-
-export const auth = betterAuth({
-  secondaryStorage: {
-    get: async (key) => await redis.get(key),
-    set: async (key, value, ttl) => {
-      if (ttl) await redis.set(key, value, { EX: ttl });
-      else await redis.set(key, value);
-    },
-    delete: async (key) => await redis.del(key),
-  },
-  plugins: [
-    apiKey({
-      storage: "secondary-storage",
-    }),
-  ],
-});
-```
-
-#### Secondary Storage with Fallback
-
-Check secondary storage first, then fallback to database if not found.
-
-**Read behavior:**
-
-* Checks secondary storage first
-* If not found, queries the database
-* **Automatically populates secondary storage** when falling back to database (cache warming)
-* Ensures frequently accessed keys stay in cache over time
-
-**Write behavior:**
-
-* Writes to **both** database and secondary storage
-* Ensures consistency between both storage layers
-
-```ts
-export const auth = betterAuth({
-  secondaryStorage: {
-    get: async (key) => await redis.get(key),
-    set: async (key, value, ttl) => {
-      if (ttl) await redis.set(key, value, { EX: ttl });
-      else await redis.set(key, value);
-    },
-    delete: async (key) => await redis.del(key),
-  },
-  plugins: [
-    apiKey({
-      storage: "secondary-storage",
-      fallbackToDatabase: true,
-    }),
-  ],
-});
-```
-
-### Custom Storage Methods
-
-You can provide custom storage methods specifically for API keys, overriding the global `secondaryStorage` configuration:
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      storage: "secondary-storage",
-      customStorage: {
-        get: async (key) => {
-          // Custom get logic for API keys
-          return await customStorage.get(key);
-        },
-        set: async (key, value, ttl) => {
-          // Custom set logic for API keys
-          await customStorage.set(key, value, ttl);
-        },
-        delete: async (key) => {
-          // Custom delete logic for API keys
-          await customStorage.delete(key);
-        },
-      },
-    }),
-  ],
-});
-```
-
-## Rate Limiting
-
-Every API key can have its own rate limit settings. The built-in rate-limiting applies whenever an API key is validated, which includes:
-
-* When verifying an API key via the `/api-key/verify` endpoint
-* When using API keys for session creation (if `enableSessionForAPIKeys` is enabled), rate limiting applies to all endpoints that use the API key
-
-For other endpoints/methods that don't use API keys, you should utilize Better Auth's [built-in rate-limiting](/docs/concepts/rate-limit).
-
-<Callout type="warn">
-  **Double Rate-Limit Increment**: If you manually verify an API key using `verifyApiKey()` and then fetch a session using `getSession()` with the same API key header, both operations will increment the rate limit counter, resulting in two increments for a single request. To avoid this, either:
-
-  * Use `enableSessionForAPIKeys: true` and let Better Auth handle session creation automatically (recommended)
-  * Or verify the API key once and reuse the validated result instead of calling both methods separately
-</Callout>
-
-You can refer to the rate-limit default configurations below in the API Key plugin options.
-
-An example default value:
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      rateLimit: {
-        enabled: true,
-        timeWindow: 1000 * 60 * 60 * 24, // 1 day
-        maxRequests: 10, // 10 requests per day
-      },
-    }),
-  ],
-});
-```
-
-For each API key, you can customize the rate-limit options on create.
-
-<Callout>
-  You can only customize the rate-limit options on the server auth instance.
-</Callout>
-
-```ts
-const apiKey = await auth.api.createApiKey({
-  body: {
-    rateLimitEnabled: true,
-    rateLimitTimeWindow: 1000 * 60 * 60 * 24, // 1 day
-    rateLimitMax: 10, // 10 requests per day
-  },
-  headers: user_headers,
-});
-```
-
-### How does it work?
-
-The rate limiting system uses a sliding window approach:
-
-1. **First Request**: When an API key is used for the first time (no previous `lastRequest`), the request is allowed and `requestCount` is set to 1.
-
-2. **Within Window**: For subsequent requests within the `timeWindow`, the `requestCount` is incremented. If `requestCount` reaches `rateLimitMax`, the request is rejected with a `RATE_LIMITED` error code.
-
-3. **Window Reset**: If the time since the last request exceeds the `timeWindow`, the window resets: `requestCount` is reset to 1 and `lastRequest` is updated to the current time.
-
-4. **Rate Limit Exceeded**: When a request is rejected due to rate limiting, the error response includes a `tryAgainIn` value (in milliseconds) indicating how long to wait before the window resets.
-
-**Disabling Rate Limiting**:
-
-* **Globally**: Set `rateLimit.enabled: false` in plugin options
-* **Per Key**: Set `rateLimitEnabled: false` when creating or updating an API key
-* **Null Values**: If `rateLimitTimeWindow` or `rateLimitMax` is `null`, rate limiting is effectively disabled for that key
-
-When rate limiting is disabled (globally or per-key), requests are still allowed but `lastRequest` is updated for tracking purposes.
-
-## Remaining, refill, and expiration
-
-The remaining count is the number of requests left before the API key is disabled.
-The refill interval is the interval in milliseconds where the `remaining` count is refilled when the interval has passed since the last refill (or since creation if no refill has occurred yet).
-The expiration time is the expiration date of the API key.
-
-### How does it work?
-
-#### Remaining:
-
-Whenever an API key is used, the `remaining` count is updated.
-If the `remaining` count is `null`, then there is no cap to key usage.
-Otherwise, the `remaining` count is decremented by 1.
-If the `remaining` count is 0, then the API key is disabled & removed.
-
-#### refillInterval & refillAmount:
-
-Whenever an API key is created, the `refillInterval` and `refillAmount` are set to `null` by default.
-This means that the API key will not be refilled automatically.
-However, if both `refillInterval` & `refillAmount` are set, then whenever the API key is used:
-
-* The system checks if the time since the last refill (or since creation if no refill has occurred) exceeds the `refillInterval`
-* If the interval has passed, the `remaining` count is reset to `refillAmount` (not incremented)
-* The `lastRefillAt` timestamp is updated to the current time
-
-#### Expiration:
-
-Whenever an API key is created, the `expiresAt` is set to `null`.
-This means that the API key will never expire.
-However, if the `expiresIn` is set, then the API key will expire after the `expiresIn` time.
-
-## Custom Key generation & verification
-
-You can customize the key generation and verification process straight from the plugin options.
-
-Here's an example:
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      customKeyGenerator: (options: {
-        length: number;
-        prefix: string | undefined;
-      }) => {
-        const apiKey = mySuperSecretApiKeyGenerator(
-          options.length,
-          options.prefix
-        );
-        return apiKey;
-      },
-      customAPIKeyValidator: async ({ ctx, key }) => {
-        const res = await keyService.verify(key)
-        return res.valid
-      },
-    }),
-  ],
-});
-```
-
-<Callout>
-  If you're **not** using the `length` property provided by `customKeyGenerator`, you **must** set the `defaultKeyLength` property to how long generated keys will be.
-
-  ```ts
-  export const auth = betterAuth({
-    plugins: [
-      apiKey({
-        customKeyGenerator: () => {
-          return crypto.randomUUID();
-        },
-        defaultKeyLength: 36, // Or whatever the length is
-      }),
-    ],
-  });
-  ```
-</Callout>
-
-If an API key is validated from your `customAPIKeyValidator`, we still must match that against the database's key.
-However, by providing this custom function, you can improve the performance of the API key verification process,
-as all failed keys can be invalidated without having to query your database.
-
-## Metadata
-
-We allow you to store metadata alongside your API keys. This is useful for storing information about the key, such as a subscription plan for example.
-
-To store metadata, make sure you haven't disabled the metadata feature in the plugin options.
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      enableMetadata: true,
-    }),
-  ],
-});
-```
-
-Then, you can store metadata in the `metadata` field of the API key object.
-
-```ts
-const apiKey = await auth.api.createApiKey({
-  body: {
-    metadata: {
-      plan: "premium",
-    },
-  },
-});
-```
-
-You can then retrieve the metadata from the API key object.
-
-```ts
-const apiKey = await auth.api.getApiKey({
-  body: {
-    keyId: "your_api_key_id_here",
-  },
-});
-
-console.log(apiKey.metadata.plan); // "premium"
-```
-
-## API Key plugin options
-
-`apiKeyHeaders` <span className="opacity-70">`string | string[];`</span>
-
-The header name to check for API key. Default is `x-api-key`.
-
-`customAPIKeyGetter` <span className="opacity-70">`(ctx: GenericEndpointContext) => string | null`</span>
-
-A custom function to get the API key from the context.
-
-`customAPIKeyValidator` <span className="opacity-70">`(options: { ctx: GenericEndpointContext; key: string; }) => boolean | Promise<boolean>`</span>
-
-A custom function to validate the API key.
-
-`customKeyGenerator` <span className="opacity-70">`(options: { length: number; prefix: string | undefined; }) => string | Promise<string>`</span>
-
-A custom function to generate the API key.
-
-`startingCharactersConfig` <span className="opacity-70">`{ shouldStore?: boolean; charactersLength?: number; }`</span>
-
-Customize the starting characters configuration.
-
-<Accordions>
-  <Accordion title="startingCharactersConfig Options">
-    `shouldStore` <span className="opacity-70">`boolean`</span>
-
-    Whether to store the starting characters in the database.
-    If false, we will set `start` to `null`.
-    Default is `true`.
-
-    `charactersLength` <span className="opacity-70">`number`</span>
-
-    The length of the starting characters to store in the database.
-    This includes the prefix length.
-    Default is `6`.
-  </Accordion>
-</Accordions>
-
-`defaultKeyLength` <span className="opacity-70">`number`</span>
-
-The length of the API key. Longer is better. Default is 64. (Doesn't include the prefix length)
-
-`defaultPrefix` <span className="opacity-70">`string`</span>
-
-The prefix of the API key.
-
-Note: We recommend you append an underscore to the prefix to make the prefix more identifiable. (eg `hello_`)
-
-`maximumPrefixLength` <span className="opacity-70">`number`</span>
-
-The maximum length of the prefix.
-
-`minimumPrefixLength` <span className="opacity-70">`number`</span>
-
-The minimum length of the prefix.
-
-`requireName` <span className="opacity-70">`boolean`</span>
-
-Whether to require a name for the API key. Default is `false`.
-
-`maximumNameLength` <span className="opacity-70">`number`</span>
-
-The maximum length of the name.
-
-`minimumNameLength` <span className="opacity-70">`number`</span>
-
-The minimum length of the name.
-
-`enableMetadata` <span className="opacity-70">`boolean`</span>
-
-Whether to enable metadata for an API key.
-
-`keyExpiration` <span className="opacity-70">`{ defaultExpiresIn?: number | null; disableCustomExpiresTime?: boolean; minExpiresIn?: number; maxExpiresIn?: number; }`</span>
-
-Customize the key expiration.
-
-<Accordions>
-  <Accordion title="keyExpiration options">
-    `defaultExpiresIn` <span className="opacity-70">`number | null`</span>
-
-    The default expires time in milliseconds.
-    If `null`, then there will be no expiration time.
-    Default is `null`.
-
-    `disableCustomExpiresTime` <span className="opacity-70">`boolean`</span>
-
-    Whether to disable the expires time passed from the client.
-    If `true`, the expires time will be based on the default values.
-    Default is `false`.
-
-    `minExpiresIn` <span className="opacity-70">`number`</span>
-
-    The minimum expiresIn value allowed to be set from the client. in days.
-    Default is `1`.
-
-    `maxExpiresIn` <span className="opacity-70">`number`</span>
-
-    The maximum expiresIn value allowed to be set from the client. in days.
-    Default is `365`.
-  </Accordion>
-</Accordions>
-
-`rateLimit` <span className="opacity-70">`{ enabled?: boolean; timeWindow?: number; maxRequests?: number; }`</span>
-
-Customize the rate-limiting.
-
-<Accordions>
-  <Accordion title="rateLimit options">
-    `enabled` <span className="opacity-70">`boolean`</span>
-
-    Whether to enable rate limiting. (Default true)
-
-    `timeWindow` <span className="opacity-70">`number`</span>
-
-    The duration in milliseconds where each request is counted.
-    Once the `maxRequests` is reached, the request will be rejected until the `timeWindow` has passed, at which point the `timeWindow` will be reset.
-
-    `maxRequests` <span className="opacity-70">`number`</span>
-
-    Maximum amount of requests allowed within a window.
-    Once the `maxRequests` is reached, the request will be rejected until the `timeWindow` has passed, at which point the `timeWindow` will be reset.
-  </Accordion>
-</Accordions>
-
-`schema` <span className="opacity-70">`InferOptionSchema<ReturnType<typeof apiKeySchema>>`</span>
-
-Custom schema for the API key plugin.
-
-`enableSessionForAPIKeys` <span className="opacity-70">`boolean`</span>
-
-An API Key can represent a valid session, so we can mock a session for the user if we find a valid API key in the request headers. Default is `false`.
-
-`storage` <span className="opacity-70">`"database" | "secondary-storage"`</span>
-
-Storage backend for API keys. Default is `"database"`.
-
-* `"database"`: Store API keys in the database adapter (default)
-* `"secondary-storage"`: Store API keys in the configured secondary storage (e.g., Redis)
-
-`fallbackToDatabase` <span className="opacity-70">`boolean`</span>
-
-When `storage` is `"secondary-storage"`, enable fallback to database if key is not found in secondary storage.
-Default is `false`.
-
-<Callout>
-  When `storage` is set to `"secondary-storage"`, you must configure `secondaryStorage` in your Better Auth options. API keys will be stored using key-value patterns:
-
-  * `api-key:${hashedKey}` - Primary lookup by hashed key
-  * `api-key:by-id:${id}` - Lookup by ID
-  * `api-key:by-user:${userId}` - User's API key list
-
-  If an API key has an expiration date (`expiresAt`), a TTL will be automatically set in secondary storage to ensure automatic cleanup.
-</Callout>
-
-```ts
-export const auth = betterAuth({
-  secondaryStorage: {
-    get: async (key) => {
-      return await redis.get(key);
-    },
-    set: async (key, value, ttl) => {
-      if (ttl) await redis.set(key, value, { EX: ttl });
-      else await redis.set(key, value);
-    },
-    delete: async (key) => {
-      await redis.del(key);
-    },
-  },
-  plugins: [
-    apiKey({
-      storage: "secondary-storage",
-    }),
-  ],
-});
-```
-
-`customStorage` <span className="opacity-70">`{ get: (key: string) => Promise<unknown> | unknown; set: (key: string, value: string, ttl?: number) => Promise<void | null | unknown> | void; delete: (key: string) => Promise<void | null | string> | void; }`</span>
-
-Custom storage methods for API keys. If provided, these methods will be used instead of `ctx.context.secondaryStorage`. Custom methods take precedence over global secondary storage.
-
-Useful when you want to use a different storage backend specifically for API keys, or when you need custom logic for storage operations.
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      storage: "secondary-storage",
-      customStorage: {
-        get: async (key) => await customStorage.get(key),
-        set: async (key, value, ttl) => await customStorage.set(key, value, ttl),
-        delete: async (key) => await customStorage.delete(key), 
-      },
-    }),
-  ],
-});
-```
-
-`deferUpdates` <span className="opacity-70">`boolean`</span>
-
-Defer non-critical updates (rate limiting counters, timestamps, remaining count) to run after the response is sent using the global `backgroundTasks` handler. This can significantly improve response times on serverless platforms. Default is `false`.
-
-Requires `backgroundTasks.handler` to be configured in the main auth options.
-
-<Callout type="warn">
-  Enabling this introduces eventual consistency where the response returns optimistic data before the database is updated. Only enable if your application can tolerate this trade-off for improved latency.
-</Callout>
-
-<Tabs items={["Vercel", "Cloudflare Workers"]}>
-  <Tab value="Vercel">
-    ```ts
-    import { waitUntil } from "@vercel/functions";
-
-    export const auth = betterAuth({
-      advanced: { 
-          backgroundTasks: {
-             handler: waitUntil,
-          },
-      }
-      plugins: [
-        apiKey({
-          deferUpdates: true,
-        }),
-      ],
-    });
-    ```
-  </Tab>
-
-  <Tab value="Cloudflare Workers">
-    ```ts
-    import { AsyncLocalStorage } from "node:async_hooks";
-
-    const execCtxStorage = new AsyncLocalStorage<ExecutionContext>();
-
-    export const auth = betterAuth({
-      advanced: { 
-          backgroundTasks: {
-             handler: waitUntil,
-          },
-      }
-      plugins: [
-        apiKey({
-          deferUpdates: true,
-        }),
-      ],
-    });
-
-    // In your request handler, wrap with execCtxStorage.run(ctx, ...)
-    ```
-  </Tab>
-</Tabs>
-
-`permissions` <span className="opacity-70">`{ defaultPermissions?: Statements | ((userId: string, ctx: GenericEndpointContext) => Statements | Promise<Statements>) }`</span>
-
-Permissions for the API key.
-
-Read more about permissions [here](/docs/plugins/api-key#permissions).
-
-<Accordions>
-  <Accordion title="permissions Options">
-    `defaultPermissions` <span className="opacity-70">`Statements | ((userId: string, ctx: GenericEndpointContext) => Statements | Promise<Statements>)`</span>
-
-    The default permissions for the API key.
-  </Accordion>
-</Accordions>
-
-`disableKeyHashing` <span className="opacity-70">`boolean`</span>
-
-Disable hashing of the API key.
-
-⚠️ Security Warning: It's strongly recommended to not disable hashing.
-Storing API keys in plaintext makes them vulnerable to database breaches, potentially exposing all your users' API keys.
-
-***
-
-## Permissions
-
-API keys can have permissions associated with them, allowing you to control access at a granular level. Permissions are structured as a record of resource types to arrays of allowed actions.
-
-### Setting Default Permissions
-
-You can configure default permissions that will be applied to all newly created API keys:
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      permissions: {
-        defaultPermissions: {
-          files: ["read"],
-          users: ["read"],
-        },
-      },
-    }),
-  ],
-});
-```
-
-You can also provide a function that returns permissions dynamically:
-
-```ts
-export const auth = betterAuth({
-  plugins: [
-    apiKey({
-      permissions: {
-        defaultPermissions: async (userId, ctx) => {
-          // Fetch user role or other data to determine permissions
-          return {
-            files: ["read"],
-            users: ["read"],
-          };
-        },
-      },
-    }),
-  ],
-});
-```
-
-### Creating API Keys with Permissions
-
-When creating an API key, you can specify custom permissions:
-
-```ts
-const apiKey = await auth.api.createApiKey({
-  body: {
-    name: "My API Key",
-    permissions: {
-      files: ["read", "write"],
-      users: ["read"],
-    },
-    userId: "userId",
-  },
-});
-```
-
-### Verifying API Keys with Required Permissions
-
-When verifying an API key, you can check if it has the required permissions:
-
-```ts
-const result = await auth.api.verifyApiKey({
-  body: {
-    key: "your_api_key_here",
-    permissions: {
-      files: ["read"],
-    },
-  },
-});
-
-if (result.valid) {
-  // API key is valid and has the required permissions
-} else {
-  // API key is invalid or doesn't have the required permissions
-}
-```
-
-### Updating API Key Permissions
-
-You can update the permissions of an existing API key:
-
-```ts
-const apiKey = await auth.api.updateApiKey({
-  body: {
-    keyId: existingApiKeyId,
-    permissions: {
-      files: ["read", "write", "delete"],
-      users: ["read", "write"],
-    },
-  },
-  headers: user_headers,
-});
-```
-
-### Permissions Structure
-
-Permissions follow a resource-based structure:
-
-```ts
-type Permissions = {
-  [resourceType: string]: string[];
-};
-
-// Example:
-const permissions = {
-  files: ["read", "write", "delete"],
-  users: ["read"],
-  projects: ["read", "write"],
-};
-```
-
-When verifying an API key, all required permissions must be present in the API key's permissions for validation to succeed.
-
-## Schema
-
-Table: `apikey`
-
-<DatabaseTable
-  fields={[
-  {
-    name: "id",
-    type: "string",
-    description: "The ID of the API key.",
-    isUnique: true,
-    isPrimaryKey: true,
-  },
-  {
-    name: "name",
-    type: "string",
-    description: "The name of the API key.",
-    isOptional: true,
-  },
-  {
-    name: "start",
-    type: "string",
-    description:
-      "The starting characters of the API key. Useful for showing the first few characters of the API key in the UI for the users to easily identify.",
-    isOptional: true,
-  },
-  {
-    name: "prefix",
-    type: "string",
-    description: "The API Key prefix. Stored as plain text.",
-    isOptional: true,
-  },
-  {
-    name: "key",
-    type: "string",
-    description: "The hashed API key itself.",
-  },
-  {
-    name: "userId",
-    type: "string",
-    description: "The ID of the user associated with the API key.",
-    isForeignKey: true,
-  },
-  {
-    name: "refillInterval",
-    type: "number",
-    description: "The interval to refill the key in milliseconds.",
-    isOptional: true,
-  },
-  {
-    name: "refillAmount",
-    type: "number",
-    description: "The amount to refill the remaining count of the key.",
-    isOptional: true,
-  },
-  {
-    name: "lastRefillAt",
-    type: "Date",
-    description: "The date and time when the key was last refilled.",
-    isOptional: true,
-  },
-  {
-    name: "enabled",
-    type: "boolean",
-    description: "Whether the API key is enabled.",
-  },
-  {
-    name: "rateLimitEnabled",
-    type: "boolean",
-    description: "Whether the API key has rate limiting enabled.",
-  },
-  {
-    name: "rateLimitTimeWindow",
-    type: "number",
-    description: "The time window in milliseconds for the rate limit.",
-    isOptional: true,
-  },
-  {
-    name: "rateLimitMax",
-    type: "number",
-    description:
-      "The maximum number of requests allowed within the `rateLimitTimeWindow`.",
-    isOptional: true,
-  },
-  {
-    name: "requestCount",
-    type: "number",
-    description:
-      "The number of requests made within the rate limit time window.",
-  },
-  {
-    name: "remaining",
-    type: "number",
-    description: "The number of requests remaining.",
-    isOptional: true,
-  },
-  {
-    name: "lastRequest",
-    type: "Date",
-    description: "The date and time of the last request made to the key.",
-    isOptional: true,
-  },
-  {
-    name: "expiresAt",
-    type: "Date",
-    description: "The date and time when the key will expire.",
-    isOptional: true,
-  },
-  {
-    name: "createdAt",
-    type: "Date",
-    description: "The date and time the API key was created.",
-  },
-  {
-    name: "updatedAt",
-    type: "Date",
-    description: "The date and time the API key was updated.",
-  },
-  {
-    name: "permissions",
-    type: "string",
-    description: "The permissions of the key.",
-    isOptional: true,
-  },
-  {
-    name: "metadata",
-    type: "Object",
-    isOptional: true,
-    description: "Any additional metadata you want to store with the key.",
-  },
-]}
-/>
+Next Steps [#next-steps]
+
+<Cards>
+  <Card href="/docs/plugins/api-key/advanced" title="Advanced Features">
+    Sessions, multiple configurations, organization keys, storage, rate limiting, and more.
+  </Card>
+
+  <Card href="/docs/plugins/api-key/reference" title="Reference">
+    Plugin options, permissions, and schema.
+  </Card>
+</Cards>
 

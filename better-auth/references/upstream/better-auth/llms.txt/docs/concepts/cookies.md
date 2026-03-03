@@ -4,9 +4,9 @@ Learn how cookies are used in Better Auth.
 
 
 
-Cookies are used to store data such as session tokens, session data, OAuth state, and more. All cookies are signed using the `secret` key provided in the auth options or the `BETTER_AUTH_SECRET` environment variable.
+Cookies are used to store data such as session tokens, session data, OAuth state, and more. All cookies are signed using the `secret` key provided in the auth options or the `BETTER_AUTH_SECRET` environment variable. If you use [versioned secrets](/docs/reference/options#secrets) for rotation, encrypted cookie data (such as JWE session caches) will automatically use the current key and remain decryptable with previous keys.
 
-### Cookie Prefix
+Cookie Prefix [#cookie-prefix]
 
 By default, Better Auth cookies follow the format `${prefix}.${cookie_name}`. The default prefix is "better-auth". You can change the prefix by setting `cookiePrefix` in the `advanced` object of the auth options.
 
@@ -20,7 +20,7 @@ export const auth = betterAuth({
 })
 ```
 
-### Custom Cookies
+Custom Cookies [#custom-cookies]
 
 All cookies are `httpOnly` and `secure` when the server is running in production mode.
 
@@ -51,7 +51,7 @@ export const auth = betterAuth({
 })
 ```
 
-### Cross Subdomain Cookies
+Cross Subdomain Cookies [#cross-subdomain-cookies]
 
 Sometimes you may need to share cookies across subdomains.
 For example, if you authenticate on `auth.example.com`, you may also want to access the same session on `app.example.com`.
@@ -83,7 +83,7 @@ export const auth = betterAuth({
 })
 ```
 
-### Secure Cookies
+Secure Cookies [#secure-cookies]
 
 By default, cookies are secure only when the server is running in production mode. You can force cookies to be always secure by setting `useSecureCookies` to `true` in the `advanced` object in the auth options.
 
@@ -97,7 +97,7 @@ export const auth = betterAuth({
 })
 ```
 
-## Safari, ITP, and Cross-Domain Setups
+Safari, ITP, and Cross-Domain Setups [#safari-itp-and-cross-domain-setups]
 
 Safari includes a privacy feature called Intelligent Tracking Prevention (ITP) that blocks third-party cookies.
 
@@ -126,7 +126,7 @@ To solve this, there are two solutions:
 1. Using a reverse proxy to proxy the request to the API.
 2. Using a shared parent domain.
 
-### Using a Reverse Proxy
+Using a Reverse Proxy [#using-a-reverse-proxy]
 
 Instead of calling your API directly, you can proxy it through the same domain as your frontend.
 
@@ -146,7 +146,7 @@ Then configure your hosting provider to proxy the request to your actual API ser
 
 This makes the request appear first-party to Safari, allowing cookies to function correctly.
 
-#### Example with Netlify
+Example with Netlify [#example-with-netlify]
 
 ```toml title="netlify.toml"
 [[redirects]]
@@ -156,7 +156,7 @@ This makes the request appear first-party to Safari, allowing cookies to functio
   force = true
 ```
 
-#### Example with Vercel
+Example with Vercel [#example-with-vercel]
 
 ```ts title="vercel.json"
 {
@@ -169,7 +169,7 @@ This makes the request appear first-party to Safari, allowing cookies to functio
 }
 ```
 
-### Using a Shared Parent Domain
+Using a Shared Parent Domain [#using-a-shared-parent-domain]
 
 You can also use a shared parent domain to allow cookies to be shared across subdomains:
 

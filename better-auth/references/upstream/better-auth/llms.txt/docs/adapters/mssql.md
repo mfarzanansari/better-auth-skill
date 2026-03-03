@@ -7,7 +7,7 @@ Integrate Better Auth with MS SQL.
 Microsoft SQL Server is a relational database management system developed by Microsoft, designed for enterprise-level data storage, management, and analytics with robust security and scalability features.
 Read more [here](https://en.wikipedia.org/wiki/Microsoft_SQL_Server).
 
-## Example Usage
+Example Usage [#example-usage]
 
 Make sure you have MS SQL installed and configured.
 Then, you can connect it straight into Better Auth.
@@ -64,7 +64,7 @@ export const auth = betterAuth({
   For more information, read Kysely's documentation to the [MssqlDialect](https://kysely-org.github.io/kysely-apidoc/classes/MssqlDialect.html).
 </Callout>
 
-## Schema generation & migration
+Schema generation & migration [#schema-generation--migration]
 
 The [Better Auth CLI](/docs/concepts/cli) allows you to generate or migrate
 your database schema based on your Better Auth configuration and plugins.
@@ -99,95 +99,101 @@ your database schema based on your Better Auth configuration and plugins.
   </tbody>
 </table>
 
-<CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
-  <CodeBlockTabsList>
-    <CodeBlockTabsTrigger value="npm">
-      npm
-    </CodeBlockTabsTrigger>
+<Tabs items={["migrate", "generate"]}>
+  <Tab value="migrate">
+    <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+      <CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="npm">
+          npm
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="pnpm">
-      pnpm
-    </CodeBlockTabsTrigger>
+        <CodeBlockTabsTrigger value="pnpm">
+          pnpm
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="yarn">
-      yarn
-    </CodeBlockTabsTrigger>
+        <CodeBlockTabsTrigger value="yarn">
+          yarn
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="bun">
-      bun
-    </CodeBlockTabsTrigger>
-  </CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="bun">
+          bun
+        </CodeBlockTabsTrigger>
+      </CodeBlockTabsList>
 
-  <CodeBlockTab value="npm">
-    ```bash title="Schema Generation"
-    npx @better-auth/cli@latest generate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="npm">
+        ```bash
+        npx auth@latest migrate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="pnpm">
-    ```bash title="Schema Generation"
-    pnpm dlx @better-auth/cli@latest generate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="pnpm">
+        ```bash
+        pnpm dlx auth@latest migrate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="yarn">
-    ```bash title="Schema Generation"
-    yarn dlx @better-auth/cli@latest generate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="yarn">
+        ```bash
+        yarn dlx auth@latest migrate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="bun">
-    ```bash title="Schema Generation"
-    bun x @better-auth/cli@latest generate
-    ```
-  </CodeBlockTab>
-</CodeBlockTabs>
+      <CodeBlockTab value="bun">
+        ```bash
+        bun x auth@latest migrate
+        ```
+      </CodeBlockTab>
+    </CodeBlockTabs>
+  </Tab>
 
-<CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
-  <CodeBlockTabsList>
-    <CodeBlockTabsTrigger value="npm">
-      npm
-    </CodeBlockTabsTrigger>
+  <Tab value="generate">
+    <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+      <CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="npm">
+          npm
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="pnpm">
-      pnpm
-    </CodeBlockTabsTrigger>
+        <CodeBlockTabsTrigger value="pnpm">
+          pnpm
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="yarn">
-      yarn
-    </CodeBlockTabsTrigger>
+        <CodeBlockTabsTrigger value="yarn">
+          yarn
+        </CodeBlockTabsTrigger>
 
-    <CodeBlockTabsTrigger value="bun">
-      bun
-    </CodeBlockTabsTrigger>
-  </CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="bun">
+          bun
+        </CodeBlockTabsTrigger>
+      </CodeBlockTabsList>
 
-  <CodeBlockTab value="npm">
-    ```bash title="Schema Migration"
-    npx @better-auth/cli@latest migrate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="npm">
+        ```bash
+        npx auth@latest generate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="pnpm">
-    ```bash title="Schema Migration"
-    pnpm dlx @better-auth/cli@latest migrate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="pnpm">
+        ```bash
+        pnpm dlx auth@latest generate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="yarn">
-    ```bash title="Schema Migration"
-    yarn dlx @better-auth/cli@latest migrate
-    ```
-  </CodeBlockTab>
+      <CodeBlockTab value="yarn">
+        ```bash
+        yarn dlx auth@latest generate
+        ```
+      </CodeBlockTab>
 
-  <CodeBlockTab value="bun">
-    ```bash title="Schema Migration"
-    bun x @better-auth/cli@latest migrate
-    ```
-  </CodeBlockTab>
-</CodeBlockTabs>
+      <CodeBlockTab value="bun">
+        ```bash
+        bun x auth@latest generate
+        ```
+      </CodeBlockTab>
+    </CodeBlockTabs>
+  </Tab>
+</Tabs>
 
-## Joins (Experimental)
+Joins (Experimental) [#joins-experimental]
 
 Database joins is useful when Better-Auth needs to fetch related data from multiple tables in a single query.
 Endpoints like `/get-session`, `/get-full-organization` and many others benefit greatly from this feature,
@@ -197,6 +203,8 @@ The Kysely MS SQL dialect supports joins out of the box since version `1.4.0`.
 To enable this feature, you need to set the `experimental.joins` option to `true` in your auth configuration.
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
   experimental: { joins: true }
 });
@@ -206,7 +214,7 @@ export const auth = betterAuth({
   It's possible that you may need to run migrations after enabling this feature.
 </Callout>
 
-## Additional Information
+Additional Information [#additional-information]
 
 MS SQL is supported under the hood via the [Kysely](https://kysely.dev/) adapter, any database supported by Kysely would also be supported. (<Link href="/docs/adapters/other-relational-databases">Read more here</Link>)
 

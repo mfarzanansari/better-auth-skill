@@ -8,7 +8,7 @@ This integration guide is assuming you are using TanStack Start.
 
 Before you start, make sure you have a Better Auth instance configured. If you haven't done that yet, check out the [installation](/docs/installation).
 
-## Quick Start
+Quick Start [#quick-start]
 
 You can create a new TanStack Start project with Better Auth integrated using the following command. This CLI sets up a project with an auth instance configured with the plugin and mounted handlers.
 
@@ -68,9 +68,9 @@ You can create a new TanStack Start project with Better Auth integrated using th
   </CodeBlockTab>
 </CodeBlockTabs>
 
-## Usage
+Usage [#usage]
 
-### Mount the handler
+Mount the handler [#mount-the-handler]
 
 We need to mount the handler to a TanStack API endpoint/Server Route.
 Create a new file: `/src/routes/api/auth/$.ts`
@@ -93,7 +93,7 @@ export const Route = createFileRoute('/api/auth/$')({
 })
 ```
 
-### Usage tips
+Usage tips [#usage-tips]
 
 * We recommend using the client SDK or `authClient` to handle authentication, rather than server actions with `auth.api`.
 * When you call functions that need to set cookies (like `signInEmail` or `signUpEmail`), you'll need to handle cookie setting for TanStack Start. Better Auth provides a `tanstackStartCookies` plugin to automatically handle this for you.
@@ -137,7 +137,7 @@ const signIn = async () => {
 }
 ```
 
-### Protecting Resources
+Protecting Resources [#protecting-resources]
 
 To protect resources that require authentication, use `beforeLoad` with a server function. This ensures authentication is checked on every navigation, including client-side navigation via `<Link>` components.
 
@@ -167,7 +167,7 @@ export const ensureSession = createServerFn({ method: "GET" }).handler(async () 
 });
 ```
 
-#### Protecting Routes
+Protecting Routes [#protecting-routes]
 
 Use `beforeLoad` in your route definitions:
 
@@ -195,7 +195,7 @@ function Dashboard() {
 }
 ```
 
-#### Protecting Multiple Routes (Layout)
+Protecting Multiple Routes (Layout) [#protecting-multiple-routes-layout]
 
 For protecting multiple routes, use a pathless layout route:
 
@@ -238,7 +238,7 @@ Then nest protected routes under `_protected`:
   </Folder>
 </Files>
 
-#### Protecting Server Functions
+Protecting Server Functions [#protecting-server-functions]
 
 Use `ensureSession` helper to protect server functions:
 

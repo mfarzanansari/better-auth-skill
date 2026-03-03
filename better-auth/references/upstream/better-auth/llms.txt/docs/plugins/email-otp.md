@@ -6,11 +6,11 @@ Email OTP plugin for Better Auth.
 
 The Email OTP plugin allows user to sign in, verify their email, or reset their password using a one-time password (OTP) sent to their email address.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the plugin to your auth config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     Add the `emailOTP` plugin to your auth config and implement the `sendVerificationOTP()` method.
 
@@ -38,24 +38,24 @@ The Email OTP plugin allows user to sign in, verify their email, or reset their 
   </Step>
 
   <Step>
-    ### Add the client plugin
+    Add the client plugin [#add-the-client-plugin]
 
     ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client"
-    import { emailOTPClient } from "better-auth/client/plugins"
+    import { emailOTPClient } from "better-auth/client/plugins" // [!code highlight]
 
     export const authClient = createAuthClient({
         plugins: [
-            emailOTPClient()
+            emailOTPClient() // [!code highlight]
         ]
     })
     ```
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Send an OTP
+Send an OTP [#send-an-otp]
 
 Use the `sendVerificationOtp()` method to send an OTP to the user's email address.
 
@@ -97,7 +97,7 @@ type sendVerificationOTP = {
 ```
 
 
-### Check an OTP (optional)
+Check an OTP (optional) [#check-an-otp-optional]
 
 Use the `checkVerificationOtp()` method to check if an OTP is valid.
 
@@ -145,7 +145,7 @@ type checkVerificationOTP = {
 ```
 
 
-### Sign In with OTP
+Sign In with OTP [#sign-in-with-otp]
 
 To sign in with OTP, use the `sendVerificationOtp()` method to send a "sign-in" OTP to the user's email address.
 
@@ -196,6 +196,8 @@ Once the user provides the OTP, you can sign in the user using the `signIn.email
 const { data, error } = await authClient.signIn.emailOtp({
     email: user@example.com,
     otp: 123456,
+    name: John Doe, // optional
+    image: https://example.com/image.png, // optional
 });
 ```
 
@@ -206,6 +208,8 @@ const data = await auth.api.signInEmailOTP({
     body: {
         email: user@example.com,
         otp: 123456,
+        name: John Doe, // optional
+        image: https://example.com/image.png, // optional
     }
 });
 ```
@@ -215,23 +219,31 @@ const data = await auth.api.signInEmailOTP({
 ```ts
 type signInEmailOTP = {
       /**
-       * Email address to sign in. 
+       * Email address to sign in.
        */
       email: string = "user@example.com"
       /**
-       * OTP sent to the email. 
+       * OTP sent to the email.
        */
       otp: string = "123456"
+      /**
+       * User display name. Only used when the user is registering for the first time.
+       */
+      name?: string = "John Doe"
+      /**
+       * User profile image URL. Only used when the user is registering for the first time.
+       */
+      image?: string = "https://example.com/image.png"
   
 }
 ```
 
 
 <Callout>
-  If the user is not registered, they'll be automatically registered. If you want to prevent this, you can pass `disableSignUp` as `true` in the [options](#options).
+  If the user is not registered, they'll be automatically registered. Configured [additional fields](/docs/concepts/typescript#additional-fields) are also accepted for new users. To prevent automatic sign-up, pass `disableSignUp` as `true` in the [options](#options).
 </Callout>
 
-### Verify Email with OTP
+Verify Email with OTP [#verify-email-with-otp]
 
 To verify the user's email address with OTP, use the `sendVerificationOtp()` method to send an "email-verification" OTP to the user's email address.
 
@@ -313,7 +325,7 @@ type verifyEmailOTP = {
 ```
 
 
-### Reset Password with OTP
+Reset Password with OTP [#reset-password-with-otp]
 
 To reset the user's password with OTP, use the `emailOtp.requestPasswordReset()` method to send a "forget-password" OTP to the user's email address.
 
@@ -445,12 +457,182 @@ type resetPasswordEmailOTP = {
 ```
 
 
-### Override Default Email Verification
+Change Email with OTP [#change-email-with-otp]
+
+To allow users to change their email with OTP, first enable the `changeEmail` feature, which is disabled by default. Set `changeEmail.enabled` to `true`:
+
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
+export const auth = betterAuth({
+    plugins: [
+        emailOTP({
+            changeEmail: {
+                enabled: true, // [!code highlight]
+            }
+        })
+    ]
+})
+```
+
+By default, when a user requests to change their email, an OTP is sent to the **new** email address.
+The email is only updated after the user verifies the new email.
+
+Usage [#usage-1]
+
+To change the user's email address with OTP, use the `emailOtp.requestEmailChange()` method to send a "change-email" OTP to the user's new email address.
+
+
+### Client Side
+
+```ts
+const { data, error } = await authClient.emailOtp.requestEmailChange({
+    newEmail: user@example.com,
+    otp: 123456, // optional
+});
+```
+
+### Server Side
+
+```ts
+const data = await auth.api.requestEmailChangeEmailOTP({
+    body: {
+        newEmail: user@example.com,
+        otp: 123456, // optional
+    },
+    // This endpoint requires session cookies.
+    headers: await headers()
+});
+```
+
+### Type Definition
+
+```ts
+type requestEmailChangeEmailOTP = {
+      /**
+       * New email address to send the OTP.
+       */
+      newEmail: string = "user@example.com"
+      /**
+       * OTP sent to the current email. This is required when the `changeEmail.verifyCurrentEmail` option is set to `true`.
+       */
+      otp?: string = "123456"
+  
+}
+```
+
+
+Once the user provides the OTP, use the `changeEmail()` method to change the user's email address.
+
+
+### Client Side
+
+```ts
+const { data, error } = await authClient.emailOtp.changeEmail({
+    newEmail: user@example.com,
+    otp: 123456,
+});
+```
+
+### Server Side
+
+```ts
+const data = await auth.api.changeEmailEmailOTP({
+    body: {
+        newEmail: user@example.com,
+        otp: 123456,
+    },
+    // This endpoint requires session cookies.
+    headers: await headers()
+});
+```
+
+### Type Definition
+
+```ts
+type changeEmailEmailOTP = {
+      /**
+       * New email address to change to. 
+       */
+      newEmail: string = "user@example.com"
+      /**
+       * OTP sent to the new email. 
+       */
+      otp: string = "123456"
+  
+}
+```
+
+
+Confirming with Current Email [#confirming-with-current-email]
+
+For added security, you can require users to confirm the change with an OTP sent to their **current** email before
+sending an OTP to the new email address. To enable this, set `changeEmail.verifyCurrentEmail` to `true` in the plugin options.
+
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
+export const auth = betterAuth({
+    plugins: [
+        emailOTP({
+            changeEmail: {
+                enabled: true,
+                verifyCurrentEmail: true, // [!code highlight]
+            }
+        })
+    ]
+})
+```
+
+Before requesting the email change, use the `sendVerificationOtp()` method with type `email-verification` to send an OTP to the user's email address.
+
+
+### Client Side
+
+```ts
+const { data, error } = await authClient.emailOtp.sendVerificationOtp({
+    email: user@example.com,
+    type: email-verification,
+});
+```
+
+### Server Side
+
+```ts
+const data = await auth.api.sendVerificationOTP({
+    body: {
+        email: user@example.com,
+        type: email-verification,
+    }
+});
+```
+
+### Type Definition
+
+```ts
+type sendVerificationOTP = {
+      /**
+       * Email address to send the OTP. 
+       */
+      email: string = "user@example.com"
+      /**
+       * Type of the OTP. Must be `email-verification` for confirming email change.
+       */
+      type: string = "email-verification"
+  
+}
+```
+
+
+Then, the user can provide the OTP when calling `requestEmailChange()`. The system will first verify the OTP sent to the current email before sending an OTP to the new email.
+
+Override Default Email Verification [#override-default-email-verification]
 
 To override the default email verification, pass `overrideDefaultEmailVerification: true` in the options. This will make the system use an email OTP instead of the default verification link whenever email verification is triggered. In other words, the user will verify their email using an OTP rather than clicking a link.
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth";
+import { emailOTP } from "better-auth/plugins"
 
 export const auth = betterAuth({
   plugins: [
@@ -464,7 +646,7 @@ export const auth = betterAuth({
 });
 ```
 
-## Options
+Options [#options]
 
 * `sendVerificationOTP`: A function that sends the OTP to the user's email address. The function receives an object with the following properties:
 
@@ -482,6 +664,7 @@ export const auth = betterAuth({
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth"
+import { emailOTP } from "better-auth/plugins"
 
 export const auth = betterAuth({
     plugins: [
@@ -503,6 +686,7 @@ export const auth = betterAuth({
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth"
+import { emailOTP } from "better-auth/plugins"
 
 export const auth = betterAuth({
     plugins: [

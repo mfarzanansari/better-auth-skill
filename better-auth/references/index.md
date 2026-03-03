@@ -20,6 +20,7 @@ Use this file to route to the smallest useful context set.
 - `upstream/better-auth/llms.txt/docs/introduction.md`
 - `upstream/better-auth/llms.txt/docs/installation.md`
 - `upstream/better-auth/llms.txt/docs/basic-usage.md`
+- `upstream/better-auth/llms.txt/docs/plugins.md`
 - `upstream/better-auth/llms.txt/docs/reference/options.md`
 
 ## Category Routing
@@ -36,9 +37,17 @@ Use this file to route to the smallest useful context set.
 
 - `upstream/better-auth/llms.txt/docs/plugins/`
 
+### Infrastructure (Managed Services)
+
+- `upstream/better-auth/llms.txt/docs/infrastructure/`
+
 ### Framework Integrations
 
 - `upstream/better-auth/llms.txt/docs/integrations/`
+
+### Examples
+
+- `upstream/better-auth/llms.txt/docs/examples/`
 
 ### Migration and Guides
 

@@ -8,11 +8,11 @@ Better Auth Plugin for Lead Tracking using Dub links and OAuth Linking
 
 This plugins allows you to track leads when a user signs up using a Dub link. It also adds OAuth linking support to allow you to build integrations extending Dub's linking management infrastructure.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Install the plugin
+    Install the plugin [#install-the-plugin]
 
     First, install the plugin:
 
@@ -62,7 +62,7 @@ This plugins allows you to track leads when a user signs up using a Dub link. It
   </Step>
 
   <Step>
-    ### Install the Dub SDK
+    Install the Dub SDK [#install-the-dub-sdk]
 
     Next, install the Dub SDK on your server:
 
@@ -112,7 +112,7 @@ This plugins allows you to track leads when a user signs up using a Dub link. It
   </Step>
 
   <Step>
-    ### Configure the plugin
+    Configure the plugin [#configure-the-plugin]
 
     Add the plugin to your auth config:
 
@@ -132,9 +132,9 @@ This plugins allows you to track leads when a user signs up using a Dub link. It
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Lead Tracking
+Lead Tracking [#lead-tracking]
 
 By default, the plugin will track sign up events as leads. You can disable this by setting `disableLeadTracking` to `true`.
 
@@ -155,7 +155,7 @@ const betterAuth = betterAuth({
 });
 ```
 
-### OAuth Linking
+OAuth Linking [#oauth-linking]
 
 The plugin supports OAuth for account linking.
 
@@ -221,39 +221,39 @@ type dubLink = {
 ```
 
 
-## Options
+Options [#options]
 
 You can pass the following options to the plugin:
 
-### `dubClient`
+dubClient [#dubclient]
 
 The Dub client instance.
 
-### `disableLeadTracking`
+disableLeadTracking [#disableleadtracking]
 
 Disable lead tracking for sign up events.
 
-### `leadEventName`
+leadEventName [#leadeventname]
 
 Event name for sign up leads.
 
-### `customLeadTrack`
+customLeadTrack [#customleadtrack]
 
 Custom lead track function.
 
-### `oauth`
+oauth [#oauth]
 
 Dub OAuth configuration.
 
-### `oauth.clientId`
+oauth.clientId [#oauthclientid]
 
 Client ID for Dub OAuth.
 
-### `oauth.clientSecret`
+oauth.clientSecret [#oauthclientsecret]
 
 Client secret for Dub OAuth.
 
-### `oauth.pkce`
+oauth.pkce [#oauthpkce]
 
 Enable PKCE for Dub OAuth.
 

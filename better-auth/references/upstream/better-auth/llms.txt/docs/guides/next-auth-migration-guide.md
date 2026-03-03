@@ -4,7 +4,7 @@ A step-by-step guide to transitioning from Auth.js to Better Auth.
 
 
 
-## Introduction
+Introduction [#introduction]
 
 In this guide, we'll walk through the steps to migrate a project from [Auth.js](https://authjs.dev/) (formerly [NextAuth.js](https://next-auth.js.org/)) to Better Auth. Since these projects have different design philosophies, the migration requires careful planning and work. If your current setup is working well, there's no urgent need to migrate. We continue to handle security patches and critical issues for Auth.js.
 
@@ -12,7 +12,7 @@ However, if you're starting a new project or facing challenges with your current
 
 <Steps>
   <Step>
-    ## Create Better Auth Instance
+    Create Better Auth Instance [#create-better-auth-instance]
 
     Before starting the migration process, set up Better Auth in your project. Follow the [installation guide](/docs/installation) to get started.
 
@@ -52,7 +52,7 @@ However, if you're starting a new project or facing challenges with your current
   </Step>
 
   <Step>
-    ## Create Client Instance
+    Create Client Instance [#create-client-instance]
 
     This client instance includes a set of functions for interacting with the Better Auth server instance. For more information, see [here](/docs/concepts/client).
 
@@ -64,7 +64,7 @@ However, if you're starting a new project or facing challenges with your current
   </Step>
 
   <Step>
-    ## Update the Route Handler
+    Update the Route Handler [#update-the-route-handler]
 
     Rename the `/app/api/auth/[...nextauth]` folder to `/app/api/auth/[...all]` to avoid confusion. Then, update the `route.ts` file as follows:
 
@@ -89,13 +89,13 @@ However, if you're starting a new project or facing challenges with your current
   </Step>
 
   <Step>
-    ## Session Management
+    Session Management [#session-management]
 
     In this section, we'll look at how to manage sessions in Better Auth compared to Auth.js. For more information, see [here](/docs/concepts/session-management).
 
-    ### Client-side
+    Client-side [#client-side]
 
-    #### Sign In
+    Sign In [#sign-in]
 
     Here are the differences between Auth.js and Better Auth for signing in users. For example, with the GitHub OAuth provider:
 
@@ -123,7 +123,7 @@ However, if you're starting a new project or facing challenges with your current
       </Tab>
     </Tabs>
 
-    #### Sign Out
+    Sign Out [#sign-out]
 
     Here are the differences between Auth.js and Better Auth when signing out users.
 
@@ -149,7 +149,7 @@ However, if you're starting a new project or facing challenges with your current
       </Tab>
     </Tabs>
 
-    #### Get Session
+    Get Session [#get-session]
 
     Here are the differences between Auth.js and Better Auth for getting the current active session.
 
@@ -175,9 +175,9 @@ However, if you're starting a new project or facing challenges with your current
       </Tab>
     </Tabs>
 
-    ### Server-side
+    Server-side [#server-side]
 
-    #### Sign In
+    Sign In [#sign-in-1]
 
     Here are the differences between Auth.js and Better Auth for signing in users. For example, with the GitHub OAuth provider:
 
@@ -203,7 +203,7 @@ However, if you're starting a new project or facing challenges with your current
       </Tab>
     </Tabs>
 
-    #### Sign Out
+    Sign Out [#sign-out-1]
 
     Here are the differences between Auth.js and Better Auth when signing out users.
 
@@ -228,7 +228,7 @@ However, if you're starting a new project or facing challenges with your current
       </Tab>
     </Tabs>
 
-    #### Get Session
+    Get Session [#get-session-1]
 
     Here are the differences between Auth.js and Better Auth for getting the current active session.
 
@@ -255,7 +255,7 @@ However, if you're starting a new project or facing challenges with your current
   </Step>
 
   <Step>
-    ## Protecting Resources
+    Protecting Resources [#protecting-resources]
 
     > Proxy(Middleware) is not intended for slow data fetching. While Proxy can be helpful for optimistic checks such as permission-based redirects, it should not be used as a full session management or authorization solution. - [Next.js docs](https://nextjs.org/docs/app/getting-started/proxy#use-cases)
 
@@ -320,13 +320,13 @@ However, if you're starting a new project or facing challenges with your current
   </Step>
 
   <Step>
-    ## Database models
+    Database models [#database-models]
 
     Both Auth.js and Better Auth provide stateless (JWT) and database session strategies. If you were using the database session strategy in Auth.js and plan to continue using it in Better Auth, you will also need to migrate your database.
 
     Just like Auth.js has database models, Better Auth also has a core schema. In this section, we'll compare the two and explore the differences between them.
 
-    ### User -> User
+    User -> User [#user---user]
 
     <Tabs items={["Auth.js", "Better Auth"]}>
       <Tab value="Auth.js">
@@ -411,7 +411,7 @@ However, if you're starting a new project or facing challenges with your current
       </Tab>
     </Tabs>
 
-    ### Session -> Session
+    Session -> Session [#session---session]
 
     <Tabs items={["Auth.js", "Better Auth"]}>
       <Tab value="Auth.js">
@@ -496,7 +496,7 @@ However, if you're starting a new project or facing challenges with your current
       </Tab>
     </Tabs>
 
-    ### Account -> Account
+    Account -> Account [#account---account]
 
     <Tabs items={["Auth.js", "Better Auth"]}>
       <Tab value="Auth.js">
@@ -659,7 +659,7 @@ However, if you're starting a new project or facing challenges with your current
       </Tab>
     </Tabs>
 
-    ### VerificationToken -> Verification
+    VerificationToken -> Verification [#verificationtoken---verification]
 
     <Tabs items={["Auth.js", "Better Auth"]}>
       <Tab value="Auth.js">
@@ -725,7 +725,7 @@ However, if you're starting a new project or facing challenges with your current
       </Tab>
     </Tabs>
 
-    ### Comparison
+    Comparison [#comparison]
 
     Table: <strong className="underline italic">User</strong>
 
@@ -763,13 +763,13 @@ However, if you're starting a new project or facing challenges with your current
       If you were using Auth.js v4, note that v5 does not introduce any breaking changes to the database schema. Optional fields like `oauth_token_secret` and `oauth_token` can be removed if you are not using them. Rarely used fields like `refresh_token_expires_in` can also be removed.
     </Callout>
 
-    ### Customization
+    Customization [#customization]
 
     You may have extended the database models or implemented additional logic in Auth.js. Better Auth allows you to customize the core schema in a type-safe way. You can also define custom logic during the lifecycle of database operations. For more details, see [Concepts - Database](/docs/concepts/database).
   </Step>
 </Steps>
 
-## Wrapping Up
+Wrapping Up [#wrapping-up]
 
 Now you're ready to migrate from Auth.js to Better Auth. For a complete implementation with multiple authentication methods, check out the [Next.js Demo App](https://github.com/better-auth/better-auth/tree/canary/demo/nextjs). Better Auth offers greater flexibility and more features, so be sure to explore the [documentation](/docs) to unlock its full potential.
 

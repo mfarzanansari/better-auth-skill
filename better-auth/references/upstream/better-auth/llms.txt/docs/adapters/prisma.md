@@ -8,7 +8,7 @@ Prisma ORM is an open-source database toolkit that simplifies database access an
 
 Before getting started, make sure you have Prisma installed and configured. For more information, see [Prisma Documentation](https://www.prisma.io/docs/)
 
-## Example Usage
+Example Usage [#example-usage]
 
 You can use the Prisma adapter to connect to your database as follows.
 
@@ -30,7 +30,7 @@ export const auth = betterAuth({
   Starting from Prisma 7, the `output` path field is required. If you have configured a custom output path in your `schema.prisma` file (e.g., `output = "../src/generated/prisma"`), make sure to import the Prisma client from that location instead of `@prisma/client`. For more information, see [here](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/generating-prisma-client#the-location-of-prisma-client).
 </Callout>
 
-## Schema generation & migration
+Schema generation & migration [#schema-generation--migration]
 
 The [Better Auth CLI](/docs/concepts/cli) allows you to generate or migrate
 your database schema based on your Better Auth configuration and plugins.
@@ -86,30 +86,30 @@ your database schema based on your Better Auth configuration and plugins.
 
   <CodeBlockTab value="npm">
     ```bash title="Schema Generation"
-    npx @better-auth/cli@latest generate
+    npx auth@latest generate
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="pnpm">
     ```bash title="Schema Generation"
-    pnpm dlx @better-auth/cli@latest generate
+    pnpm dlx auth@latest generate
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="yarn">
     ```bash title="Schema Generation"
-    yarn dlx @better-auth/cli@latest generate
+    yarn dlx auth@latest generate
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="bun">
     ```bash title="Schema Generation"
-    bun x @better-auth/cli@latest generate
+    bun x auth@latest generate
     ```
   </CodeBlockTab>
 </CodeBlockTabs>
 
-## Joins (Experimental)
+Joins (Experimental) [#joins-experimental]
 
 Database joins is useful when Better-Auth needs to fetch related data from multiple tables in a single query.
 Endpoints like `/get-session`, `/get-full-organization` and many others benefit greatly from this feature,
@@ -119,6 +119,8 @@ The Prisma adapter supports joins out of the box since version `1.4.0`.
 To enable this feature, you need to set the `experimental.joins` option to `true` in your auth configuration.
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
   experimental: { joins: true }
 });
@@ -127,10 +129,10 @@ export const auth = betterAuth({
 <Callout type="warn">
   Please make sure that your Prisma schema has the necessary relations defined.
   If you do not see any relations in your Prisma schema, you can manually add them using the `@relation` directive
-  or run our latest CLI version `npx @better-auth/cli@latest generate` to generate a new Prisma schema with the relations.
+  or run our latest CLI version `npx auth@latest generate` to generate a new Prisma schema with the relations.
 </Callout>
 
-## Additional Information
+Additional Information [#additional-information]
 
 * If you're looking for performance improvements or tips, take a look at our guide to <Link href="/docs/guides/optimizing-for-performance">performance optimizations</Link>.
 * [How to use Prisma ORM with Better Auth and Next.js](https://www.prisma.io/docs/guides/betterauth-nextjs)

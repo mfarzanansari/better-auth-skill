@@ -6,7 +6,7 @@ Polar provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Polar credentials
+    Get your Polar credentials [#get-your-polar-credentials]
 
     To use Polar sign in, you need to create an OAuth 2.0 Client. You can get your credentials from the [Polar User Settings](https://polar.sh/dashboard/account/developer).
 
@@ -30,7 +30,7 @@ Polar provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -49,7 +49,7 @@ Polar provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Polar
+    Sign In with Polar [#sign-in-with-polar]
 
     To sign in with Polar, you can use the `signIn.social` function provided by the client, where the `provider` should be set to `polar`.
 

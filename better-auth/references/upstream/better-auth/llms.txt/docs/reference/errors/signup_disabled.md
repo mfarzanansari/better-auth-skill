@@ -6,7 +6,7 @@ Signup disabled error
 
 This error occurs when you disable sign up in your oauth provider config and a user tries to sign up with that provider.
 
-## How to fix
+How to fix [#how-to-fix]
 
 If you're using the `disableSignUp` option with stateless mode, you will see this error. Please consider using database hooks instead to handle this case.
 

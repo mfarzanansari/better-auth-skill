@@ -12,7 +12,7 @@ Before you start, make sure you have a Better Auth instance configured. If you h
   The NestJS integration is **community maintained**. If you encounter any issues, please open them at [nestjs-better-auth](https://github.com/ThallesP/nestjs-better-auth).
 </Callout>
 
-## Installation
+Installation [#installation]
 
 Install the NestJS integration library:
 
@@ -60,13 +60,13 @@ Install the NestJS integration library:
   </CodeBlockTab>
 </CodeBlockTabs>
 
-## Basic Setup
+Basic Setup [#basic-setup]
 
 <Callout type="warn">
   Currently the library has beta support for Fastify, if you experience any issues with it, please open an issue at [nestjs-better-auth](https://github.com/ThallesP/nestjs-better-auth).
 </Callout>
 
-### 1. Disable Body Parser
+1. Disable Body Parser [#1-disable-body-parser]
 
 Disable NestJS's built-in body parser to allow Better Auth to handle the raw request body:
 
@@ -83,7 +83,7 @@ async function bootstrap() {
 bootstrap();
 ```
 
-### 2. Import AuthModule
+2. Import AuthModule [#2-import-authmodule]
 
 Import the `AuthModule` in your root module:
 
@@ -100,7 +100,7 @@ import { auth } from "./auth"; // Your Better Auth instance
 export class AppModule {}
 ```
 
-### 3. Route Protection
+3. Route Protection [#3-route-protection]
 
 **Global by default**: An `AuthGuard` is registered globally by this module. All routes are protected unless you explicitly allow access.
 
@@ -131,7 +131,7 @@ export class UserController {
 }
 ```
 
-## Full Documentation
+Full Documentation [#full-documentation]
 
 For comprehensive documentation including decorators, hooks, global guards, and advanced configuration, visit the [NestJS Better Auth repository](https://github.com/thallesp/nestjs-better-auth).
 

@@ -6,11 +6,11 @@ Other social providers setup and usage.
 
 Better Auth provides support for any social provider that implements the OAuth2 protocol or OpenID Connect (OIDC) flows through the [Generic OAuth Plugin](/docs/plugins/generic-oauth). You can use pre-configured helper functions for popular providers like Auth0, Keycloak, Okta, Microsoft Entra ID, and Slack, or manually configure any OAuth provider.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the plugin to your auth config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     To use the Generic OAuth plugin, add it to your auth config.
 
@@ -39,7 +39,7 @@ Better Auth provides support for any social provider that implements the OAuth2 
   </Step>
 
   <Step>
-    ### Add the client plugin
+    Add the client plugin [#add-the-client-plugin]
 
     Include the Generic OAuth client plugin in your authentication client instance.
 
@@ -61,7 +61,7 @@ Better Auth provides support for any social provider that implements the OAuth2 
   [here](/docs/plugins/generic-oauth#usage).
 </Callout>
 
-## Example Usage
+Example Usage [#example-usage]
 
 Here's a basic example of configuring a generic OAuth provider:
 
@@ -85,7 +85,7 @@ export const auth = betterAuth({
 })
 ```
 
-## Using Pre-configured Providers
+Using Pre-configured Providers [#using-pre-configured-providers]
 
 Better Auth provides pre-configured helper functions for popular OAuth providers. Here's an example using Slack:
 
@@ -116,11 +116,11 @@ const response = await authClient.signIn.oauth2({
 
 For more pre-configured providers (Auth0, Keycloak, Okta, Microsoft Entra ID) and their configuration options, see the [Generic OAuth Plugin documentation](/docs/plugins/generic-oauth#pre-configured-provider-helpers).
 
-## Manual Configuration Examples
+Manual Configuration Examples [#manual-configuration-examples]
 
 If you need to configure a provider that doesn't have a pre-configured helper, you can manually configure it:
 
-### Instagram Example
+Instagram Example [#instagram-example]
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth";
@@ -152,7 +152,7 @@ const response = await authClient.signIn.oauth2({
 });
 ```
 
-### Coinbase Example
+Coinbase Example [#coinbase-example]
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth";

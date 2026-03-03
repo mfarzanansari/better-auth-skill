@@ -7,6 +7,7 @@ Use this playbook for 2FA rollout using TOTP and/or OTP flows.
 - Enable 2FA plugin and client plugin.
 - Run schema migration after plugin changes.
 - Ensure UX includes explicit verification and fallback recovery path.
+- Confirm account type supports 2FA flow (credential accounts required).
 
 ## 2) TOTP Flow
 
@@ -30,6 +31,17 @@ Use this playbook for 2FA rollout using TOTP and/or OTP flows.
 - Enable trust-device only when policy allows.
 - Add rate limits around verification endpoints.
 - Require credential confirmation for sensitive 2FA state changes.
+
+## 6) Sign-In and Session Semantics
+
+- Expect two-step sign-in: credential check then 2FA verification.
+- Validate temporary 2FA-cookie handoff and expiry behavior.
+- Confirm post-verification session creation and pre-verification session removal.
+
+## 7) Operational Defaults to Verify
+
+- Verify built-in rate limits on 2FA endpoints and tune if needed.
+- Confirm OTP attempt limits and lockout behavior align with risk profile.
 
 ## Upstream References
 

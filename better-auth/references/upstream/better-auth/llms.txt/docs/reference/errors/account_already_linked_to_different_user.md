@@ -4,7 +4,7 @@ The account is already linked to a different user.
 
 
 
-## What is it?
+What is it? [#what-is-it]
 
 This error occurs during the OAuth flow when attempting to link an OAuth provider account
 to the currently authenticated user, but that exact provider account is already linked to
@@ -14,9 +14,9 @@ throws this error.
 This situation is only possible through the OAuth flow (e.g., Google, GitHub, etc.). It is
 not triggered by email/password flows on their own.
 
-## How to resolve
+How to resolve [#how-to-resolve]
 
-### Typical resolutions
+Typical resolutions [#typical-resolutions]
 
 * Log in as the user who already has the provider linked, unlink the provider from that account,
   then link it to the intended account.
@@ -24,7 +24,7 @@ not triggered by email/password flows on their own.
   a primary user, move sessions and linked accounts from the secondary user to the primary, then
   deactivate or delete the secondary.
 
-### Common Causes
+Common Causes [#common-causes]
 
 * You previously signed in or signed up using this provider on a different user in the same project.
 * You have two local users (e.g., created via email/password or magic link) and you linked the provider
@@ -35,7 +35,7 @@ not triggered by email/password flows on their own.
 * You rely on email matching to decide linking, but the actual unique key is the provider account identifier
   (e.g., `providerId` + `accountId`). If that mapping exists for another user, linking will be blocked.
 
-### Safer patterns and prevention
+Safer patterns and prevention [#safer-patterns-and-prevention]
 
 * Avoid automatically linking a provider to whichever user is currently signed in unless you explicitly
   confirm ownership with the user.
@@ -43,7 +43,7 @@ not triggered by email/password flows on their own.
   if the provider is already linked elsewhere.
 * Consider disabling linking for providers you only want to use for sign-in, to avoid accidental cross-linking.
 
-### Debug locally
+Debug locally [#debug-locally]
 
 * Inspect your `account` database table. You should see rows keyed by
   `providerId` (e.g., 'google') and `accountId` (e.g., OIDC `sub`), pointing to a `userId`.
@@ -51,7 +51,7 @@ not triggered by email/password flows on their own.
 * Verify your app is connected to the expected database and environment (dev/staging/prod) to avoid confusion
   due to shared credentials or misconfigured environment variables.
 
-### Provider considerations
+Provider considerations [#provider-considerations]
 
 * Ensure you request stable user identifiers from the provider (e.g., OIDC `openid` scope) so `accountId`
   remains consistent across sessions.

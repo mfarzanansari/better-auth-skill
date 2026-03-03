@@ -6,7 +6,7 @@ Better Auth configuration options reference.
 
 List of all the available options for configuring Better Auth. See [Better Auth Options](https://github.com/better-auth/better-auth/blob/main/packages/core/src/types/init-options.ts).
 
-## `appName`
+appName [#appname]
 
 The name of the application.
 
@@ -17,7 +17,7 @@ export const auth = betterAuth({
 })
 ```
 
-## `baseURL`
+baseURL [#baseurl]
 
 Base URL for Better Auth. This is typically the root URL where your application server is hosted. Note: If you include a path in the baseURL, it will take precedence over the default path.
 
@@ -34,7 +34,7 @@ If not explicitly set, the system will check for the environment variable `BETTE
   Relying on request inference is not recommended. For security and stability, always set `baseURL` explicitly in your config or via the `BETTER_AUTH_URL` environment variable.
 </Callout>
 
-## `basePath`
+basePath [#basepath]
 
 Base path for Better Auth. This is typically the path where the Better Auth routes are mounted. It will be overridden if there is a path component within `baseURL`.
 
@@ -47,11 +47,11 @@ export const auth = betterAuth({
 
 Default: `/api/auth`
 
-## `trustedOrigins`
+trustedOrigins [#trustedorigins]
 
 List of trusted origins. You can provide a static array of origins, a function that returns origins dynamically, or use wildcard patterns to match multiple domains.
 
-### Static Origins
+Static Origins [#static-origins]
 
 You can provide a static array of origins:
 
@@ -62,7 +62,7 @@ export const auth = betterAuth({
 })
 ```
 
-### Dynamic Origins
+Dynamic Origins [#dynamic-origins]
 
 You can provide a function that returns origins dynamically:
 
@@ -83,7 +83,7 @@ export const auth = betterAuth({
   The `request` parameter is `undefined` during initialization and when calling `auth.api` directly. Make sure to handle this case by returning default trusted origins.
 </Callout>
 
-### Wildcard Support
+Wildcard Support [#wildcard-support]
 
 You can use wildcard patterns in trusted origins:
 
@@ -96,7 +96,7 @@ export const auth = betterAuth({
 })
 ```
 
-#### Pattern Syntax
+Pattern Syntax [#pattern-syntax]
 
 | Pattern | Description                                          |
 | ------- | ---------------------------------------------------- |
@@ -104,7 +104,7 @@ export const auth = betterAuth({
 | `*`     | Matches zero or more characters that don't cross `/` |
 | `**`    | Matches zero or more characters including `/`        |
 
-#### Pattern Examples
+Pattern Examples [#pattern-examples]
 
 | Pattern                  | Matches                                                                                  | Does Not Match                                      |
 | ------------------------ | ---------------------------------------------------------------------------------------- | --------------------------------------------------- |
@@ -122,7 +122,7 @@ export const auth = betterAuth({
   * The separator is `/` (forward slash). This means `http://*.example.com` matches both `http://api.example.com` and `http://api.app.example.com`.
 </Callout>
 
-## `secret`
+secret [#secret]
 
 The secret used for encryption, signing, and hashing.
 
@@ -146,7 +146,33 @@ You can generate a good secret using the following command:
 openssl rand -base64 32
 ```
 
-## `database`
+secrets [#secrets]
+
+Versioned secrets for non-destructive secret rotation. When set, encrypted data uses an envelope format that embeds the key version, allowing you to rotate secrets without invalidating existing data.
+
+```ts
+import { betterAuth } from "better-auth";
+export const auth = betterAuth({
+	secrets: [
+		{ version: 2, value: "new-secret-key" },
+		{ version: 1, value: "old-secret-key" },
+	],
+})
+```
+
+* The first entry is the **current** key used for all new encryption.
+* Remaining entries are **decryption-only** (previous rotations).
+* Versions are integers. Gaps are allowed (e.g., `1, 3` after revoking version 2).
+
+You can also set this via the `BETTER_AUTH_SECRETS` environment variable:
+
+```txt title=".env"
+BETTER_AUTH_SECRETS=2:new-secret-base64,1:old-secret-base64
+```
+
+When `secrets` is set, `secret` (singular) is only used as a fallback for decrypting legacy data that predates the envelope format. Both can coexist during migration.
+
+database [#database]
 
 Database configuration for Better Auth.
 
@@ -165,7 +191,7 @@ Better Auth supports various database configurations including [PostgreSQL](/doc
 
 Read more about databases [here](/docs/concepts/database).
 
-## `secondaryStorage`
+secondaryStorage [#secondarystorage]
 
 Secondary storage configuration used to store session and rate limit data.
 
@@ -182,7 +208,7 @@ export const auth = betterAuth({
 
 Read more about secondary storage [here](/docs/concepts/database#secondary-storage).
 
-## `emailVerification`
+emailVerification [#emailverification]
 
 Email verification configuration.
 
@@ -206,7 +232,7 @@ export const auth = betterAuth({
 * `autoSignInAfterVerification`: Auto sign in the user after they verify their email
 * `expiresIn`: Number of seconds the verification token is valid for (default: `3600` seconds)
 
-## `emailAndPassword`
+emailAndPassword [#emailandpassword]
 
 Email and password authentication configuration.
 
@@ -245,10 +271,14 @@ export const auth = betterAuth({
 * `maxPasswordLength`: Maximum password length (default: `128`)
 * `autoSignIn`: Automatically sign in the user after sign up
 * `sendResetPassword`: Function to send reset password email
+* `onPasswordReset`: Callback triggered when a user's password is changed successfully
+* `revokeSessionsOnPasswordReset`: Revoke all other sessions when resetting password (default: `false`)
 * `resetPasswordTokenExpiresIn`: Number of seconds the reset password token is valid for (default: `3600` seconds)
+* `onExistingUserSignUp`: Callback triggered when someone signs up with an already-registered email. Only called when `requireEmailVerification` is `true` or `autoSignIn` is `false` (default: `undefined`).
+* `customSyntheticUser`: Function to build a custom synthetic user for email enumeration protection. Use when plugins add fields to the user table. See [email enumeration protection](/docs/authentication/email-password#plugins-that-add-user-fields).
 * `password`: Custom password hashing and verification functions
 
-## `socialProviders`
+socialProviders [#socialproviders]
 
 Configure social login providers.
 
@@ -288,7 +318,7 @@ export const auth = betterAuth({
 * `disableDefaultScope`: Disable the provider's default scopes (optional)
 * `authorizationEndpoint`: Custom authorization endpoint URL (optional)
 
-## `plugins`
+plugins [#plugins]
 
 List of Better Auth plugins.
 
@@ -307,7 +337,7 @@ export const auth = betterAuth({
 })
 ```
 
-## `user`
+user [#user]
 
 User configuration options.
 
@@ -354,7 +384,7 @@ export const auth = betterAuth({
 * `changeEmail`: Configuration for changing email
 * `deleteUser`: Configuration for user deletion
 
-## `session`
+session [#session]
 
 Session configuration options.
 
@@ -393,7 +423,7 @@ export const auth = betterAuth({
 * `preserveSessionInDatabase`: Preserve session records in database when deleted from secondary storage (default: `false`)
 * `cookieCache`: Enable caching session in cookie
 
-## `account`
+account [#account]
 
 Account configuration options.
 
@@ -409,7 +439,7 @@ export const auth = betterAuth({
 		storeAccountCookie: true, // Store account data after OAuth flow in a cookie (useful for database-less flows)
 		accountLinking: {
 			enabled: true,
-			trustedProviders: ["google", "github", "email-password"],
+			trustedProviders: ["google", "github", "email-password"], // or async (request) => ["google", "github"]
 			allowDifferentEmails: false
 		}
 	},
@@ -419,32 +449,43 @@ export const auth = betterAuth({
 * `modelName`: The model name for the account
 * `fields`: Map fields to different column names
 
-### `encryptOAuthTokens`
+encryptOAuthTokens [#encryptoauthtokens]
 
 Encrypt OAuth tokens before storing them in the database. Default: `false`.
 
-### `updateAccountOnSignIn`
+updateAccountOnSignIn [#updateaccountonsignin]
 
 If enabled (true), the user account data (accessToken, idToken, refreshToken, etc.)
 will be updated on sign in with the latest data from the provider.
 
-### `storeAccountCookie`
+storeAccountCookie [#storeaccountcookie]
 
 Store account data after OAuth flow in a cookie. This is useful for database-less flows where you want to store account information (access tokens, refresh tokens, etc.) in a cookie instead of the database.
 
 * Default: `false`
 * Automatically set to `true` if no database is provided
 
-### `accountLinking`
+When this option is enabled, you can read the decrypted account cookie in hooks or middleware using `getAccountCookie` from `better-auth/cookies`:
+
+```ts
+import { createAuthMiddleware } from "better-auth/api";
+import { getAccountCookie } from "better-auth/cookies";
+
+const hook = createAuthMiddleware(async (ctx) => {
+	const account = await getAccountCookie(ctx);
+});
+```
+
+accountLinking [#accountlinking]
 
 Configuration for account linking.
 
 * `enabled`: Enable account linking (default: `true`)
-* `trustedProviders`: List of trusted providers
+* `trustedProviders`: List of trusted providers. Can be a static array or an async function that returns providers dynamically based on the request (similar to `trustedOrigins`)
 * `allowDifferentEmails`: Allow users to link accounts with different email addresses
 * `allowUnlinkingAll`: Allow users to unlink all accounts
 
-## `verification`
+verification [#verification]
 
 Verification configuration options.
 
@@ -465,7 +506,7 @@ export const auth = betterAuth({
 * `fields`: Map fields to different column names
 * `disableCleanup`: Disable cleaning up expired values when a verification value is fetched
 
-## `rateLimit`
+rateLimit [#ratelimit]
 
 Rate limiting configuration.
 
@@ -495,7 +536,7 @@ export const auth = betterAuth({
 * `storage`: Storage configuration. If you passed a secondary storage, rate limiting will be stored in the secondary storage. (options: `"memory", "database", "secondary-storage"`, default: `"memory"`)
 * `modelName`: The name of the table to use for rate limiting if database is used as storage. (default: `"rateLimit"`)
 
-## `advanced`
+advanced [#advanced]
 
 Advanced configuration options.
 
@@ -561,7 +602,7 @@ export const auth = betterAuth({
 * `skipTrailingSlashes`: Skip trailing slash validation in route matching. (default: `false`)
 * OAuth state configuration options (`storeStateStrategy`, `skipStateCookieCheck`) are now part of the `account` option
 
-## `logger`
+logger [#logger]
 
 Logger configuration for Better Auth.
 
@@ -614,7 +655,7 @@ export const auth = betterAuth({
 })
 ```
 
-## `databaseHooks`
+databaseHooks [#databasehooks]
 
 Database lifecycle hooks for core operations.
 
@@ -655,7 +696,7 @@ export const auth = betterAuth({
 })
 ```
 
-## `onAPIError`
+onAPIError [#onapierror]
 
 API error handling configuration.
 
@@ -737,7 +778,7 @@ export const auth = betterAuth({
   * `disableCornerDecorations`: Disable corner decorations (default: `false`)
   * `disableBackgroundGrid`: Disable the background grid pattern (default: `false`)
 
-## `hooks`
+hooks [#hooks]
 
 Request lifecycle hooks.
 
@@ -761,7 +802,7 @@ export const auth = betterAuth({
 
 For more details and examples, see the [Hooks documentation](/docs/concepts/hooks).
 
-## `disabledPaths`
+disabledPaths [#disabledpaths]
 
 Disable specific auth paths.
 
@@ -772,7 +813,7 @@ export const auth = betterAuth({
 })
 ```
 
-## `telemetry`
+telemetry [#telemetry]
 
 Enable or disable Better Auth's telemetry collection. (default: `false`)
 

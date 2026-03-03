@@ -6,7 +6,7 @@ Naver provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Naver Credentials
+    Get your Naver Credentials [#get-your-naver-credentials]
 
     To use Naver sign in, you need a client ID and client secret. You can get them from the [Naver Developers](https://developers.naver.com/).
 
@@ -14,7 +14,7 @@ Naver provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -33,7 +33,7 @@ Naver provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Naver
+    Sign In with Naver [#sign-in-with-naver]
 
     To sign in with Naver, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

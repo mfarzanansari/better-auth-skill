@@ -12,7 +12,7 @@ Email and password authentication is a common method used by many applications. 
   email and password authenticator with username support.
 </Callout>
 
-## Enable Email and Password
+Enable Email and Password [#enable-email-and-password]
 
 To enable email and password authentication, you need to set the `emailAndPassword.enabled` option to `true` in the `auth` configuration.
 
@@ -31,9 +31,9 @@ export const auth = betterAuth({
   password.
 </Callout>
 
-## Usage
+Usage [#usage]
 
-### Sign Up
+Sign Up [#sign-up]
 
 To sign a user up, you can use the `signUp.email` function provided by the client.
 
@@ -97,7 +97,7 @@ type signUpEmail = {
   These are the default properties for the sign up email endpoint, however it's possible that with [additional fields](/docs/concepts/typescript#additional-fields) or special plugins you can pass more properties to the endpoint.
 </Callout>
 
-### Sign In
+Sign In [#sign-in]
 
 To sign a user in, you can use the `signIn.email` function provided by the client.
 
@@ -157,7 +157,7 @@ type signInEmail = {
   These are the default properties for the sign in email endpoint, however it's possible that with [additional fields](/docs/concepts/typescript#additional-fields) or special plugins you can pass different properties to the endpoint.
 </Callout>
 
-### Sign Out
+Sign Out [#sign-out]
 
 To sign a user out, you can use the `signOut` function provided by the client.
 
@@ -189,7 +189,9 @@ type signOut = {
 
 you can pass `fetchOptions` to redirect onSuccess
 
-```ts title="auth-client.ts" 
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.signOut({
   fetchOptions: {
     onSuccess: () => {
@@ -199,7 +201,7 @@ await authClient.signOut({
 });
 ```
 
-### Email Verification
+Email Verification [#email-verification]
 
 To enable email verification, you need to pass a function that sends a verification email with a link. The `sendVerificationEmail` function takes a data object with the following properties:
 
@@ -235,26 +237,51 @@ On the client side you can use `sendVerificationEmail` function to send verifica
 
 Once the user clicks on the link in the email, if the token is valid, the user will be redirected to the URL provided in the `callbackURL` parameter. If the token is invalid, the user will be redirected to the URL provided in the `callbackURL` parameter with an error message in the query string `?error=invalid_token`.
 
-#### Require Email Verification
+Require Email Verification [#require-email-verification]
 
 If you enable require email verification, users must verify their email before they can log in. And every time a user tries to sign in, sendVerificationEmail is called.
 
 <Callout>
   This only works if you have sendVerificationEmail implemented and if the user
   is trying to sign in with email and password.
+
+  When `requireEmailVerification` is enabled, signing up with an existing email returns a success response instead of an error to prevent user enumeration.
 </Callout>
 
 ```ts title="auth.ts"
 export const auth = betterAuth({
   emailAndPassword: {
+    requireEmailVerification: true, // [!code highlight]
+  },
+});
+```
+
+You can use the `onExistingUserSignUp` callback to notify the existing user when someone tries to register with their email address:
+
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+import { sendEmail } from "./email"; // your email sending function
+
+export const auth = betterAuth({
+  emailAndPassword: {
+    enabled: true,
     requireEmailVerification: true,
+    onExistingUserSignUp: async ({ user }, request) => {
+      void sendEmail({
+        to: user.email,
+        subject: "Sign-up attempt with your email",
+        text: "Someone tried to create an account using your email address. If this was you, try signing in instead. If not, you can safely ignore this email.",
+      });
+    },
   },
 });
 ```
 
 If a user tries to sign in without verifying their email, you can handle the error and show a message to the user.
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.signIn.email(
   {
     email: "email@example.com",
@@ -273,18 +300,67 @@ await authClient.signIn.email(
 );
 ```
 
-#### Triggering manually Email Verification
+Email Enumeration Protection [#email-enumeration-protection]
+
+When `requireEmailVerification` is enabled or `autoSignIn` is set to `false`, the sign-up endpoint prevents email enumeration by returning the same `200` response whether the email is already registered or not. This follows [OWASP authentication best practices](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html#authentication-and-error-messages).
+
+<Callout type="info">
+  This protection is only active when the sign-up response does not include a session token — i.e., when `requireEmailVerification` is `true` or `autoSignIn` is `false`. With the default configuration, the endpoint still returns a `422` error for existing emails.
+</Callout>
+
+Similarly, the `/change-email` endpoint no longer reveals whether the target email is already registered — it always returns a success response.
+
+Plugins that add user fields [#plugins-that-add-user-fields]
+
+If you use plugins that add fields to the user table (e.g. [admin](/docs/plugins/admin), [two-factor](/docs/plugins/two-factor), [phone-number](/docs/plugins/phone-number)), the synthetic response needs to include those fields to be indistinguishable from a real sign-up. Use the `customSyntheticUser` option to build the complete user object:
+
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+import { admin } from "better-auth/plugins";
+
+export const auth = betterAuth({
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: true,
+    customSyntheticUser: ({ coreFields, additionalFields, id }) => ({
+      ...coreFields,
+      // Admin plugin fields (in schema order)
+      role: "user",
+      banned: false,
+      banReason: null,
+      banExpires: null,
+      // Your additional fields
+      ...additionalFields,
+      // ID must be last to match database output order
+      id,
+    }),
+  },
+  plugins: [admin()],
+});
+```
+
+The callback receives three building blocks:
+
+* **`coreFields`** — `name`, `email`, `emailVerified`, `image`, `createdAt`, `updatedAt`
+* **`additionalFields`** — Your `user.additionalFields` with defaults applied
+* **`id`** — A generated user ID matching your configured ID strategy
+
+You assemble them in the same order as your database schema: core fields → plugin fields → additional fields → id. Each plugin documents the fields you need to add — see [admin plugin](/docs/plugins/admin#email-enumeration-protection) for an example.
+
+Triggering manually Email Verification [#triggering-manually-email-verification]
 
 You can trigger the email verification manually by calling the `sendVerificationEmail` function.
 
 ```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.sendVerificationEmail({
   email: "user@email.com",
   callbackURL: "/", // The redirect URL after verification
 });
 ```
 
-### Request Password Reset
+Request Password Reset [#request-password-reset]
 
 To allow users to reset a password first you need to provide `sendResetPassword` function to the email and password authenticator. The `sendResetPassword` function takes a data object with the following properties:
 
@@ -367,7 +443,9 @@ When a user clicks on the link in the email, they will be redirected to the rese
 
 * `newPassword`: The new password of the user.
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 const { data, error } = await authClient.resetPassword({
   newPassword: "password1234",
   token,
@@ -412,7 +490,7 @@ type resetPassword = {
 ```
 
 
-### Update password
+Update password [#update-password]
 
 A user's password isn't stored in the user table. Instead, it's stored in the account table. To change the password of a user, you can use one of the following approaches:
 
@@ -462,7 +540,7 @@ type changePassword = {
 ```
 
 
-### Configuration
+Configuration [#configuration]
 
 **Password**
 
@@ -546,6 +624,35 @@ export const auth = betterAuth({
     description:
       "A callback function that is triggered when a user's password is changed successfully.",
     type: "function",
+  },
+  onExistingUserSignUp: {
+    description:
+      "A callback triggered when someone signs up with an already-registered email. Only called when enumeration protection is active (requireEmailVerification: true or autoSignIn: false).",
+    type: "function",
+    default: "undefined",
+  },
+  customSyntheticUser: {
+    description:
+      "Build a custom synthetic user for email enumeration protection. Use when plugins add fields to the user table to ensure the fake response is indistinguishable from a real sign-up.",
+    type: "function",
+  },
+  autoSignIn: {
+    description:
+      "Automatically sign in the user after sign up. When set to false, the sign-up response returns a success response and enables enumeration protection.",
+    type: "boolean",
+    default: "true",
+  },
+  requireEmailVerification: {
+    description:
+      "Require users to verify their email before they can sign in. When enabled, the sign-up response returns a success response and enables enumeration protection.",
+    type: "boolean",
+    default: "false",
+  },
+  revokeSessionsOnPasswordReset: {
+    description:
+      "Whether to revoke all other sessions when resetting password.",
+    type: "boolean",
+    default: "false",
   },
   resetPasswordTokenExpiresIn: {
     description:

@@ -8,13 +8,53 @@ OAuth 2.0 Device Authorization Grant for limited-input devices
 
 The Device Authorization plugin implements the OAuth 2.0 Device Authorization Grant ([RFC 8628](https://datatracker.ietf.org/doc/html/rfc8628)), enabling authentication for devices with limited input capabilities such as smart TVs, CLI applications, IoT devices, and gaming consoles.
 
-## Try It Out
+Try It Out [#try-it-out]
 
 You can test the device authorization flow right now using the Better Auth CLI:
 
-```bash
-npx @better-auth/cli login
-```
+<CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+  <CodeBlockTabsList>
+    <CodeBlockTabsTrigger value="npm">
+      npm
+    </CodeBlockTabsTrigger>
+
+    <CodeBlockTabsTrigger value="pnpm">
+      pnpm
+    </CodeBlockTabsTrigger>
+
+    <CodeBlockTabsTrigger value="yarn">
+      yarn
+    </CodeBlockTabsTrigger>
+
+    <CodeBlockTabsTrigger value="bun">
+      bun
+    </CodeBlockTabsTrigger>
+  </CodeBlockTabsList>
+
+  <CodeBlockTab value="npm">
+    ```bash
+    npx auth login
+    ```
+  </CodeBlockTab>
+
+  <CodeBlockTab value="pnpm">
+    ```bash
+    pnpm dlx auth login
+    ```
+  </CodeBlockTab>
+
+  <CodeBlockTab value="yarn">
+    ```bash
+    yarn dlx auth login
+    ```
+  </CodeBlockTab>
+
+  <CodeBlockTab value="bun">
+    ```bash
+    bun x auth login
+    ```
+  </CodeBlockTab>
+</CodeBlockTabs>
 
 This will demonstrate the complete device authorization flow by:
 
@@ -27,11 +67,11 @@ This will demonstrate the complete device authorization flow by:
   The CLI login command is a demo feature that connects to the Better Auth demo server to showcase the device authorization flow in action.
 </Callout>
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the plugin to your auth config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     Add the device authorization plugin to your server configuration.
 
@@ -51,7 +91,7 @@ This will demonstrate the complete device authorization flow by:
   </Step>
 
   <Step>
-    ### Migrate the database
+    Migrate the database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary tables to the database.
 
@@ -78,25 +118,25 @@ This will demonstrate the complete device authorization flow by:
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -124,25 +164,25 @@ This will demonstrate the complete device authorization flow by:
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -153,7 +193,7 @@ This will demonstrate the complete device authorization flow by:
   </Step>
 
   <Step>
-    ### Add the client plugin
+    Add the client plugin [#add-the-client-plugin]
 
     Add the device authorization plugin to your client.
 
@@ -170,7 +210,7 @@ This will demonstrate the complete device authorization flow by:
   </Step>
 </Steps>
 
-## How It Works
+How It Works [#how-it-works]
 
 The device flow follows these steps:
 
@@ -179,9 +219,9 @@ The device flow follows these steps:
 3. **Device polls for token**: The device polls the server until the user completes authorization
 4. **Access granted**: Once authorized, the device receives an access token
 
-## Basic Usage
+Basic Usage [#basic-usage]
 
-### Requesting Device Authorization
+Requesting Device Authorization [#requesting-device-authorization]
 
 To initiate device authorization, call `device.code` with the client ID:
 
@@ -226,6 +266,8 @@ type deviceCode = {
 Example usage:
 
 ```ts
+import { authClient } from "@/lib/auth-client"
+
 const { data } = await authClient.device.code({
   client_id: "your-client-id",
   scope: "openid profile email",
@@ -238,7 +280,7 @@ if (data) {
 }
 ```
 
-### Polling for Token
+Polling for Token [#polling-for-token]
 
 After displaying the user code, poll for the access token:
 
@@ -329,7 +371,7 @@ const pollForToken = async () => {
 pollForToken();
 ```
 
-### User Authorization Flow
+User Authorization Flow [#user-authorization-flow]
 
 The user authorization flow requires two steps:
 
@@ -384,11 +426,11 @@ export default function DeviceAuthorizationPage() {
 }
 ```
 
-### Approving or Denying Device
+Approving or Denying Device [#approving-or-denying-device]
 
 Users must be authenticated to approve or deny device authorization requests:
 
-#### Approve Device
+Approve Device [#approve-device]
 
 
 ### Client Side
@@ -424,7 +466,7 @@ type deviceApprove = {
 ```
 
 
-#### Deny Device
+Deny Device [#deny-device]
 
 
 ### Client Side
@@ -460,7 +502,7 @@ type deviceDeny = {
 ```
 
 
-#### Example Approval Page
+Example Approval Page [#example-approval-page]
 
 ```tsx title="app/device/approve/page.tsx"
 export default function DeviceApprovalPage() {
@@ -521,9 +563,9 @@ export default function DeviceApprovalPage() {
 }
 ```
 
-## Advanced Configuration
+Advanced Configuration [#advanced-configuration]
 
-### Client Validation
+Client Validation [#client-validation]
 
 You can validate client IDs to ensure only authorized applications can use the device flow:
 
@@ -542,7 +584,7 @@ deviceAuthorization({
 })
 ```
 
-### Custom Code Generation
+Custom Code Generation [#custom-code-generation]
 
 Customize how device and user codes are generated:
 
@@ -567,7 +609,7 @@ deviceAuthorization({
 })
 ```
 
-## Error Handling
+Error Handling [#error-handling]
 
 The device flow defines specific error codes:
 
@@ -579,7 +621,7 @@ The device flow defines specific error codes:
 | `access_denied`         | User denied the authorization               |
 | `invalid_grant`         | Invalid device code or client ID            |
 
-## Example: CLI Application
+Example: CLI Application [#example-cli-application]
 
 Here's a complete example for a CLI application based on the actual demo:
 
@@ -587,7 +629,7 @@ Here's a complete example for a CLI application based on the actual demo:
   To use the access token for API requests, ensure you have added the [Bearer plugin](/docs/plugins/bearer) to your auth instance.
 </Callout>
 
-```ts title="cli-auth.ts"
+```ts title="auth-client.ts"
 import { createAuthClient } from "better-auth/client";
 import { deviceAuthorizationClient } from "better-auth/client/plugins";
 import open from "open";
@@ -711,7 +753,7 @@ authenticateCLI().catch((err) => {
 });
 ```
 
-## Security Considerations
+Security Considerations [#security-considerations]
 
 1. **Rate Limiting**: The plugin enforces polling intervals to prevent abuse
 2. **Code Expiration**: Device and user codes expire after the configured time (default: 30 minutes)
@@ -720,9 +762,9 @@ authenticateCLI().catch((err) => {
 5. **User Code Format**: User codes use a limited character set (excluding similar-looking characters like 0/O, 1/I) to reduce typing errors
 6. **Authentication Required**: Users must be authenticated before they can approve or deny device requests
 
-## Options
+Options [#options]
 
-### Server
+Server [#server]
 
 **verificationUri**: The URL of the verification page where users can enter their device code. Match this to the route of your verification page. Returned as `verification_uri` in the response. Can be an absolute URL (e.g., `https://example.com/device`) or relative path (e.g., `/device`). Default: `/device`.
 
@@ -742,7 +784,7 @@ authenticateCLI().catch((err) => {
 
 **onDeviceAuthRequest**: Hook called when device authorization is requested. Takes clientId and optional scope.
 
-### Client
+Client [#client]
 
 No client-specific configuration options. The plugin adds the following methods:
 
@@ -752,7 +794,7 @@ No client-specific configuration options. The plugin adds the following methods:
 * **device.approve()**: Approve device (requires authentication)
 * **device.deny()**: Deny device (requires authentication)
 
-## Schema
+Schema [#schema]
 
 The plugin requires a new table to store device authorization data.
 

@@ -6,7 +6,7 @@ Integrate Better Auth with Nuxt.
 
 Before you start, make sure you have a Better Auth instance configured. If you haven't done that yet, check out the [installation](/docs/installation).
 
-### Create API Route
+Create API Route [#create-api-route]
 
 We need to mount the handler to an API route. Create a file inside `/server/api/auth` called `[...all].ts` and add the following code:
 
@@ -22,15 +22,7 @@ export default defineEventHandler((event) => {
   You can change the path on your better-auth configuration but it's recommended to keep it as `/api/auth/[...all]`
 </Callout>
 
-### Migrate the database
-
-Run the following command to create the necessary tables in your database:
-
-```bash
-npx @better-auth/cli migrate
-```
-
-## Create a client
+Create a client [#create-a-client]
 
 Create a client instance. You can name the file anything you want. Here we are creating `client.ts` file inside the `lib/` directory.
 
@@ -45,7 +37,7 @@ export const authClient = createAuthClient({
 Once you have created the client, you can use it to sign up, sign in, and perform other actions.
 Some of the actions are reactive.
 
-### Example usage
+Example usage [#example-usage]
 
 ```vue title="index.vue"
 <script setup lang="ts">
@@ -70,7 +62,7 @@ const session = authClient.useSession()
 </template>
 ```
 
-### Server Usage
+Server Usage [#server-usage]
 
 The `api` object exported from the auth instance contains all the actions that you can perform on the server. Every endpoint made inside Better Auth is a invocable as a function. Including plugins endpoints.
 
@@ -90,7 +82,7 @@ export default defineEventHandler((event) => {
 });
 ```
 
-### SSR Usage
+SSR Usage [#ssr-usage]
 
 If you are using Nuxt with SSR, you can use the `useSession` function in the `setup` function of your page component and pass `useFetch` to make it work with SSR.
 
@@ -108,7 +100,7 @@ const { data: session } = await authClient.useSession(useFetch);
 </template>
 ```
 
-### Middleware
+Middleware [#middleware]
 
 To add middleware to your Nuxt project, you can use the `useSession` method from the client.
 
@@ -124,7 +116,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 });
 ```
 
-### Resources & Examples
+Resources & Examples [#resources--examples]
 
 * [Nuxt and Nuxt Hub example](https://github.com/atinux/nuxthub-better-auth) on GitHub.
 * [NuxtZzle is Nuxt,Drizzle ORM example](https://github.com/leamsigc/nuxt-better-auth-drizzle) on GitHub [preview](https://nuxt-better-auth.giessen.dev/)

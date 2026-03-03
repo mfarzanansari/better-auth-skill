@@ -6,7 +6,7 @@ Learn how to configure Better Auth in your project.
 
 <Steps>
   <Step>
-    ### Install the Package
+    Install the Package [#install-the-package]
 
     Let's start by adding Better Auth to your project:
 
@@ -60,7 +60,7 @@ Learn how to configure Better Auth in your project.
   </Step>
 
   <Step>
-    ### Set Environment Variables
+    Set Environment Variables [#set-environment-variables]
 
     Create a `.env` file in the root of your project and add the following environment variables:
 
@@ -74,6 +74,10 @@ Learn how to configure Better Auth in your project.
 
     <GenerateSecret />
 
+    <Callout type="info">
+      Need to rotate your secret later? You can use `BETTER_AUTH_SECRETS` (plural) to roll over to a new secret without invalidating existing data. See the [`secrets` option](/docs/reference/options#secrets) for details.
+    </Callout>
+
     2. **Set Base URL**
 
     ```txt title=".env"
@@ -82,7 +86,7 @@ Learn how to configure Better Auth in your project.
   </Step>
 
   <Step>
-    ### Create A Better Auth Instance
+    Create A Better Auth Instance [#create-a-better-auth-instance]
 
     Create a file named `auth.ts` in one of these locations:
 
@@ -104,7 +108,7 @@ Learn how to configure Better Auth in your project.
   </Step>
 
   <Step>
-    ### Configure Database
+    Configure Database [#configure-database]
 
     Better Auth requires a database to store user data.
     You can easily configure Better Auth to use SQLite, PostgreSQL, or MySQL, and more!
@@ -206,7 +210,7 @@ Learn how to configure Better Auth in your project.
   </Step>
 
   <Step>
-    ### Create Database Tables
+    Create Database Tables [#create-database-tables]
 
     Better Auth includes a CLI tool to help manage the schema required by the library.
 
@@ -216,15 +220,95 @@ Learn how to configure Better Auth in your project.
       If you're using Kysely, you can apply the migration directly with `migrate` command below. Use `generate` only if you plan to apply the migration manually.
     </Callout>
 
-    ```bash title="Terminal"
-    npx @better-auth/cli generate
-    ```
+    <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+      <CodeBlockTabsList>
+        <CodeBlockTabsTrigger value="npm">
+          npm
+        </CodeBlockTabsTrigger>
+
+        <CodeBlockTabsTrigger value="pnpm">
+          pnpm
+        </CodeBlockTabsTrigger>
+
+        <CodeBlockTabsTrigger value="yarn">
+          yarn
+        </CodeBlockTabsTrigger>
+
+        <CodeBlockTabsTrigger value="bun">
+          bun
+        </CodeBlockTabsTrigger>
+      </CodeBlockTabsList>
+
+      <CodeBlockTab value="npm">
+        ```bash
+        npx auth@latest generate
+        ```
+      </CodeBlockTab>
+
+      <CodeBlockTab value="pnpm">
+        ```bash
+        pnpm dlx auth@latest generate
+        ```
+      </CodeBlockTab>
+
+      <CodeBlockTab value="yarn">
+        ```bash
+        yarn dlx auth@latest generate
+        ```
+      </CodeBlockTab>
+
+      <CodeBlockTab value="bun">
+        ```bash
+        bun x auth@latest generate
+        ```
+      </CodeBlockTab>
+    </CodeBlockTabs>
 
     * **Migrate**: This command creates the required tables directly in the database. (Available only for the built-in Kysely adapter)
 
-    ```bash title="Terminal"
-    npx @better-auth/cli migrate
-    ```
+      <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+        <CodeBlockTabsList>
+          <CodeBlockTabsTrigger value="npm">
+            npm
+          </CodeBlockTabsTrigger>
+
+          <CodeBlockTabsTrigger value="pnpm">
+            pnpm
+          </CodeBlockTabsTrigger>
+
+          <CodeBlockTabsTrigger value="yarn">
+            yarn
+          </CodeBlockTabsTrigger>
+
+          <CodeBlockTabsTrigger value="bun">
+            bun
+          </CodeBlockTabsTrigger>
+        </CodeBlockTabsList>
+
+        <CodeBlockTab value="npm">
+          ```bash
+          npx auth@latest migrate
+          ```
+        </CodeBlockTab>
+
+        <CodeBlockTab value="pnpm">
+          ```bash
+          pnpm dlx auth@latest migrate
+          ```
+        </CodeBlockTab>
+
+        <CodeBlockTab value="yarn">
+          ```bash
+          yarn dlx auth@latest migrate
+          ```
+        </CodeBlockTab>
+
+        <CodeBlockTab value="bun">
+          ```bash
+          bun x auth@latest migrate
+          ```
+        </CodeBlockTab>
+      </CodeBlockTabs>
 
     see the [CLI documentation](/docs/concepts/cli) for more information.
 
@@ -234,7 +318,7 @@ Learn how to configure Better Auth in your project.
   </Step>
 
   <Step>
-    ### Authentication Methods
+    Authentication Methods [#authentication-methods]
 
     Configure the authentication methods you want to use. Better Auth comes with built-in support for email/password, and social sign-on providers.
 
@@ -261,7 +345,7 @@ Learn how to configure Better Auth in your project.
   </Step>
 
   <Step>
-    ### Mount Handler
+    Mount Handler [#mount-handler]
 
     To handle API requests, you need to set up a route handler on your server.
 
@@ -272,7 +356,7 @@ Learn how to configure Better Auth in your project.
       objects and offers helper functions for popular frameworks.
     </Callout>
 
-    <Tabs items={["next-js-app-router", "next-js-pages-router", "nuxt", "svelte-kit", "remix", "solid-start", "hono", "cloudflare-workers", "express", "elysia", "tanstack-start", "expo"]} defaultValue="next-js-app-router">
+    <Tabs items={["next-js-app-router", "next-js-pages-router", "nuxt", "svelte-kit", "react-router", "solid-start", "hono", "cloudflare-workers", "express", "elysia", "tanstack-start", "expo"]} defaultValue="next-js-app-router">
       <Tab value="next-js-app-router">
         ```ts title="/app/api/auth/[...all]/route.ts"
         import { auth } from "@/lib/auth"; // path to your auth file
@@ -315,10 +399,10 @@ Learn how to configure Better Auth in your project.
         ```
       </Tab>
 
-      <Tab value="remix">
+      <Tab value="react-router">
         ```ts title="/app/routes/api.auth.$.ts"
         import { auth } from '~/lib/auth.server' // Adjust the path as necessary
-        import type { LoaderFunctionArgs, ActionFunctionArgs } from "@remix-run/node"
+        import type { LoaderFunctionArgs, ActionFunctionArgs } from "react-router" // or "@remix-run/node"
 
         export async function loader({ request }: LoaderFunctionArgs) {
             return auth.handler(request)
@@ -527,7 +611,7 @@ Learn how to configure Better Auth in your project.
   </Step>
 
   <Step>
-    ### Create Client Instance
+    Create Client Instance [#create-client-instance]
 
     The client-side library helps you interact with the auth server. Better Auth comes with a client for all the popular web frameworks, including vanilla JavaScript.
 
@@ -607,7 +691,7 @@ Learn how to configure Better Auth in your project.
   </Step>
 
   <Step>
-    ### 🎉 That's it!
+    🎉 That's it! [#-thats-it]
 
     That's it! You're now ready to use better-auth in your application. Continue to [basic usage](/docs/basic-usage) to learn how to use the auth instance to sign in users.
   </Step>

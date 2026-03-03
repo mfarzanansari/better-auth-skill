@@ -6,7 +6,7 @@ LinkedIn Provider
 
 <Steps>
   <Step>
-    ### Get your LinkedIn credentials
+    Get your LinkedIn credentials [#get-your-linkedin-credentials]
 
     To use LinkedIn sign in, you need a client ID and client secret. You can get them from the [LinkedIn Developer Portal](https://www.linkedin.com/developers/).
 
@@ -22,7 +22,7 @@ LinkedIn Provider
   [Sign In with LinkedIn using OpenID Connect](https://learn.microsoft.com/en-us/linkedin/consumer/integrations/self-serve/sign-in-with-linkedin-v2?context=linkedin%2Fconsumer%2Fcontext)
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -41,7 +41,7 @@ LinkedIn Provider
   </Step>
 
   <Step>
-    ### Sign In with LinkedIn
+    Sign In with LinkedIn [#sign-in-with-linkedin]
 
     To sign in with LinkedIn, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

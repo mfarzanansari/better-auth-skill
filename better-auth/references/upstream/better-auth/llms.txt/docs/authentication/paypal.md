@@ -6,7 +6,7 @@ Paypal provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your PayPal Credentials
+    Get your PayPal Credentials [#get-your-paypal-credentials]
 
     To integrate with PayPal, you need to obtain API credentials by creating an application in the [PayPal Developer Portal](https://developer.paypal.com/dashboard).
 
@@ -43,7 +43,7 @@ Paypal provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -61,7 +61,7 @@ Paypal provider setup and usage.
     })
     ```
 
-    #### Options
+    Options [#options]
 
     The PayPal provider accepts the following options:
 
@@ -83,7 +83,7 @@ Paypal provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with PayPal
+    Sign In with PayPal [#sign-in-with-paypal]
 
     To sign in with PayPal, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -100,7 +100,7 @@ Paypal provider setup and usage.
     }
     ```
 
-    ### Additional Options:
+    Additional Options: [#additional-options]
 
     * `environment`: PayPal environment to use.
       * Default: `"sandbox"`

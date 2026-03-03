@@ -6,7 +6,7 @@ Notion provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Notion credentials
+    Get your Notion credentials [#get-your-notion-credentials]
 
     To use Notion as a social provider, you need to get your Notion OAuth credentials. You can get them by creating a new integration in the [Notion Developers Portal](https://www.notion.so/my-integrations).
 
@@ -18,7 +18,7 @@ Notion provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to pass the `clientId` and `clientSecret` to `socialProviders.notion` in your auth configuration.
 
@@ -37,9 +37,9 @@ Notion provider setup and usage.
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Sign In with Notion
+Sign In with Notion [#sign-in-with-notion]
 
 To sign in with Notion, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -56,7 +56,7 @@ const signIn = async () => {
 }
 ```
 
-### Notion Integration Types
+Notion Integration Types [#notion-integration-types]
 
 Notion supports different integration types. When creating your integration, you can choose between:
 
@@ -65,7 +65,7 @@ Notion supports different integration types. When creating your integration, you
 
 For most authentication use cases, you'll want to create a public integration to allow users from different workspaces to sign in.
 
-### Requesting Additional Notion Scopes
+Requesting Additional Notion Scopes [#requesting-additional-notion-scopes]
 
 If your application needs additional Notion capabilities after the user has already signed up, you can request them using the `linkSocial` method with the same Notion provider and additional scopes.
 

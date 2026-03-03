@@ -6,17 +6,17 @@ Sign in with Ethereum plugin for Better Auth
 
 The Sign in with Ethereum (SIWE) plugin allows users to authenticate using their Ethereum wallets following the [ERC-4361 standard](https://eips.ethereum.org/EIPS/eip-4361). This plugin provides flexibility by allowing you to implement your own message verification and nonce generation logic.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the Server Plugin
+    Add the Server Plugin [#add-the-server-plugin]
 
     Add the SIWE plugin to your auth configuration:
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth";
-    import { siwe } from "better-auth/plugins";
+    import { siwe } from "better-auth/plugins"; // [!code highlight]
 
     export const auth = betterAuth({
         plugins: [
@@ -47,7 +47,7 @@ The Sign in with Ethereum (SIWE) plugin allows users to authenticate using their
   </Step>
 
   <Step>
-    ### Migrate the database
+    Migrate the database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary fields and tables to the database.
 
@@ -74,25 +74,25 @@ The Sign in with Ethereum (SIWE) plugin allows users to authenticate using their
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -120,25 +120,25 @@ The Sign in with Ethereum (SIWE) plugin allows users to authenticate using their
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -149,26 +149,30 @@ The Sign in with Ethereum (SIWE) plugin allows users to authenticate using their
   </Step>
 
   <Step>
-    ### Add the Client Plugin
+    Add the Client Plugin [#add-the-client-plugin]
 
     ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client";
-    import { siweClient } from "better-auth/client/plugins";
+    import { siweClient } from "better-auth/client/plugins"; // [!code highlight]
 
     export const authClient = createAuthClient({
-        plugins: [siweClient()],
+    plugins: [
+        siweClient() // [!code highlight]
+    ]
     });
     ```
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Generate a Nonce
+Generate a Nonce [#generate-a-nonce]
 
 Before signing a SIWE message, you need to generate a nonce for the wallet address:
 
-```ts title="generate-nonce.ts"
+```ts
+import { authClient } from "@/lib/auth-client";
+
 const { data, error } = await authClient.siwe.nonce({
   walletAddress: "0x1234567890abcdef1234567890abcdef12345678",
   chainId: 1, // optional for Ethereum mainnet, required for other chains. Defaults to 1
@@ -179,11 +183,13 @@ if (data) {
 }
 ```
 
-### Sign In with Ethereum
+Sign In with Ethereum [#sign-in-with-ethereum]
 
 After generating a nonce and creating a SIWE message, verify the signature to authenticate:
 
-```ts title="sign-in-siwe.ts"
+```ts
+import { authClient } from "@/lib/auth-client";
+
 const { data, error } = await authClient.siwe.verify({
   message: "Your SIWE message string",
   signature: "0x...", // The signature from the user's wallet
@@ -197,12 +203,14 @@ if (data) {
 }
 ```
 
-### Chain-Specific Examples
+Chain-Specific Examples [#chain-specific-examples]
 
 Here are examples for different blockchain networks:
 
-```ts title="ethereum-mainnet.ts"
+```ts
 // Ethereum Mainnet (chainId can be omitted, defaults to 1)
+import { authClient } from "@/lib/auth-client";
+
 const { data, error } = await authClient.siwe.verify({
   message,
   signature,
@@ -211,8 +219,10 @@ const { data, error } = await authClient.siwe.verify({
 });
 ```
 
-```ts title="polygon.ts"
+```ts
 // Polygon (chainId REQUIRED)
+import { authClient } from "@/lib/auth-client";
+
 const { data, error } = await authClient.siwe.verify({
   message,
   signature,
@@ -221,8 +231,10 @@ const { data, error } = await authClient.siwe.verify({
 });
 ```
 
-```ts title="arbitrum.ts"
+```ts
 // Arbitrum (chainId REQUIRED)
+import { authClient } from "@/lib/auth-client";
+
 const { data, error } = await authClient.siwe.verify({
   message,
   signature,
@@ -231,8 +243,10 @@ const { data, error } = await authClient.siwe.verify({
 });
 ```
 
-```ts title="base.ts"
+```ts
 // Base (chainId REQUIRED)
+import { authClient } from "@/lib/auth-client";
+
 const { data, error } = await authClient.siwe.verify({
   message,
   signature,
@@ -245,9 +259,9 @@ const { data, error } = await authClient.siwe.verify({
   The `chainId` must match the Chain ID specified in your SIWE message. Verification will fail with a 401 error if there's a mismatch between the message's Chain ID and the `chainId` parameter.
 </Callout>
 
-## Configuration Options
+Configuration Options [#configuration-options]
 
-### Server Options
+Server Options [#server-options]
 
 The SIWE plugin accepts the following configuration options:
 
@@ -258,7 +272,7 @@ The SIWE plugin accepts the following configuration options:
 * **verifyMessage**: Function to verify the signed SIWE message. Receives message details and should return `Promise<boolean>`
 * **ensLookup**: Optional function to lookup ENS names and avatars for Ethereum addresses
 
-### Client Options
+Client Options [#client-options]
 
 The SIWE client plugin doesn't require any configuration options, but you can pass them if needed for future extensibility:
 
@@ -275,7 +289,7 @@ export const authClient = createAuthClient({
 });
 ```
 
-## Schema
+Schema [#schema]
 
 The SIWE plugin adds a `walletAddress` table to store user wallet associations:
 
@@ -288,7 +302,7 @@ The SIWE plugin adds a `walletAddress` table to store user wallet associations:
 | isPrimary | boolean | Whether this is the user's primary wallet |
 | createdAt | date    | Creation timestamp                        |
 
-## Example Implementation
+Example Implementation [#example-implementation]
 
 Here's a complete example showing how to implement SIWE authentication:
 

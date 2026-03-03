@@ -6,7 +6,7 @@ Amazon Cognito provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Cognito Credentials
+    Get your Cognito Credentials [#get-your-cognito-credentials]
 
     To integrate with Cognito, you need to set up a **User Pool** and an **App client** in the [Amazon Cognito Console](https://console.aws.amazon.com/cognito/).
 
@@ -27,7 +27,7 @@ Amazon Cognito provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     Configure the `cognito` key in `socialProviders` key of your `auth` instance.
 
@@ -49,7 +49,7 @@ Amazon Cognito provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Cognito
+    Sign In with Cognito [#sign-in-with-cognito]
 
     To sign in with Cognito, use the `signIn.social` function from the client.
 
@@ -65,7 +65,7 @@ Amazon Cognito provider setup and usage.
     }
     ```
 
-    ### Additional Options:
+    Additional Options: [#additional-options]
 
     * `scope`: Additional OAuth2 scopes to request (combined with default permissions).
       * Default: `"openid" "profile" "email"`

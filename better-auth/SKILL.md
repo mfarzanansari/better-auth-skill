@@ -25,13 +25,15 @@ Do not skip project scan or requirement intake.
 
 Before writing code, confirm:
 
-- Framework/runtime: Next.js, SvelteKit, Nuxt, Express, Hono, etc.
+- Framework/runtime: Next.js, SvelteKit, Nuxt, React Router v7, Express, Hono, Electron, etc.
 - Database and adapter stack: Prisma, Drizzle, direct driver, MongoDB.
 - Existing auth system and migration status.
 - Required sign-in methods (email/password, social OAuth, magic link, passkey, phone).
 - Required plugins (2FA, organization, bearer/API key, SSO/OIDC/OAuth provider, etc.).
+- Whether Better Auth Infrastructure features are in scope (`@better-auth/infra`, dashboard/sentinel/email/sms).
 - Email delivery strategy for verification/reset/invitations.
 - Security constraints (trusted origins, session policy, CSRF, rate limits).
+- Auth config location (`auth.ts`) and package manager lockfile.
 
 If any of these are unknown, ask before implementation.
 
@@ -96,13 +98,26 @@ Load:
 2. `references/error-map.md`
 3. Exact error docs in `references/upstream/better-auth/llms.txt/docs/reference/errors/`
 
+### Branch G: Infrastructure and Managed Services
+
+Use when enabling Better Auth Infrastructure features (`@better-auth/infra`) such as dashboard, sentinel, managed email, or managed SMS.
+
+Load in order:
+
+1. `references/upstream/better-auth/llms.txt/docs/infrastructure/introduction.md`
+2. `references/upstream/better-auth/llms.txt/docs/infrastructure/getting-started.md`
+3. Exact infra plugin/service docs in `references/upstream/better-auth/llms.txt/docs/infrastructure/`
+
 ## Guardrails
 
 - Re-run Better Auth CLI schema generation/migrations after adding or changing plugins.
+- Re-run migrations after switching plugin options that affect schema.
 - Verify env vars and callback/trusted-origin config before concluding root cause.
+- For infrastructure features, verify `BETTER_AUTH_API_KEY` and infra endpoint connectivity before deeper debugging.
 - Keep fixes scoped to the failing flow; avoid unrelated refactors.
 - Use model names (adapter/ORM semantics), not raw table names, when required by adapter config.
 - Prefer dedicated plugin import paths over broad plugin imports.
+- Verify auth health endpoint (`/api/auth/ok`) after setup or migrations.
 
 ## Validation Checklist
 
@@ -113,18 +128,19 @@ For any meaningful auth change:
 3. Session behavior is correct (creation, refresh, revocation/log out).
 4. Security policy is enforced (origins/rate limits/verification where configured).
 5. Schema state is synchronized after plugin changes.
+6. OAuth/provider callbacks preserve query/path through proxy/ingress.
 
 ## Refresh Upstream Docs
 
 ```bash
-python3 better-auth/scripts/fetch_better_auth_llms.py
+python3 scripts/fetch_better_auth_llms.py
 ```
 
 Useful modes:
 
 ```bash
-python3 better-auth/scripts/fetch_better_auth_llms.py --dry-run
-python3 better-auth/scripts/fetch_better_auth_llms.py --prune
+python3 scripts/fetch_better_auth_llms.py --dry-run
+python3 scripts/fetch_better_auth_llms.py --prune
 ```
 
 ## Resource Map

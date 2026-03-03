@@ -6,7 +6,7 @@ Twitter provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Twitter Credentials
+    Get your Twitter Credentials [#get-your-twitter-credentials]
 
     Get your Twitter credentials from the [Twitter Developer Portal](https://developer.twitter.com/en/portal/dashboard).
 
@@ -18,7 +18,7 @@ Twitter provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -37,7 +37,7 @@ Twitter provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Twitter
+    Sign In with Twitter [#sign-in-with-twitter]
 
     To sign in with Twitter, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

@@ -6,7 +6,7 @@ Apple provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your OAuth credentials
+    Get your OAuth credentials [#get-your-oauth-credentials]
 
     To use Apple sign in, you need a client ID and client secret. You can get them from the [Apple Developer Portal](https://developer.apple.com/account/resources/authkeys/list).
 
@@ -63,7 +63,7 @@ Apple provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to add it to the `socialProviders` option of the auth instance.
 
@@ -101,9 +101,9 @@ Apple provider setup and usage.
   This limitation is enforced by Apple's security requirements and cannot be bypassed.
 </Callout>
 
-## Usage
+Usage [#usage]
 
-### Sign In with Apple
+Sign In with Apple [#sign-in-with-apple]
 
 To sign in with Apple, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -120,7 +120,7 @@ const signIn = async () => {
 }
 ```
 
-### Sign In with Apple With ID Token
+Sign In with Apple With ID Token [#sign-in-with-apple-with-id-token]
 
 To sign in with Apple using the ID Token, you can use the `signIn.social` function to pass the ID Token.
 
@@ -141,7 +141,7 @@ await authClient.signIn.social({
 })
 ```
 
-## Generate Apple Client Secret (JWT)
+Generate Apple Client Secret (JWT) [#generate-apple-client-secret-jwt]
 
 <GenerateAppleJwt />
 

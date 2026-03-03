@@ -6,7 +6,7 @@ Slack provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Slack credentials
+    Get your Slack credentials [#get-your-slack-credentials]
 
     To use Slack as a social provider, you need to create a Slack app and get your credentials.
 
@@ -24,7 +24,7 @@ Slack provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to pass the `clientId` and `clientSecret` to `socialProviders.slack` in your auth configuration.
 
@@ -43,9 +43,9 @@ Slack provider setup and usage.
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Sign In with Slack
+Sign In with Slack [#sign-in-with-slack]
 
 To sign in with Slack, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -60,7 +60,7 @@ const signIn = async () => {
 };
 ```
 
-### Requesting Additional Scopes
+Requesting Additional Scopes [#requesting-additional-scopes]
 
 By default, Slack uses OpenID Connect scopes: `openid`, `profile`, and `email`. You can request additional Slack scopes during sign-in:
 
@@ -73,7 +73,7 @@ const signInWithSlack = async () => {
 };
 ```
 
-### Workspace-Specific Sign In
+Workspace-Specific Sign In [#workspace-specific-sign-in]
 
 If you want to restrict sign-in to a specific Slack workspace, you can pass the `team` parameter:
 
@@ -87,7 +87,7 @@ socialProviders: {
 }
 ```
 
-### Using Slack API After Sign In
+Using Slack API After Sign In [#using-slack-api-after-sign-in]
 
 After successful authentication, you can access the user's Slack information through the session. The access token can be used to make requests to the Slack API:
 

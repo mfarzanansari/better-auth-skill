@@ -10,13 +10,13 @@ In this guide, we'll walk through the steps to migrate a project from Clerk to B
   This migration will invalidate all active sessions. This guide doesn't currently show you how to migrate Organization but it should be possible with additional steps and the [Organization](/docs/plugins/organization) Plugin.
 </Callout>
 
-## Before You Begin
+Before You Begin [#before-you-begin]
 
 Before starting the migration process, set up Better Auth in your project. Follow the [installation guide](/docs/installation) to get started. And go to
 
 <Steps>
   <Step>
-    ### Connect to your database
+    Connect to your database [#connect-to-your-database]
 
     You'll need to connect to your database to migrate the users and accounts. You can use any database you want, but for this example, we'll use PostgreSQL.
 
@@ -78,7 +78,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Enable Email and Password (Optional)
+    Enable Email and Password (Optional) [#enable-email-and-password-optional]
 
     Enable the email and password in your auth config and implement your own logic for sending verification emails, reset password emails, etc.
 
@@ -164,7 +164,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Setup Social Providers (Optional)
+    Setup Social Providers (Optional) [#setup-social-providers-optional]
 
     Add social providers you have enabled in your Clerk project in your auth config.
 
@@ -189,7 +189,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Add Plugins (Optional)
+    Add Plugins (Optional) [#add-plugins-optional]
 
     You can add the following plugins to your auth config based on your needs.
 
@@ -234,29 +234,29 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Generate Schema
+    Generate Schema [#generate-schema]
 
     If you're using a custom database adapter, generate the schema:
 
     ```sh
-    npx @better-auth/cli generate
+    npx auth generate
     ```
 
     or if you're using the default adapter, you can use the following command:
 
     ```sh
-    npx @better-auth/cli migrate
+    npx auth migrate
     ```
   </Step>
 
   <Step>
-    ### Export Clerk Users
+    Export Clerk Users [#export-clerk-users]
 
     Go to the Clerk dashboard and export the users. Check how to do it [here](https://clerk.com/docs/deployments/exporting-users#export-your-users-data-from-the-clerk-dashboard). It will download a CSV file with the users data. You need to save it as `exported_users.csv` and put it in the root of your project.
   </Step>
 
   <Step>
-    ### Create the migration script
+    Create the migration script [#create-the-migration-script]
 
     Create a new file called `migrate-clerk.ts` in the `scripts` folder and add the following code:
 
@@ -504,7 +504,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Run the migration
+    Run the migration [#run-the-migration]
 
     Run the migration:
 
@@ -523,13 +523,13 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Verify the migration
+    Verify the migration [#verify-the-migration]
 
     After running the migration, verify that all users have been properly migrated by checking the database.
   </Step>
 
   <Step>
-    ### Update your components
+    Update your components [#update-your-components]
 
     Now that the data is migrated, you can start updating your components to use Better Auth. Here's an example for the sign-in component:
 
@@ -560,7 +560,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Update the middleware
+    Update the middleware [#update-the-middleware]
 
     Replace your Clerk middleware with Better Auth's middleware:
 
@@ -587,7 +587,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Remove Clerk Dependencies
+    Remove Clerk Dependencies [#remove-clerk-dependencies]
 
     Once you've verified that everything is working correctly with Better Auth, you can remove Clerk:
 
@@ -597,11 +597,11 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 </Steps>
 
-## Additional Resources
+Additional Resources [#additional-resources]
 
 [Goodbye Clerk, Hello Better Auth – Full Migration Guide!](https://www.youtube.com/watch?v=Za_QihbDSuk)
 
-## Wrapping Up
+Wrapping Up [#wrapping-up]
 
 Congratulations! You've successfully migrated from Clerk to Better Auth.
 

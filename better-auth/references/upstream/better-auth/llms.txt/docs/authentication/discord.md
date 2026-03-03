@@ -6,7 +6,7 @@ Discord provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Discord credentials
+    Get your Discord credentials [#get-your-discord-credentials]
 
     To use Discord sign in, you need a client ID and client secret. You can get them from the [Discord Developer Portal](https://discord.com/developers/applications).
 
@@ -14,7 +14,7 @@ Discord provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -33,9 +33,9 @@ Discord provider setup and usage.
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Sign In with Discord
+Sign In with Discord [#sign-in-with-discord]
 
 To sign in with Discord, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -52,11 +52,11 @@ const signIn = async () => {
 }
 ```
 
-## Options
+Options [#options]
 
 For the full list of options supported by all social providers, check the [Provider Options](/docs/concepts/oauth#provider-options).
 
-### Bot Permissions (Optional)
+Bot Permissions (Optional) [#bot-permissions-optional]
 
 If you're using the `bot` scope with Discord OAuth, you can specify bot permissions using the `permissions` option. It can either be a bitwise value (e.g `2048 | 16384` for Send Messages and Embed Links) or a specific permission value (e.g `16384` for Embed Links).
 

@@ -15,29 +15,29 @@ The **Captcha Plugin** integrates bot protection into your Better Auth system by
   This plugin works out of the box with <Link href="/docs/authentication/email-password">Email & Password</Link> authentication. To use it with other authentication methods, you will need to configure the <Link href="/docs/plugins/captcha#plugin-options">endpoints</Link> array in the plugin options.
 </Callout>
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the plugin to your **auth** config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth";
-    import { captcha } from "better-auth/plugins";
+    import { captcha } from "better-auth/plugins"; // [!code highlight]
 
     export const auth = betterAuth({
-        plugins: [ // [!code highlight]
+        plugins: [
             captcha({ // [!code highlight]
                 provider: "cloudflare-turnstile", // or google-recaptcha, hcaptcha, captchafox // [!code highlight]
                 secretKey: process.env.TURNSTILE_SECRET_KEY!, // [!code highlight]
             }), // [!code highlight]
-        ], // [!code highlight]
+        ],
     });
     ```
   </Step>
 
   <Step>
-    ### Add the captcha token to your request headers
+    Add the captcha token to your request headers [#add-the-captcha-token-to-your-request-headers]
 
     <Callout type="warning">
       The `x-captcha-user-remote-ip` header is no longer required—IP is now auto-detected server-side.
@@ -46,6 +46,8 @@ The **Captcha Plugin** integrates bot protection into your Better Auth system by
     Add the captcha token to your request headers for all protected endpoints. This example shows how to include it in a `signIn` request:
 
     ```ts
+    import { authClient } from "@/lib/auth-client"
+
     await authClient.signIn.email({
         email: "user@example.com",
         password: "secure-password",
@@ -64,7 +66,7 @@ The **Captcha Plugin** integrates bot protection into your Better Auth system by
   </Step>
 </Steps>
 
-## How it works
+How it works [#how-it-works]
 
 <Steps>
   <Step>
@@ -83,7 +85,7 @@ The **Captcha Plugin** integrates bot protection into your Better Auth system by
   </Step>
 </Steps>
 
-## Plugin Options
+Plugin Options [#plugin-options]
 
 * **`provider` (required)**: your captcha provider.
 * **`secretKey` (required)**: your provider's secret key used for the server-side validation.

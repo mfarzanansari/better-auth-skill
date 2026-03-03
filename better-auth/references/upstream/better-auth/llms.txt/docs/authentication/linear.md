@@ -6,7 +6,7 @@ Linear provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Linear credentials
+    Get your Linear credentials [#get-your-linear-credentials]
 
     To use Linear sign in, you need a client ID and client secret. You can get them from the [Linear Developer Portal](https://linear.app/settings/api).
 
@@ -16,7 +16,7 @@ Linear provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -35,7 +35,7 @@ Linear provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Linear
+    Sign In with Linear [#sign-in-with-linear]
 
     To sign in with Linear, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -54,7 +54,7 @@ Linear provider setup and usage.
   </Step>
 
   <Step>
-    ### Available scopes
+    Available scopes [#available-scopes]
 
     Linear OAuth supports the following scopes:
 

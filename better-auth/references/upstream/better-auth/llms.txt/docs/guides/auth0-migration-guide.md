@@ -10,13 +10,13 @@ In this guide, we'll walk through the steps to migrate a project from Auth0 to B
   This migration will invalidate all active sessions. This guide doesn't currently show you how to migrate Organizations but it should be possible with additional steps and the [Organization](/docs/plugins/organization) Plugin.
 </Callout>
 
-## Before You Begin
+Before You Begin [#before-you-begin]
 
 Before starting the migration process, set up Better Auth in your project. Follow the [installation guide](/docs/installation) to get started.
 
 <Steps>
   <Step>
-    ### Connect to your database
+    Connect to your database [#connect-to-your-database]
 
     You'll need to connect to your database to migrate the users and accounts. You can use any database you want, but for this example, we'll use PostgreSQL.
 
@@ -78,7 +78,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Enable Email and Password (Optional)
+    Enable Email and Password (Optional) [#enable-email-and-password-optional]
 
     Enable the email and password in your auth config and implement your own logic for sending verification emails, reset password emails, etc.
 
@@ -104,7 +104,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Setup Social Providers (Optional)
+    Setup Social Providers (Optional) [#setup-social-providers-optional]
 
     Add social providers you have enabled in your Auth0 project in your auth config.
 
@@ -133,7 +133,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Add Plugins (Optional)
+    Add Plugins (Optional) [#add-plugins-optional]
 
     You can add the following plugins to your auth config based on your needs.
 
@@ -176,23 +176,23 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Generate Schema
+    Generate Schema [#generate-schema]
 
     If you're using a custom database adapter, generate the schema:
 
     ```sh
-    npx @better-auth/cli generate
+    npx auth generate
     ```
 
     or if you're using the default adapter, you can use the following command:
 
     ```sh
-    npx @better-auth/cli migrate
+    npx auth migrate
     ```
   </Step>
 
   <Step>
-    ### Install Dependencies
+    Install Dependencies [#install-dependencies]
 
     Install the required dependencies for the migration:
 
@@ -202,7 +202,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Create the migration script
+    Create the migration script [#create-the-migration-script]
 
     Create a new file called `migrate-auth0.ts` in the `scripts` folder and add the following code:
 
@@ -588,7 +588,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Run the migration
+    Run the migration [#run-the-migration]
 
     Run the migration script:
 
@@ -608,7 +608,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Change password hashing algorithm
+    Change password hashing algorithm [#change-password-hashing-algorithm]
 
     By default, Better Auth uses the `scrypt` algorithm to hash passwords. Since Auth0 uses `bcrypt`, you'll need to configure Better Auth to use bcrypt for password verification.
 
@@ -641,7 +641,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Verify the migration
+    Verify the migration [#verify-the-migration]
 
     After running the migration, verify that:
 
@@ -653,7 +653,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Update your components
+    Update your components [#update-your-components]
 
     Now that the data is migrated, update your components to use Better Auth. Here's an example for the sign-in component:
 
@@ -684,7 +684,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Update the middleware
+    Update the middleware [#update-the-middleware]
 
     Replace your Auth0 middleware with Better Auth's middleware:
 
@@ -714,7 +714,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Remove Auth0 Dependencies
+    Remove Auth0 Dependencies [#remove-auth0-dependencies]
 
     Once you've verified everything is working correctly with Better Auth, remove Auth0:
 
@@ -724,21 +724,21 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 </Steps>
 
-## Additional Considerations
+Additional Considerations [#additional-considerations]
 
-### Password Migration
+Password Migration [#password-migration]
 
 The migration script handles bcrypt password hashes by default. If you're using custom password hashing algorithms in Auth0, you'll need to modify the `migratePassword` function in the migration script to handle your specific case.
 
-### Role Mapping
+Role Mapping [#role-mapping]
 
 The script includes a basic role mapping function (`mapAuth0RoleToBetterAuthRole`). Customize this function based on your Auth0 roles and Better Auth role requirements.
 
-### Rate Limiting
+Rate Limiting [#rate-limiting]
 
 The migration script includes pagination to handle large numbers of users. Adjust the `perPage` value based on your needs and Auth0's rate limits.
 
-## Wrapping Up
+Wrapping Up [#wrapping-up]
 
 Now! You've successfully migrated from Auth0 to Better Auth.
 

@@ -8,7 +8,7 @@ Better Auth comes with built-in support for OAuth 2.0 and OpenID Connect. This a
 
 If your desired provider isn't directly supported, you can use the [Generic OAuth Plugin](/docs/plugins/generic-oauth) for custom integrations.
 
-## Configuring Social Providers
+Configuring Social Providers [#configuring-social-providers]
 
 To enable a social provider, you need to provide `clientId` and `clientSecret` for the provider.
 
@@ -28,9 +28,9 @@ export const auth = betterAuth({
 });
 ```
 
-## Usage
+Usage [#usage]
 
-### Sign In
+Sign In [#sign-in]
 
 To sign in with a social provider, you can use the `signIn.social` function with the `authClient` or `auth.api` for server-side usage.
 
@@ -50,7 +50,7 @@ await auth.api.signInSocial({
 });
 ```
 
-### Link account
+Link account [#link-account]
 
 To link an account to a social provider, you can use the `linkAccount` function with the `authClient` or `auth.api` for server-side usage.
 
@@ -67,11 +67,11 @@ await auth.api.linkSocialAccount({
   body: {
     provider: "google", // or any other provider id
   },
-  headers: // pass headers with authenticated token
+  headers: await headers() // headers containing the user's session token
 });
 ```
 
-### Get Access Token
+Get Access Token [#get-access-token]
 
 To get the access token for a social provider, you can use the `getAccessToken` function with the `authClient` or `auth.api` for server-side usage. When you use this endpoint, if the access token is expired, it will be refreshed.
 
@@ -91,11 +91,11 @@ await auth.api.getAccessToken({
     accountId: "accountId", // optional, if you want to get the access token for a specific account
     userId: "userId", // optional, if you don't provide headers with authenticated token
   },
-  headers: // pass headers with authenticated token
+  headers: await headers() // headers containing the user's session token
 });
 ```
 
-### Get Account Info Provided by the provider
+Get Account Info Provided by the provider [#get-account-info-provided-by-the-provider]
 
 To get provider specific account info you can use the `accountInfo` function with the `authClient` or `auth.api` for server-side usage.
 
@@ -110,11 +110,11 @@ server-side usage:
 ```ts
 await auth.api.accountInfo({
   query: { accountId: "accountId" },
-  headers: // pass headers with authenticated token
+  headers: await headers() // headers containing the user's session token
 });
 ```
 
-### Requesting Additional Scopes
+Requesting Additional Scopes [#requesting-additional-scopes]
 
 Sometimes your application may need additional OAuth scopes after the user has already signed up (e.g., for accessing GitHub repositories or Google Drive). Users may not want to grant extensive permissions initially, preferring to start with minimal permissions and grant additional access as needed.
 
@@ -133,7 +133,7 @@ const requestAdditionalScopes = async () => {
   Make sure you're running Better Auth version 1.2.7 or later. Earlier versions (like 1.2.2) may show a "Social account already linked" error when trying to link with an existing provider for additional scopes.
 </Callout>
 
-### Passing Additional Data Through OAuth Flow
+Passing Additional Data Through OAuth Flow [#passing-additional-data-through-oauth-flow]
 
 Better Auth allows you to pass additional data through the OAuth flow without storing it in the database. This is useful for scenarios like tracking referral codes, analytics sources, or other temporary data that should be processed during authentication but not persisted.
 
@@ -169,7 +169,7 @@ await auth.api.signInSocial({
 });
 ```
 
-#### Accessing Additional Data in Hooks
+Accessing Additional Data in Hooks [#accessing-additional-data-in-hooks]
 
 The additional data is available in your hooks during the OAuth callback through the `getOAuthState`.
 
@@ -177,7 +177,7 @@ The additional data is available in your hooks during the OAuth callback through
   This usually works for `/callback/:id` paths and the generic OAuth plugin callback path (`/oauth2/callback/:providerId`).
 </Callout>
 
-Example using a before hook:
+Example using an after hook:
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth";
@@ -267,9 +267,9 @@ Example using a database hook:
   * `[key: string]`: any additional data you pass in the OAuth flow
 </Callout>
 
-## Provider Options
+Provider Options [#provider-options]
 
-### scope
+scope [#scope]
 
 The scope of the access request. For example, `email` or `profile`.
 
@@ -288,11 +288,12 @@ export const auth = betterAuth({
 });
 ```
 
-### redirectURI
+redirectURI [#redirecturi]
 
 Custom redirect URI for the provider. By default, it uses `/api/auth/callback/${providerName}`
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
 
 export const auth = betterAuth({
   // Other configurations...
@@ -306,23 +307,23 @@ export const auth = betterAuth({
 });
 ```
 
-### disableSignUp
+disableSignUp [#disablesignup]
 
 Disables sign-up for new users.
 
-### disableIdTokenSignIn
+disableIdTokenSignIn [#disableidtokensignin]
 
 Disables the use of the ID token for sign-in. By default, it's enabled for some providers like Google and Apple.
 
-### verifyIdToken
+verifyIdToken [#verifyidtoken]
 
 A custom function to verify the ID token.
 
-### overrideUserInfoOnSignIn
+overrideUserInfoOnSignIn [#overrideuserinfoonsignin]
 
 A boolean value that determines whether to override the user information in the database when signing in. By default, it is set to `false`, meaning that the user information will not be overridden during sign-in. If you want to update the user information every time they sign in, set this to `true`.
 
-### mapProfileToUser
+mapProfileToUser [#mapprofiletouser]
 
 A custom function to map the user profile returned from the provider to the user object in your database.
 
@@ -348,7 +349,7 @@ export const auth = betterAuth({
 });
 ```
 
-### refreshAccessToken
+refreshAccessToken [#refreshaccesstoken]
 
 A custom function to refresh the token. This feature is only supported for built-in social providers (Google, Facebook, GitHub, etc.) and is not currently supported for custom OAuth providers configured through the Generic OAuth Plugin. For built-in providers, you can provide a custom function to refresh the token if needed.
 
@@ -372,7 +373,7 @@ export const auth = betterAuth({
 });
 ```
 
-### clientKey
+clientKey [#clientkey]
 
 The client key of your application. This is used by TikTok Social Provider instead of `clientId`.
 
@@ -390,7 +391,7 @@ export const auth = betterAuth({
 });
 ```
 
-### getUserInfo
+getUserInfo [#getuserinfo]
 
 A custom function to get user info from the provider. This allows you to override the default user info retrieval process.
 
@@ -427,7 +428,7 @@ export const auth = betterAuth({
 });
 ```
 
-### disableImplicitSignUp
+disableImplicitSignUp [#disableimplicitsignup]
 
 Disables implicit sign up for new users. When set to true for the provider, sign-in needs to be called with `requestSignUp` as true to create new users.
 
@@ -446,7 +447,7 @@ export const auth = betterAuth({
 });
 ```
 
-### prompt
+prompt [#prompt]
 
 The prompt to use for the authorization code request. This controls the authentication flow behavior.
 
@@ -465,7 +466,7 @@ export const auth = betterAuth({
 });
 ```
 
-### responseMode
+responseMode [#responsemode]
 
 The response mode to use for the authorization code request. This determines how the authorization response is returned.
 
@@ -484,7 +485,7 @@ export const auth = betterAuth({
 });
 ```
 
-### disableDefaultScope
+disableDefaultScope [#disabledefaultscope]
 
 Removes the default scopes of the provider. By default, providers include certain scopes like `email` and `profile`. Set this to `true` to remove these default scopes and use only the scopes you specify.
 
@@ -504,7 +505,7 @@ export const auth = betterAuth({
 });
 ```
 
-### Other Provider Configurations
+Other Provider Configurations [#other-provider-configurations]
 
 Each provider may have additional options, check the specific provider documentation for more details.
 

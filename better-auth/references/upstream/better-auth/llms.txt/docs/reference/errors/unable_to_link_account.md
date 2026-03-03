@@ -4,7 +4,7 @@ The account could not be linked.
 
 
 
-## What is it?
+What is it? [#what-is-it]
 
 This error occurs only during an OAuth flow when attempting to link the provider account to the
 currently authenticated user. Better Auth blocks the operation if either:
@@ -13,7 +13,7 @@ currently authenticated user. Better Auth blocks the operation if either:
 2. The provider is not considered trusted for linking based on your auth configuration
    (`account.accountLinking.trustedProviders`).
 
-## Common Causes
+Common Causes [#common-causes]
 
 * The provider is not listed in `account.accountLinking.trustedProviders`.
 * Configuration differs across environments (dev/staging/prod), so the provider appears untrusted in one environment.
@@ -21,19 +21,19 @@ currently authenticated user. Better Auth blocks the operation if either:
 * A race condition linking the same provider concurrently caused a conflict.
 * Pending migrations or a mismatched schema between services caused the write to fail.
 
-## How to resolve
+How to resolve [#how-to-resolve]
 
-### Allow linking for the intended provider
+Allow linking for the intended provider [#allow-linking-for-the-intended-provider]
 
 * Add the provider id (e.g., `github`, `google`) to `account.accountLinking.trustedProviders` in your auth config.
 * Verify you are using the correct provider id/slug that your integration expects.
 
-### Fix database reliability and constraints
+Fix database reliability and constraints [#fix-database-reliability-and-constraints]
 
 * Run pending migrations and ensure the schema matches the current Better Auth version.
 * Investigate DB errors (deadlocks, timeouts, connection pool limits) and retry if appropriate.
 
-### Verify environment configuration
+Verify environment configuration [#verify-environment-configuration]
 
 * Ensure the same auth config is deployed to all environments and that environment variables are loaded as expected.
 * Double-check that the runtime sees the intended `trustedProviders` list.

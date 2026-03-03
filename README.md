@@ -13,6 +13,8 @@ This repo ships one enhanced Better Auth skill that combines:
 
 It also bundles Better Auth upstream docs and a refresh script for deterministic updates.
 
+Current bundled upstream corpus: `164` markdown files from `https://www.better-auth.com/llms.txt` (last refreshed March 3, 2026).
+
 ## Install
 
 Install this specific skill:
@@ -70,6 +72,16 @@ Refresh and prune stale files:
 ```bash
 python3 better-auth/scripts/fetch_better_auth_llms.py --prune
 ```
+
+## Upstream Skill Sync
+
+Official Better Auth skill-pack reference:
+
+```bash
+npx skills add better-auth/skills --list
+```
+
+This repository consolidates the official Better Auth skill guidance into one framework-agnostic `better-auth` skill.
 
 ## Compatibility
 

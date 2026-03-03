@@ -6,7 +6,7 @@ Vercel provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Vercel credentials
+    Get your Vercel credentials [#get-your-vercel-credentials]
 
     To use Sign in with Vercel, you need a client ID and client secret. You can get them from the [Vercel Dashboard](https://vercel.com/dashboard) by [creating a Vercel App](https://vercel.com/docs/sign-in-with-vercel/manage-from-dashboard).
 
@@ -18,7 +18,7 @@ Vercel provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -37,9 +37,9 @@ Vercel provider setup and usage.
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Sign in with Vercel
+Sign in with Vercel [#sign-in-with-vercel]
 
 To sign in with Vercel, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -56,11 +56,11 @@ const signIn = async () => {
 }
 ```
 
-## Options
+Options [#options]
 
 For the full list of options supported by all social providers, check the [Provider Options](/docs/concepts/oauth#provider-options).
 
-### Available Scopes
+Available Scopes [#available-scopes]
 
 Vercel supports the following OpenID Connect scopes:
 

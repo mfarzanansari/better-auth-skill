@@ -6,7 +6,7 @@ Kick provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Kick Credentials
+    Get your Kick Credentials [#get-your-kick-credentials]
 
     To use Kick sign in, you need a client ID and client secret. You can get them from the [Kick Developer Portal](https://kick.com/settings/developer).
 
@@ -14,7 +14,7 @@ Kick provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -33,7 +33,7 @@ Kick provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Kick
+    Sign In with Kick [#sign-in-with-kick]
 
     To sign in with Kick, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

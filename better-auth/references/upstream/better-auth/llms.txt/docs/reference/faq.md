@@ -137,7 +137,7 @@ This page contains frequently asked questions, common issues, and other helpful 
 
     This is typically caused by a **dual module hazard** - when multiple versions of `better-auth` or `@better-auth/core` exist in your dependency tree. This commonly occurs after upgrading to v1.4+, especially in Cloudflare Workers, Nuxt, or when using plugins like `oauthProvider`.
 
-    ### How to Diagnose
+    How to Diagnose [#how-to-diagnose]
 
     Check if you have duplicate versions of Better Auth packages:
 
@@ -157,9 +157,9 @@ This page contains frequently asked questions, common issues, and other helpful 
 
     If you see multiple versions listed, you have a dual module hazard.
 
-    ### How to Fix
+    How to Fix [#how-to-fix]
 
-    #### Basic Steps
+    Basic Steps [#basic-steps]
 
     Start by ensuring your dependencies are clean and all Better Auth packages use compatible versions.
 
@@ -178,7 +178,7 @@ This page contains frequently asked questions, common issues, and other helpful 
       Check your `package.json` and make sure all Better Auth related packages (`better-auth`, `@better-auth/core`, `@better-auth/oauth-provider`, etc.) are using compatible versions.
     </Callout>
 
-    #### Package Manager Resolution Issues
+    Package Manager Resolution Issues [#package-manager-resolution-issues]
 
     If you're using Yarn v1 (Classic) or potentially other package managers like pnpm v9, you may need to force `better-call` to resolve to a single instance.
 
@@ -212,7 +212,7 @@ This page contains frequently asked questions, common issues, and other helpful 
       **Important:** Make sure to install `better-auth` and related packages in `dependencies`, not `devDependencies`.
     </Callout>
 
-    #### Bundler Resolution Issues
+    Bundler Resolution Issues [#bundler-resolution-issues]
 
     This is a bundler-level issue where the same module gets resolved to different instances. The goal is to make your bundler resolve the module to the same instance.
 
@@ -238,7 +238,7 @@ This page contains frequently asked questions, common issues, and other helpful 
       ```
     </Callout>
 
-    #### Verify the Fix
+    Verify the Fix [#verify-the-fix]
 
     Run the diagnostic commands again to confirm only one version of each package exists:
 

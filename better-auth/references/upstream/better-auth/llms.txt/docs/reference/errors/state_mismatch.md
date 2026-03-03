@@ -4,7 +4,7 @@ The state parameter in the request doesn't match the state parameter in the cook
 
 
 
-## What is it?
+What is it? [#what-is-it]
 
 When an OAuth flow begins, a unique `state` value is generated and stored in a cookie.
 After the user returns from the OAuth provider, this `state` is compared with the one provided in the callback.
@@ -14,7 +14,7 @@ This check exists to prevent CSRF (Cross-Site Request Forgery) and replay attack
 basically, to make sure the callback that hits your `/api/auth/callback` endpoint really belongs to the
 same browser session that started it.
 
-## Common Causes
+Common Causes [#common-causes]
 
 * The cookie wasn't set or readable during callback (common with `.vercel.app` preview domains or cross-domain issues).
 * The cookie domain/path doesn't match between your app and callback route.
@@ -22,20 +22,20 @@ same browser session that started it.
 * You started the OAuth flow in one tab but finished it in another (different cookie context).
 * The preview vs production domain mismatch (e.g., `preview.myapp.com` vs `myapp.com`).
 
-## How to resolve
+How to resolve [#how-to-resolve]
 
-### Use a constant domain
+Use a constant domain [#use-a-constant-domain]
 
 * The best fix is to use a constant domain for your app and callback route.
 * Avoid `.vercel.app` subdomains - browsers treat them as public suffixes, so cookies can't be shared across subdomains.
 
-### Verify cookie configurations
+Verify cookie configurations [#verify-cookie-configurations]
 
 * It's possible that you've configured custom cookie attributes in your auth config that can cause this issue.
 * Check that cookies are not blocked by browser settings or privacy modes.
 * Ensure you're starting and ending the OAuth flow in the same browser session.
 
-### Skip state cookie check
+Skip state cookie check [#skip-state-cookie-check]
 
 If you know what you are doing, you can skip the state cookie check by
 setting the `account.skipStateCookieCheck` option to `true` in your auth config.
@@ -44,7 +44,7 @@ setting the `account.skipStateCookieCheck` option to `true` in your auth config.
   Please note that this is a security risk and should only be enabled if you know what you are doing.
 </Callout>
 
-### Production Debug
+Production Debug [#production-debug]
 
 Head to your production site, and use your browser's DevTools → Application → Cookies to confirm:
 

@@ -26,29 +26,31 @@ The **OIDC Provider Plugin** enables you to build and manage your own OpenID Con
   This plugin is in active development and may not be suitable for production use. Please report any issues or bugs on [GitHub](https://github.com/better-auth/better-auth).
 </Callout>
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Mount the Plugin
+    Mount the Plugin [#mount-the-plugin]
 
     Add the OIDC plugin to your auth config. See [Configuration Section](#configuration) on how to configure the plugin.
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth";
-    import { oidcProvider } from "better-auth/plugins";
+    import { oidcProvider } from "better-auth/plugins"; // [!code highlight]
 
     const auth = betterAuth({
-        plugins: [oidcProvider({
-            loginPage: "/sign-in", // path to the login page
-            // ...other options
-        })]
+        plugins: [
+        oidcProvider({ // [!code highlight]
+            loginPage: "/sign-in", // path to the login page // [!code highlight]
+            // ...other options // [!code highlight]
+          }) // [!code highlight]
+        ]
     })
     ```
   </Step>
 
   <Step>
-    ### Migrate the Database
+    Migrate the Database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary fields and tables to the database.
 
@@ -75,25 +77,25 @@ The **OIDC Provider Plugin** enables you to build and manage your own OpenID Con
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -121,25 +123,25 @@ The **OIDC Provider Plugin** enables you to build and manage your own OpenID Con
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -150,27 +152,30 @@ The **OIDC Provider Plugin** enables you to build and manage your own OpenID Con
   </Step>
 
   <Step>
-    ### Add the Client Plugin
+    Add the Client Plugin [#add-the-client-plugin]
 
     Add the OIDC client plugin to your auth client config.
 
-    ```ts
+    ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client";
-    import { oidcClient } from "better-auth/client/plugins"
+    import { oidcClient } from "better-auth/client/plugins" // [!code highlight]
+
     const authClient = createAuthClient({
-        plugins: [oidcClient({
-            // Your OIDC configuration
-        })]
+        plugins: [
+        oidcClient({ // [!code highlight]
+            // Your OIDC configuration // [!code highlight]
+          }) // [!code highlight]
+        ]
     })
     ```
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
 Once installed, you can utilize the OIDC Provider to manage authentication flows within your application.
 
-### Register a New Client
+Register a New Client [#register-a-new-client]
 
 To register a new OIDC client, use the `oauth2.register` method on the client or `auth.api.registerOAuthApplication` on the server.
 
@@ -283,7 +288,7 @@ type registerOAuthApplication = {
 
 Once the application is created, you will receive a `client_id` and `client_secret` that you can display to the user.
 
-### Trusted Clients
+Trusted Clients [#trusted-clients]
 
 For first-party applications and internal services, you can configure trusted clients directly in your OIDC provider configuration. Trusted clients bypass database lookups for better performance and can optionally skip consent screens for improved user experience.
 
@@ -321,13 +326,13 @@ const auth = betterAuth({
 })
 ```
 
-### UserInfo Endpoint
+UserInfo Endpoint [#userinfo-endpoint]
 
 The OIDC Provider includes a UserInfo endpoint that allows clients to retrieve information about the authenticated user. This endpoint is available at `/oauth2/userinfo` and requires a valid access token.
 
 <Endpoint path="/oauth2/userinfo" method="GET" />
 
-#### Server-Side Usage
+Server-Side Usage [#server-side-usage]
 
 ```ts title="server.ts"
 import { auth } from "@/lib/auth";
@@ -340,7 +345,7 @@ const userInfo = await auth.api.oAuth2userInfo({
 // userInfo contains user details based on the scopes granted
 ```
 
-#### Client-Side Usage (For Third-Party OAuth Clients)
+Client-Side Usage (For Third-Party OAuth Clients) [#client-side-usage-for-third-party-oauth-clients]
 
 Third-party OAuth clients can call the UserInfo endpoint using standard HTTP requests:
 
@@ -360,7 +365,7 @@ const userInfo = await response.json();
 * With `profile` scope: Returns `name`, `picture`, `given_name`, `family_name`
 * With `email` scope: Returns `email` and `email_verified`
 
-#### Custom Claims
+Custom Claims [#custom-claims]
 
 The `getAdditionalUserInfoClaim` function receives the user object, requested scopes array, and the client, allowing you to conditionally include claims based on the scopes granted during authorization. These additional claims will be included in both the UserInfo endpoint response and the ID token.
 
@@ -393,7 +398,7 @@ export const auth = betterAuth({
 });
 ```
 
-### Consent Screen
+Consent Screen [#consent-screen]
 
 When a user is redirected to the OIDC provider for authentication, they may be prompted to authorize the application to access their data. This is known as the consent screen. By default, Better Auth will display a sample consent screen. You can customize the consent screen by providing a `consentPage` option during initialization.
 
@@ -401,11 +406,14 @@ When a user is redirected to the OIDC provider for authentication, they may be p
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth";
+import { oidcProvider } from "better-auth/plugins";
 
 export const auth = betterAuth({
-    plugins: [oidcProvider({
+    plugins: [
+      oidcProvider({
         consentPage: "/path/to/consent/page"
-    })]
+      })
+    ]
 })
 ```
 
@@ -418,6 +426,8 @@ The consent endpoint supports two methods for passing the consent code:
 **Method 1: URL Parameter**
 
 ```ts title="consent-page.ts"
+import { authClient } from "@/lib/auth-client"
+
 // Get the consent code from the URL
 const params = new URLSearchParams(window.location.search);
 
@@ -427,7 +437,7 @@ if (!consentCode) {
 	throw new Error('Consent code not found in URL parameters');
 }
 
-const res = await client.oauth2.consent({
+const res = await authClient.oauth2.consent({
 	accept: true, // or false to deny
 	consent_code: consentCode,
 });
@@ -436,9 +446,11 @@ const res = await client.oauth2.consent({
 **Method 2: Cookie-Based**
 
 ```ts title="consent-page.ts"
+import { authClient } from "@/lib/auth-client"
+
 // The consent code is automatically stored in a signed cookie
 // Just submit the consent decision
-const res = await client.oauth2.consent({
+const res = await authClient.oauth2.consent({
 	accept: true, // or false to deny
 	// consent_code not needed when using cookie-based flow
 });
@@ -446,7 +458,7 @@ const res = await client.oauth2.consent({
 
 Both methods are fully supported. The URL parameter method works well with mobile apps and third-party contexts, while the cookie-based method provides a simpler implementation for web applications.
 
-### Handling Login
+Handling Login [#handling-login]
 
 When a user is redirected to the OIDC provider for authentication, if they are not already logged in, they will be redirected to the login page. You can customize the login page by providing a `loginPage` option during initialization.
 
@@ -454,17 +466,19 @@ When a user is redirected to the OIDC provider for authentication, if they are n
 import { betterAuth } from "better-auth";
 
 export const auth = betterAuth({
-    plugins: [oidcProvider({
+    plugins: [
+      oidcProvider({
         loginPage: "/sign-in"
-    })]
+      })
+    ]
 })
 ```
 
 You don't need to handle anything from your side; when a new session is created, the plugin will handle continuing the authorization flow.
 
-## Configuration
+Configuration [#configuration]
 
-### OIDC Metadata
+OIDC Metadata [#oidc-metadata]
 
 Customize the OIDC metadata by providing a configuration object during initialization.
 
@@ -473,18 +487,20 @@ import { betterAuth } from "better-auth";
 import { oidcProvider } from "better-auth/plugins";
 
 export const auth = betterAuth({
-    plugins: [oidcProvider({
+    plugins: [
+      oidcProvider({
         metadata: {
             issuer: "https://your-domain.com",
             authorization_endpoint: "/custom/oauth2/authorize",
             token_endpoint: "/custom/oauth2/token",
             // ...other custom metadata
         }
-    })]
+      })
+    ]
 })
 ```
 
-### JWKS Endpoint
+JWKS Endpoint [#jwks-endpoint]
 
 The OIDC Provider plugin can integrate with the JWT plugin to provide asymmetric key signing for ID tokens verifiable at a JWKS endpoint.
 
@@ -514,25 +530,27 @@ export const auth = betterAuth({
   When `useJWTPlugin: false` (default), ID tokens are signed with the application secret.
 </Callout>
 
-### Dynamic Client Registration
+Dynamic Client Registration [#dynamic-client-registration]
 
 If you want to allow clients to register dynamically, you can enable this feature by setting the `allowDynamicClientRegistration` option to `true`.
 
 ```ts title="auth.ts"
 const auth = betterAuth({
-    plugins: [oidcProvider({
+    plugins: [
+      oidcProvider({
         allowDynamicClientRegistration: true,
-    })]
+      })
+    ]
 })
 ```
 
 This will allow clients to register using the `/register` endpoint to be publicly available.
 
-## Schema
+Schema [#schema]
 
 The OIDC Provider plugin adds the following tables to the database:
 
-### OAuth Application
+OAuth Application [#oauth-application]
 
 Table Name: `oauthApplication`
 
@@ -606,7 +624,7 @@ Table Name: `oauthApplication`
 ]}
 />
 
-### OAuth Access Token
+OAuth Access Token [#oauth-access-token]
 
 Table Name: `oauthAccessToken`
 
@@ -674,7 +692,7 @@ Table Name: `oauthAccessToken`
 ]}
 />
 
-### OAuth Consent
+OAuth Consent [#oauth-consent]
 
 Table Name: `oauthConsent`
 
@@ -725,7 +743,7 @@ Table Name: `oauthConsent`
 ]}
 />
 
-## Options
+Options [#options]
 
 **allowDynamicClientRegistration**: `boolean` - Enable or disable dynamic client registration.
 

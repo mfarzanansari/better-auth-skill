@@ -6,7 +6,7 @@ A guide to integrating SAML Single Sign-On (SSO) with Better Auth, featuring Okt
 
 This guide walks you through setting up SAML Single Sign-On (SSO) with your Identity Provider (IdP), using Okta as an example. For advanced configuration details and the full API reference, check out the [SSO Plugin Documentation](/docs/plugins/sso).
 
-## What is SAML?
+What is SAML? [#what-is-saml]
 
 SAML (Security Assertion Markup Language) is an XML-based standard for exchanging authentication and authorization data between an Identity Provider (IdP) (e.g., Okta, Azure AD, OneLogin) and a Service Provider (SP) (in this case, Better Auth).
 
@@ -15,7 +15,7 @@ In this setup:
 * **IdP (Okta)**: Authenticates users and sends assertions about their identity.
 * **SP (Better Auth)**: Validates assertions and logs the user in.up.
 
-### Step 1: Create a SAML Application in Okta
+Step 1: Create a SAML Application in Okta [#step-1-create-a-saml-application-in-okta]
 
 1. Log in to your Okta Admin Console
 
@@ -37,7 +37,7 @@ In this setup:
   **IdP-Initiated SSO**: If you want users to access your app from the Okta dashboard, make sure the **Single Sign-on URL** points to the callback endpoint (`/api/auth/sso/saml2/callback/{providerId}`). Better Auth automatically handles both SP-initiated and IdP-initiated flows.
 </Callout>
 
-### Step 2: Configure Better Auth
+Step 2: Configure Better Auth [#step-2-configure-better-auth]
 
 Here’s an example configuration for Okta in a dev environment:
 
@@ -81,7 +81,7 @@ MIIDqjCCApKgAwIBAgIGAZhVGMeUMA0GCSqGSIb3DQEBCwUAMIGVMQswCQYDVQQGEwJVUzETMBEG
 }
 ```
 
-### Step 3: Multiple Default Providers (Optional)
+Step 3: Multiple Default Providers (Optional) [#step-3-multiple-default-providers-optional]
 
 You can configure multiple SAML providers for different domains:
 
@@ -118,7 +118,7 @@ const ssoConfig = {
   **Domain fallback:** Matches based on the user’s email domain. e.g. [user@company.com](mailto:user@company.com) → matches `company-okta` provider.
 </Callout>
 
-### Step 4: Initiating Sign-In
+Step 4: Initiating Sign-In [#step-4-initiating-sign-in]
 
 You can start an SSO flow in three ways:
 
@@ -160,7 +160,7 @@ await authClient.signIn.sso({
 * For production, always use proper IdP providers like Okta, Azure AD, or OneLogin
 * The `callbackUrl` in your SAML config should point to your app's destination (e.g., `/dashboard`), not the callback route itself
 
-### Step 5: Dynamically Registering SAML Providers
+Step 5: Dynamically Registering SAML Providers [#step-5-dynamically-registering-saml-providers]
 
 For dynamic registration, you should register SAML providers using the API. See the [SSO Plugin Documentation](/docs/plugins/sso#register-a-saml-provider) for detailed registration instructions.
 
@@ -177,7 +177,7 @@ await authClient.sso.register({
 });
 ```
 
-## Additional Resources
+Additional Resources [#additional-resources]
 
 * [SSO Plugin Documentation](/docs/plugins/sso)
 * [Okta SAML Documentation](https://developer.okta.com/docs/concepts/saml/)

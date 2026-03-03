@@ -6,7 +6,7 @@ Reddit provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Reddit Credentials
+    Get your Reddit Credentials [#get-your-reddit-credentials]
 
     To use Reddit sign in, you need a client ID and client secret. You can get them from the [Reddit Developer Portal](https://www.reddit.com/prefs/apps).
 
@@ -20,7 +20,7 @@ Reddit provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -39,7 +39,7 @@ Reddit provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Reddit
+    Sign In with Reddit [#sign-in-with-reddit]
 
     To sign in with Reddit, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -58,9 +58,9 @@ Reddit provider setup and usage.
   </Step>
 </Steps>
 
-## Additional Configuration
+Additional Configuration [#additional-configuration]
 
-### Scopes
+Scopes [#scopes]
 
 By default, Reddit provides basic user information. If you need additional permissions, you can specify scopes in your auth configuration:
 

@@ -29,6 +29,8 @@ export const auth = betterAuth({
 Rate limiting is disabled in development mode by default. In order to enable it, set `enabled` to `true`:
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     rateLimit: {
         enabled: true,
@@ -47,15 +49,17 @@ In addition, plugins also define custom rules for specific paths. For example, `
 
 These custom rules ensure that sensitive operations are protected with stricter limits.
 
-## Configuring Rate Limit
+Configuring Rate Limit [#configuring-rate-limit]
 
-### Connecting IP Address
+Connecting IP Address [#connecting-ip-address]
 
 Rate limiting uses the connecting IP address to track the number of requests made by a user. The
 default header checked is `x-forwarded-for`, which is commonly used in production environments. If
 you are using a different header to track the user's IP address, you'll need to specify it.
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     //...other options
     advanced: {
@@ -71,13 +75,13 @@ export const auth = betterAuth({
 })
 ```
 
-#### IPv6 Address Support
+IPv6 Address Support [#ipv6-address-support]
 
 Better Auth automatically normalizes IPv6 addresses to prevent bypass attacks where attackers use different representations of the same IPv6 address (e.g., `2001:db8::1` vs `2001:0db8:0000:0000:0000:0000:0000:0001`). This ensures that all representations of the same IPv6 address are treated as the same for rate limiting purposes.
 
 Additionally, IPv4-mapped IPv6 addresses (e.g., `::ffff:192.0.2.1`) are automatically converted to their IPv4 form (`192.0.2.1`) to prevent attackers from bypassing rate limits by switching between IPv4 and IPv6 representations.
 
-#### IPv6 Subnet Rate Limiting
+IPv6 Subnet Rate Limiting [#ipv6-subnet-rate-limiting]
 
 By default, IPv6 addresses are rate limited individually (using the full /128 address). However, since IPv6 typically allocates large address blocks to single users, attackers could potentially bypass rate limits by rotating through multiple IPv6 addresses from their allocation.
 
@@ -110,7 +114,7 @@ Common IPv6 subnet prefix lengths:
   IPv6 subnet configuration only affects IPv6 addresses. IPv4 addresses are always rate limited individually.
 </Callout>
 
-### Rate Limit Window
+Rate Limit Window [#rate-limit-window]
 
 ```ts title="auth.ts"
 import { betterAuth } from "better-auth";
@@ -166,7 +170,7 @@ export const auth = betterAuth({
 })
 ```
 
-### Storage
+Storage [#storage]
 
 By default, rate limit data is stored in memory, which may not be suitable for many use cases, particularly in serverless environments. To address this, you can use a database, secondary storage, or custom storage for storing rate limit data.
 
@@ -184,11 +188,55 @@ export const auth = betterAuth({
 })
 ```
 
-Make sure to run `migrate` to create the rate limit table in your database.
+Make sure to run `migrate` to create the rate limit table in your database:
 
-```bash
-npx @better-auth/cli migrate
-```
+<CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
+  <CodeBlockTabsList>
+    <CodeBlockTabsTrigger value="npm">
+      npm
+    </CodeBlockTabsTrigger>
+
+    <CodeBlockTabsTrigger value="pnpm">
+      pnpm
+    </CodeBlockTabsTrigger>
+
+    <CodeBlockTabsTrigger value="yarn">
+      yarn
+    </CodeBlockTabsTrigger>
+
+    <CodeBlockTabsTrigger value="bun">
+      bun
+    </CodeBlockTabsTrigger>
+  </CodeBlockTabsList>
+
+  <CodeBlockTab value="npm">
+    ```bash
+    npx auth@latest migrate
+    ```
+  </CodeBlockTab>
+
+  <CodeBlockTab value="pnpm">
+    ```bash
+    pnpm dlx auth@latest migrate
+    ```
+  </CodeBlockTab>
+
+  <CodeBlockTab value="yarn">
+    ```bash
+    yarn dlx auth@latest migrate
+    ```
+  </CodeBlockTab>
+
+  <CodeBlockTab value="bun">
+    ```bash
+    bun x auth@latest migrate
+    ```
+  </CodeBlockTab>
+</CodeBlockTabs>
+
+<Callout type="info">
+  The `migrate` command only works if you're using the built-in Kysely adapter. If you're using Prisma, Drizzle, or another ORM, run `npx auth@latest generate` first, then apply the schema using your ORM's migration tool. For more info, see the [Better Auth CLI](/docs/concepts/cli).
+</Callout>
 
 **Using Secondary Storage**
 
@@ -227,7 +275,7 @@ export const auth = betterAuth({
 })
 ```
 
-## Handling Rate Limit Errors
+Handling Rate Limit Errors [#handling-rate-limit-errors]
 
 When a request exceeds the rate limit, Better Auth returns the following header:
 
@@ -271,7 +319,7 @@ await authClient.signIn.email({
 })
 ```
 
-### Schema
+Schema [#schema]
 
 If you are using a database to store rate limit data you need this schema:
 

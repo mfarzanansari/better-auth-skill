@@ -6,7 +6,7 @@ Kakao provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Kakao Credentials
+    Get your Kakao Credentials [#get-your-kakao-credentials]
 
     To use Kakao sign in, you need a client ID and client secret. You can get them from the [Kakao Developer Portal](https://developers.kakao.com).
 
@@ -14,7 +14,7 @@ Kakao provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -38,7 +38,7 @@ Kakao provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Kakao
+    Sign In with Kakao [#sign-in-with-kakao]
 
     To sign in with Kakao, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

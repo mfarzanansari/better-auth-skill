@@ -6,7 +6,7 @@ Google provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Google credentials
+    Get your Google credentials [#get-your-google-credentials]
 
     To use Google as a social provider, you need to get your Google credentials. You can get them by creating a new project in the [Google Cloud Console](https://console.cloud.google.com/apis/dashboard).
 
@@ -30,7 +30,7 @@ Google provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to pass the `clientId` and `clientSecret` to `socialProviders.google` in your auth configuration.
 
@@ -69,9 +69,9 @@ Google provider setup and usage.
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Sign In with Google
+Sign In with Google [#sign-in-with-google]
 
 To sign in with Google, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -88,7 +88,7 @@ const signIn = async () => {
 };
 ```
 
-### Sign In with Google With ID Token
+Sign In with Google With ID Token [#sign-in-with-google-with-id-token]
 
 To sign in with Google using the ID Token, you can use the `signIn.social` function to pass the ID Token.
 
@@ -114,7 +114,7 @@ const data = await authClient.signIn.social({
   Plugin](/docs/plugins/one-tap) guide.
 </Callout>
 
-### Always ask to select an account
+Always ask to select an account [#always-ask-to-select-an-account]
 
 If you want to always ask the user to select an account, you pass the `prompt` parameter to the provider, setting it to `select_account`.
 
@@ -128,7 +128,7 @@ socialProviders: {
 }
 ```
 
-### Requesting Additional Google Scopes
+Requesting Additional Google Scopes [#requesting-additional-google-scopes]
 
 If your application needs additional Google scopes after the user has already signed up (e.g., for Google Drive, Gmail, or other Google services), you can request them using the `linkSocial` method with the same Google provider.
 
@@ -156,7 +156,7 @@ This will trigger a new OAuth flow that requests the additional scopes. After co
   provider.
 </Callout>
 
-### Always get refresh token
+Always get refresh token [#always-get-refresh-token]
 
 Google only issues a refresh token the first time a user consents to your app.
 If the user has already authorized your app, subsequent OAuth flows will only return an access token, not a refresh token.

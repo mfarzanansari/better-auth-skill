@@ -6,11 +6,15 @@ Integrate Better Auth with Expo.
 
 Expo is a popular framework for building cross-platform apps with React Native. Better Auth supports both Expo native and web apps.
 
-## Installation
+<Callout type="info">
+  This guide is written for **Expo SDK 55** (React Native 0.83, React 19.2). SDK 55 requires the [New Architecture](https://docs.expo.dev/guides/new-architecture/) — the Legacy Architecture is no longer supported. If you're upgrading from an older SDK, see the [Expo SDK 55 upgrade guide](https://expo.dev/blog/upgrading-to-sdk-55).
+</Callout>
+
+Installation [#installation]
 
 <Steps>
   <Step>
-    ## Configure A Better Auth Backend
+    Configure A Better Auth Backend [#configure-a-better-auth-backend]
 
     Before using Better Auth with Expo, make sure you have a Better Auth backend set up. You can either use a separate server or leverage Expo's new [API Routes](https://docs.expo.dev/router/reference/api-routes) feature to host your Better Auth instance.
 
@@ -27,7 +31,7 @@ Expo is a popular framework for building cross-platform apps with React Native. 
   </Step>
 
   <Step>
-    ## Install Server Dependencies
+    Install Server Dependencies [#install-server-dependencies]
 
     Install both the Better Auth package and Expo plugin into your server application.
 
@@ -81,7 +85,7 @@ Expo is a popular framework for building cross-platform apps with React Native. 
   </Step>
 
   <Step>
-    ## Install Client Dependencies
+    Install Client Dependencies [#install-client-dependencies]
 
     * You also need to install both the Better Auth package and Expo plugin into your Expo application.
 
@@ -227,7 +231,7 @@ Expo is a popular framework for building cross-platform apps with React Native. 
   </Step>
 
   <Step>
-    ## Add the Expo Plugin on Your Server
+    Add the Expo Plugin on Your Server [#add-the-expo-plugin-on-your-server]
 
     Add the Expo plugin to your Better Auth server.
 
@@ -245,7 +249,7 @@ Expo is a popular framework for building cross-platform apps with React Native. 
   </Step>
 
   <Step>
-    ## Initialize Better Auth Client
+    Initialize Better Auth Client [#initialize-better-auth-client]
 
     To initialize Better Auth in your Expo app, you need to call `createAuthClient` with the base URL of your Better Auth backend. Make sure to import the client from `/react`.
 
@@ -325,7 +329,7 @@ Expo is a popular framework for building cross-platform apps with React Native. 
   </Step>
 
   <Step>
-    ## Scheme and Trusted Origins
+    Scheme and Trusted Origins [#scheme-and-trusted-origins]
 
     Better Auth uses deep links to redirect users back to your app after authentication. To enable this, you need to add your app's scheme to the `trustedOrigins` list in your Better Auth config.
 
@@ -365,7 +369,7 @@ Expo is a popular framework for building cross-platform apps with React Native. 
     })
     ```
 
-    ### Development Mode
+    Development Mode [#development-mode]
 
     During development, Expo uses the `exp://` scheme with your device's local IP address. To support this, you can use wildcards to match common local IP ranges:
 
@@ -392,68 +396,24 @@ Expo is a popular framework for building cross-platform apps with React Native. 
   </Step>
 
   <Step>
-    ## Configure Metro Bundler
+    Configure Metro Bundler [#configure-metro-bundler]
 
-    To resolve Better Auth exports you'll need to enable `unstable_enablePackageExports` in your metro config.
+    Better Auth relies on `package.json` exports to resolve its modules. Starting with **Expo SDK 53+** (including SDK 55), package exports support is enabled by default in Metro, so **no extra Metro configuration is needed**.
+
+    If you have a custom `metro.config.js`, make sure you're not disabling package exports:
 
     ```js title="metro.config.js"
     const { getDefaultConfig } = require("expo/metro-config");
 
-    const config = getDefaultConfig(__dirname)
+    const config = getDefaultConfig(__dirname);
 
-    config.resolver.unstable_enablePackageExports = true; // [!code highlight]
+    // Do NOT set this to false — Better Auth requires package exports
+    // config.resolver.unstable_enablePackageExports = false;
 
     module.exports = config;
     ```
 
-    <Callout>
-      In case you don't have a 
-
-      `metro.config.js`
-
-       file in your project run 
-
-      `npx expo customize metro.config.js`
-
-      .
-    </Callout>
-
-    If you can't enable `unstable_enablePackageExports` option, you can use [babel-plugin-module-resolver](https://github.com/tleunen/babel-plugin-module-resolver) to manually resolve the paths.
-
-    ```ts title="babel.config.js"
-    module.exports = function (api) {
-        api.cache(true);
-        return {
-            presets: ["babel-preset-expo"],
-            plugins: [
-                [
-                    "module-resolver",
-                    {
-                        alias: {
-                            "better-auth/react": "./node_modules/better-auth/dist/client/react/index.mjs",
-                            "better-auth/client/plugins": "./node_modules/better-auth/dist/client/plugins/index.mjs",
-                            "@better-auth/expo/client": "./node_modules/@better-auth/expo/dist/client.mjs",
-                        },
-                    },
-                ],
-            ],
-        }
-    }
-    ```
-
-    <Callout>
-      In case you don't have a 
-
-      `babel.config.js`
-
-       file in your project run 
-
-      `npx expo customize babel.config.js`
-
-      .
-    </Callout>
-
-    Don't forget to clear the cache after making changes.
+    Don't forget to clear the cache after making changes to your Metro config.
 
     ```bash
     npx expo start --clear
@@ -461,9 +421,9 @@ Expo is a popular framework for building cross-platform apps with React Native. 
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Authenticating Users
+Authenticating Users [#authenticating-users]
 
 With Better Auth initialized, you can now use the `authClient` to authenticate users in your Expo app.
 
@@ -548,25 +508,36 @@ With Better Auth initialized, you can now use the `authClient` to authenticate u
   </Tab>
 </Tabs>
 
-#### Social Sign-In
+Social Sign-In [#social-sign-in]
 
-For social sign-in, you can use the `authClient.signIn.social` method with the provider name and a callback URL.
+For social sign-in, you can use the `authClient.signIn.social` method with the provider name and a callback URL. When you pass a relative path like "/dashboard", the Expo plugin automatically converts it to a deep link using `Linking.createURL`.
 
 ```tsx title="app/social-sign-in.tsx"
 import { Button } from "react-native";
+import { router } from "expo-router";
+import { authClient } from "@/lib/auth-client";
 
 export default function SocialSignIn() {
     const handleLogin = async () => {
-        await authClient.signIn.social({
+        const { error } = await authClient.signIn.social({
             provider: "google",
-            callbackURL: "/dashboard" // this will be converted to a deep link (eg. `myapp://dashboard`) on native
+            callbackURL: "/dashboard" // [!code highlight]
         })
+        if (error) {
+            // handle error
+            return;
+        }
+        router.replace("/dashboard"); // [!code highlight]
     };
     return <Button title="Login with Google" onPress={handleLogin} />;
 }
 ```
 
-#### IdToken Sign-In
+<Callout type="info">
+  On native (iOS/Android), `signIn.social` does not navigate automatically. Handle navigation yourself after it resolves. Note that the underlying browser behavior differs by platform. For more information, see [here](https://docs.expo.dev/versions/latest/sdk/webbrowser/#webbrowseropenauthsessionasyncurl-redirecturl-options).
+</Callout>
+
+IdToken Sign-In [#idtoken-sign-in]
 
 If you want to make provider request on the mobile device and then verify the ID token on the server, you can use the `authClient.signIn.social` method with the `idToken` option.
 
@@ -635,7 +606,7 @@ export default function SocialSignIn() {
   </Accordion>
 </Accordions>
 
-### Session
+Session [#session]
 
 Better Auth provides a `useSession` hook to access the current user's session in your app.
 
@@ -652,7 +623,7 @@ export default function Index() {
 
 On native, the session data will be cached in SecureStore. This will allow you to remove the need for a loading spinner when the app is reloaded. You can disable this behavior by passing the `disableCache` option to the client.
 
-### Making Authenticated Requests to Your Server
+Making Authenticated Requests to Your Server [#making-authenticated-requests-to-your-server]
 
 To make authenticated requests to your server that require the user's session, you have to retrieve the session cookie from `SecureStore` and manually add it to your request headers.
 
@@ -712,9 +683,9 @@ export function TRPCProvider(props: { children: React.ReactNode }) {
 }
 ```
 
-## Options
+Options [#options]
 
-### Expo Client
+Expo Client [#expo-client]
 
 **storage**: the storage mechanism used to cache the session data and cookies.
 
@@ -806,7 +777,7 @@ const authClient = createAuthClient({
   **Important:** If you're using plugins like passkey with a custom `webAuthnChallengeCookie` option, make sure to include the cookie prefix in the `cookiePrefix` array. For example, if you set `webAuthnChallengeCookie: "my-app-passkey"`, include `"my-app"` in your `cookiePrefix`. See the [Passkey plugin documentation](/docs/plugins/passkey#expo-integration) for more details.
 </Callout>
 
-### Expo Servers
+Expo Servers [#expo-servers]
 
 Server plugin options:
 

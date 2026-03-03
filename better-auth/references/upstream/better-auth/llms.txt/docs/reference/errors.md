@@ -6,7 +6,7 @@ Errors that can occur in Better Auth.
 
 This section contains all the errors that cause you to be redirected to the `/api/auth/error` page.
 
-## List of errors
+List of errors [#list-of-errors]
 
 * [invalid\_callback\_request](/docs/reference/errors/invalid_callback_request)
 * [state\_not\_found](/docs/reference/errors/state_not_found)

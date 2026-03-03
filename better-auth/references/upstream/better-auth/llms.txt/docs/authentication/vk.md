@@ -6,7 +6,7 @@ VK ID Provider
 
 <Steps>
   <Step>
-    ### Get your VK ID credentials
+    Get your VK ID credentials [#get-your-vk-id-credentials]
 
     To use VK ID sign in, you need a client ID and client secret. You can get them from the [VK ID Developer Portal](https://id.vk.com/about/business/go/docs).
 
@@ -14,7 +14,7 @@ VK ID Provider
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -33,7 +33,7 @@ VK ID Provider
   </Step>
 
   <Step>
-    ### Sign In with VK
+    Sign In with VK [#sign-in-with-vk]
 
     To sign in with VK, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

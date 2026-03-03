@@ -8,7 +8,7 @@ This integration guide is for using Better Auth with [Lynx](https://lynxjs.org),
 
 Before you start, make sure you have a Better Auth instance configured. If you haven't done that yet, check out the [installation](/docs/installation).
 
-## Installation
+Installation [#installation]
 
 Install Better Auth and the Lynx React dependency:
 
@@ -56,7 +56,7 @@ Install Better Auth and the Lynx React dependency:
   </CodeBlockTab>
 </CodeBlockTabs>
 
-## Create Client Instance
+Create Client Instance [#create-client-instance]
 
 Import `createAuthClient` from `better-auth/lynx` to create your client instance:
 
@@ -68,11 +68,11 @@ export const authClient = createAuthClient({
 })
 ```
 
-## Usage
+Usage [#usage]
 
 The Lynx client provides the same API as other Better Auth clients, with optimized integration for Lynx's reactive system.
 
-### Authentication Methods
+Authentication Methods [#authentication-methods]
 
 ```ts
 import { authClient } from "./lib/auth-client"
@@ -94,11 +94,11 @@ await authClient.signUp.email({
 await authClient.signOut()
 ```
 
-### Hooks
+Hooks [#hooks]
 
 The Lynx client includes reactive hooks that integrate seamlessly with Lynx's component system:
 
-#### useSession
+useSession [#usesession]
 
 ```tsx title="components/user.tsx"
 import { authClient } from "../lib/auth-client"
@@ -134,7 +134,7 @@ export function User() {
 }
 ```
 
-### Store Integration
+Store Integration [#store-integration]
 
 The Lynx client uses [nanostores](https://github.com/nanostores/nanostores) for state management and provides a `useStore` hook for accessing reactive state:
 
@@ -156,7 +156,7 @@ export function SessionInfo() {
 }
 ```
 
-### Advanced Store Usage
+Advanced Store Usage [#advanced-store-usage]
 
 You can use the store with selective key watching for optimized re-renders:
 
@@ -183,7 +183,7 @@ export function OptimizedUser() {
 }
 ```
 
-## Plugin Support
+Plugin Support [#plugin-support]
 
 The Lynx client supports all Better Auth plugins:
 
@@ -203,7 +203,7 @@ await authClient.signIn.magicLink({
 })
 ```
 
-## Error Handling
+Error Handling [#error-handling]
 
 Error handling works the same as other Better Auth clients:
 
@@ -239,7 +239,7 @@ export function LoginForm() {
 }
 ```
 
-## Features
+Features [#features]
 
 The Lynx client provides:
 

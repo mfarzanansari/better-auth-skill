@@ -6,14 +6,14 @@ A concise guide to contributing to BetterAuth
 
 Thank you for your interest in contributing to Better Auth! This guide is a concise guide to contributing to Better Auth.
 
-## Getting Started
+Getting Started [#getting-started]
 
 Before diving in, here are a few important resources:
 
 * Take a look at our existing <Link href="https://github.com/better-auth/better-auth/issues">issues</Link> and <Link href="https://github.com/better-auth/better-auth/pulls">pull requests</Link>
 * Join our community discussions in <Link href="https://discord.gg/better-auth">Discord</Link>
 
-## Development Setup
+Development Setup [#development-setup]
 
 To get started with development:
 
@@ -24,7 +24,7 @@ To get started with development:
 
 <Steps>
   <Step>
-    ### 1. Fork the repository
+    1. Fork the repository [#1-fork-the-repository]
 
     Visit [https://github.com/better-auth/better-auth](https://github.com/better-auth/better-auth)
 
@@ -32,7 +32,7 @@ To get started with development:
   </Step>
 
   <Step>
-    ### 2. Clone your fork
+    2. Clone your fork [#2-clone-your-fork]
 
     ```bash
     # Replace YOUR-USERNAME with your GitHub username
@@ -42,7 +42,7 @@ To get started with development:
   </Step>
 
   <Step>
-    ### 3. Install dependencies
+    3. Install dependencies [#3-install-dependencies]
 
     Make sure you have <Link href="https://pnpm.io/installation">pnpm</Link> installed!
 
@@ -52,7 +52,7 @@ To get started with development:
   </Step>
 
   <Step>
-    ### 4. Prepare ENV files
+    4. Prepare ENV files [#4-prepare-env-files]
 
     Copy the example env file to create your new `.env` file.
 
@@ -62,13 +62,13 @@ To get started with development:
   </Step>
 </Steps>
 
-## Making changes
+Making changes [#making-changes]
 
 Once you have an idea of what you want to contribute, you can start making changes. Here are some steps to get started:
 
 <Steps>
   <Step>
-    ### 1. Create a new branch
+    1. Create a new branch [#1-create-a-new-branch]
 
     ```bash
     # Add upstream remote (if not already added)
@@ -86,7 +86,7 @@ Once you have an idea of what you want to contribute, you can start making chang
   </Step>
 
   <Step>
-    ### 2. Start development server
+    2. Start development server [#2-start-development-server]
 
     Start the development server:
 
@@ -102,7 +102,7 @@ Once you have an idea of what you want to contribute, you can start making chang
   </Step>
 
   <Step>
-    ### 3. Make Your Changes
+    3. Make Your Changes [#3-make-your-changes]
 
     * Make your changes to the codebase.
 
@@ -112,13 +112,13 @@ Once you have an idea of what you want to contribute, you can start making chang
   </Step>
 </Steps>
 
-### Issues and Bug Fixes
+Issues and Bug Fixes [#issues-and-bug-fixes]
 
 * Check our [GitHub issues](https://github.com/better-auth/better-auth/issues) for tasks labeled `good first issue`
 * When reporting bugs, include steps to reproduce and expected behavior
 * Comment on issues you'd like to work on to avoid duplicate efforts
 
-### Framework Integrations
+Framework Integrations [#framework-integrations]
 
 We welcome contributions to support more frameworks:
 
@@ -126,19 +126,19 @@ We welcome contributions to support more frameworks:
 * Keep integrations minimal and maintainable
 * All integrations currently live in the main package
 
-### Plugin Development
+Plugin Development [#plugin-development]
 
 * For core plugins: Open an issue first to discuss your idea
 * For community plugins: Feel free to develop independently
 * Follow our plugin architecture guidelines
 
-### Documentation
+Documentation [#documentation]
 
 * Fix typos and errors
 * Add examples and clarify existing content
 * Ensure documentation is up to date with code changes
 
-## Testing
+Testing [#testing]
 
 We use Vitest for testing. Place test files next to the source files they test:
 
@@ -155,7 +155,7 @@ describe("Feature", () => {
 });
 ```
 
-### Using the Test Instance Helper
+Using the Test Instance Helper [#using-the-test-instance-helper]
 
 The test instance helper now includes improved async context support for managing user sessions:
 
@@ -176,7 +176,7 @@ await runWithDefaultUser(async (headers) => {
 });
 ```
 
-### Testing Best Practices
+Testing Best Practices [#testing-best-practices]
 
 * Write clear commit messages
 * Update documentation to reflect your changes
@@ -184,7 +184,7 @@ await runWithDefaultUser(async (headers) => {
 * Follow our coding standards
 * Keep pull requests focused on a single change
 
-## Need Help?
+Need Help? [#need-help]
 
 Don't hesitate to ask for help! You can:
 

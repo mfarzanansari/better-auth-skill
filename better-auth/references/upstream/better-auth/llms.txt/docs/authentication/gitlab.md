@@ -6,7 +6,7 @@ GitLab provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your GitLab credentials
+    Get your GitLab credentials [#get-your-gitlab-credentials]
 
     To use GitLab sign in, you need a client ID and client secret. [GitLab OAuth documentation](https://docs.gitlab.com/ee/api/oauth2.html).
 
@@ -14,7 +14,7 @@ GitLab provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -32,7 +32,7 @@ GitLab provider setup and usage.
     })
     ```
 
-    #### Configuration Options
+    Configuration Options [#configuration-options]
 
     * `clientId`: Your GitLab application's Client ID
     * `clientSecret`: Your GitLab application's Client Secret
@@ -44,7 +44,7 @@ GitLab provider setup and usage.
       The `issuer` option is useful when using a self-hosted GitLab instance. If you're using GitLab.com, you can omit this option as it defaults to `https://gitlab.com`.
     </Callout>
 
-    #### Example with self-hosted GitLab
+    Example with self-hosted GitLab [#example-with-self-hosted-gitlab]
 
     ```ts title="auth.ts"
     export const auth = betterAuth({
@@ -60,7 +60,7 @@ GitLab provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with GitLab
+    Sign In with GitLab [#sign-in-with-gitlab]
 
     To sign in with GitLab, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

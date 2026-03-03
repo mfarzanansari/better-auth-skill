@@ -6,7 +6,7 @@ Roblox provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Roblox Credentials
+    Get your Roblox Credentials [#get-your-roblox-credentials]
 
     Get your Roblox credentials from the [Roblox Creator Hub](https://create.roblox.com/dashboard/credentials?activeTab=OAuthTab).
 
@@ -18,7 +18,7 @@ Roblox provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -37,7 +37,7 @@ Roblox provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Roblox
+    Sign In with Roblox [#sign-in-with-roblox]
 
     To sign in with Roblox, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

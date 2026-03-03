@@ -6,15 +6,15 @@ Username plugin
 
 The username plugin is a lightweight plugin that adds username support to the email and password authenticator. This allows users to sign in with their username instead of their email.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add Plugin to the server
+    Add Plugin to the server [#add-plugin-to-the-server]
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth"
-    import { username } from "better-auth/plugins"
+    import { username } from "better-auth/plugins" // [!code highlight]
 
     export const auth = betterAuth({
         emailAndPassword: { // [!code highlight]
@@ -28,7 +28,7 @@ The username plugin is a lightweight plugin that adds username support to the em
   </Step>
 
   <Step>
-    ### Migrate the database
+    Migrate the database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary fields and tables to the database.
 
@@ -55,25 +55,25 @@ The username plugin is a lightweight plugin that adds username support to the em
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -101,25 +101,25 @@ The username plugin is a lightweight plugin that adds username support to the em
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -130,11 +130,11 @@ The username plugin is a lightweight plugin that adds username support to the em
   </Step>
 
   <Step>
-    ### Add the client plugin
+    Add the client plugin [#add-the-client-plugin]
 
     ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client"
-    import { usernameClient } from "better-auth/client/plugins"
+    import { usernameClient } from "better-auth/client/plugins" // [!code highlight]
 
     export const authClient = createAuthClient({
         plugins: [ // [!code highlight]
@@ -145,9 +145,9 @@ The username plugin is a lightweight plugin that adds username support to the em
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Sign up
+Sign up [#sign-up]
 
 To sign up a user with username, you can use the existing `signUp.email` function provided by the client.
 The `signUp` function should take a new `username` property in the object.
@@ -212,7 +212,7 @@ type signUpEmail = {
   If only `username` is provided, the `displayUsername` will be set to the pre normalized version of the `username`. You can see the [Username Normalization](#username-normalization) and [Display Username Normalization](#display-username-normalization) sections for more details.
 </Callout>
 
-### Sign in
+Sign in [#sign-in]
 
 To sign in a user with username, you can use the `signIn.username` function provided by the client.
 
@@ -254,7 +254,7 @@ type signInUsername = {
 ```
 
 
-### Update username
+Update username [#update-username]
 
 To update the username of a user, you can use the `updateUser` function provided by the client.
 
@@ -290,7 +290,7 @@ type updateUser = {
 ```
 
 
-### Check if username is available
+Check if username is available [#check-if-username-is-available]
 
 To check if a username is available, you can use the `isUsernameAvailable` function provided by the client.
 
@@ -326,9 +326,9 @@ type isUsernameAvailable = {
 ```
 
 
-## Options
+Options [#options]
 
-### Min Username Length
+Min Username Length [#min-username-length]
 
 The minimum length of the username. Default is `3`.
 
@@ -348,7 +348,7 @@ const auth = betterAuth({
 })
 ```
 
-### Max Username Length
+Max Username Length [#max-username-length]
 
 The maximum length of the username. Default is `30`.
 
@@ -368,7 +368,7 @@ const auth = betterAuth({
 })
 ```
 
-### Username Validator
+Username Validator [#username-validator]
 
 A function that validates the username. The function should return false if the username is invalid. By default, the username should only contain alphanumeric characters, underscores, and dots.
 
@@ -393,7 +393,7 @@ const auth = betterAuth({
 })
 ```
 
-### Display Username Validator
+Display Username Validator [#display-username-validator]
 
 A function that validates the display username. The function should return false if the display username is invalid. By default, no validation is applied to display username.
 
@@ -416,7 +416,7 @@ const auth = betterAuth({
 })
 ```
 
-### Username Normalization
+Username Normalization [#username-normalization]
 
 A function that normalizes the username, or `false` if you want to disable normalization.
 
@@ -443,7 +443,7 @@ const auth = betterAuth({
 })
 ```
 
-### Display Username Normalization
+Display Username Normalization [#display-username-normalization]
 
 A function that normalizes the display username, or `false` to disable normalization.
 
@@ -465,7 +465,7 @@ const auth = betterAuth({
 })
 ```
 
-### Validation Order
+Validation Order [#validation-order]
 
 By default, username and display username are validated before normalization. You can change this behavior by setting `validationOrder` to `post-normalization`.
 
@@ -488,7 +488,7 @@ const auth = betterAuth({
 })
 ```
 
-### Disable Is Username Available
+Disable Is Username Available [#disable-is-username-available]
 
 By default, the plugin exposes an endpoint `/is-username-available` to check if a username is available. You can disable this endpoint by providing `disabledPaths` option to the better-auth configuration. This is useful if you want to protect usernames from being enumerated.
 
@@ -507,7 +507,7 @@ const auth = betterAuth({
 })
 ```
 
-## Schema
+Schema [#schema]
 
 The plugin requires 2 fields to be added to the user table:
 

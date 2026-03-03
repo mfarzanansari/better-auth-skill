@@ -9,6 +9,7 @@ Use this playbook for OAuth/provider configuration and error-driven debugging.
 3. Confirm Better Auth provider config shape.
 4. Verify route/integration and environment loading.
 5. Test successful callback and denied/error callback paths.
+6. Confirm callback URL is absolute and trusted-origin compatible.
 
 ## 2) Provider Routing
 
@@ -27,11 +28,13 @@ Use this playbook for OAuth/provider configuration and error-driven debugging.
 3. Open exact upstream error doc under `../upstream/better-auth/llms.txt/docs/reference/errors/`.
 4. Validate config/env/origin/callback assumptions.
 5. Re-test failing path + nearby related paths.
+6. Add explicit retry/no-retry handling based on error class.
 
 ## 4) Common Root-Cause Families
 
 - Provider not found or misnamed provider block
 - Callback/origin mismatch
+- Dynamic base URL or proxy/rewrite path mismatch
 - Missing code/state in OAuth callback
 - Email/account-linking conflicts
 - Signup policy restrictions
@@ -42,3 +45,4 @@ Use this playbook for OAuth/provider configuration and error-driven debugging.
 - `../upstream/better-auth/llms.txt/docs/reference/errors/`
 - `../upstream/better-auth/llms.txt/docs/authentication/`
 - `../upstream/better-auth/llms.txt/docs/reference/options.md`
+- `../upstream/better-auth/llms.txt/docs/concepts/dynamic-base-url.md`

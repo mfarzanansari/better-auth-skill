@@ -1,18 +1,18 @@
-# Remix Example
+# React Router v7 Example
 
-Better Auth Remix example.
+Better Auth React Router v7 example.
 
 
 
-This is an example of how to use Better Auth with Remix.
+This is an example of how to use Better Auth with React Router v7.
 
 **Implements the following features:**
 Email & Password . Social Sign-in with Google . Passkeys . Email Verification . Password Reset . Two Factor Authentication . Profile Update . Session Management
 
-<ForkButton url="better-auth/examples/tree/main/remix-example" />
+<ForkButton url="better-auth/examples/tree/main/react-router-example" />
 
 <iframe
-  src="https://stackblitz.com/github/better-auth/examples/tree/main/remix-example?codemirror=1&fontsize=14&hidedevtools=1&hidenavigation=1&runonclick=1"
+  src="https://stackblitz.com/github/better-auth/examples/tree/main/react-router-example?codemirror=1&fontsize=14&hidedevtools=1&hidenavigation=1&runonclick=1"
   style={{
     width: "100%",
     height: "500px",
@@ -20,12 +20,12 @@ Email & Password . Social Sign-in with Google . Passkeys . Email Verification . 
     borderRadius: "4px",
     overflow: "hidden"
  }}
-  title="Better Auth Remix Example"
+  title="Better Auth React Router v7 Example"
   allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
 
-## How to run
+How to run [#how-to-run]
 
 1. Clone the code sandbox (or the repo) and open it in your code editor
 2. Provide .env file with by copying the `.env.example` file and adding the variables

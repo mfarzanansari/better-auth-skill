@@ -6,7 +6,7 @@ Hugging Face provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Hugging Face credentials
+    Get your Hugging Face credentials [#get-your-hugging-face-credentials]
 
     To use Hugging Face sign in, you need a client ID and client secret. [Hugging Face OAuth documentation](https://huggingface.co/docs/hub/oauth). Make sure the created oauth app on Hugging Face has the "email" scope.
 
@@ -14,7 +14,7 @@ Hugging Face provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -33,7 +33,7 @@ Hugging Face provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Hugging Face
+    Sign In with Hugging Face [#sign-in-with-hugging-face]
 
     To sign in with Hugging Face, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

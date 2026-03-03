@@ -6,11 +6,11 @@ Authenticate users with any OAuth provider
 
 The Generic OAuth plugin provides a flexible way to integrate authentication with any OAuth provider. It supports both OAuth 2.0 and OpenID Connect (OIDC) flows, allowing you to easily add social login or custom OAuth authentication to your application.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the plugin to your auth config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     To use the Generic OAuth plugin, add it to your auth config.
 
@@ -39,28 +39,28 @@ The Generic OAuth plugin provides a flexible way to integrate authentication wit
   </Step>
 
   <Step>
-    ### Add the client plugin
+    Add the client plugin [#add-the-client-plugin]
 
     Include the Generic OAuth client plugin in your authentication client instance.
 
     ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client"
-    import { genericOAuthClient } from "better-auth/client/plugins"
+    import { genericOAuthClient } from "better-auth/client/plugins" // [!code highlight]
 
     export const authClient = createAuthClient({
         plugins: [
-            genericOAuthClient()
+            genericOAuthClient() // [!code highlight]
         ]
     })
     ```
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
 The Generic OAuth plugin provides endpoints for initiating the OAuth flow and handling the callback. Here's how to use them:
 
-### Initiate OAuth Sign-In
+Initiate OAuth Sign-In [#initiate-oauth-sign-in]
 
 To start the OAuth sign-in process:
 
@@ -132,7 +132,7 @@ type signInWithOAuth2 = {
 ```
 
 
-### Linking OAuth Accounts
+Linking OAuth Accounts [#linking-oauth-accounts]
 
 To link an OAuth account to an existing user:
 
@@ -176,15 +176,15 @@ type oAuth2LinkAccount = {
 ```
 
 
-### Handle OAuth Callback
+Handle OAuth Callback [#handle-oauth-callback]
 
 The plugin mounts a route to handle the OAuth callback `/oauth2/callback/:providerId`. This means by default `${baseURL}/api/auth/oauth2/callback/:providerId` will be used as the callback URL. Make sure your OAuth provider is configured to use this URL.
 
-## Pre-configured Provider Helpers
+Pre-configured Provider Helpers [#pre-configured-provider-helpers]
 
 Better Auth provides pre-configured helper functions for popular OAuth providers. These helpers handle the provider-specific configuration, including discovery URLs and user info endpoints.
 
-### Supported Providers
+Supported Providers [#supported-providers]
 
 * **Auth0** - `auth0(options)`
 * **HubSpot** - `hubspot(options)`
@@ -195,7 +195,7 @@ Better Auth provides pre-configured helper functions for popular OAuth providers
 * **Slack** - `slack(options)`
 * **Patreon** - `patreon(options)`
 
-### Example: Using Pre-configured Providers
+Example: Using Pre-configured Providers [#example-using-pre-configured-providers]
 
 ```ts title="auth.ts"
 import { betterAuth } from 'better-auth';
@@ -292,11 +292,11 @@ All providers support the same optional fields:
 * `disableSignUp?: boolean` - Disable sign-up entirely
 * `overrideUserInfo?: boolean` - Override user info on sign in
 
-## Configuration
+Configuration [#configuration]
 
 When adding the plugin to your auth config, you can configure multiple OAuth providers. You can either use the pre-configured provider helpers (shown above) or create custom configurations manually.
 
-### Manual Configuration
+Manual Configuration [#manual-configuration]
 
 Each provider configuration object supports the following options:
 
@@ -321,7 +321,7 @@ interface GenericOAuthConfig {
 }
 ```
 
-### Other Provider Configurations
+Other Provider Configurations [#other-provider-configurations]
 
 **providerId**: A unique string to identify the OAuth provider configuration.
 
@@ -377,15 +377,15 @@ interface GenericOAuthConfig {
 
 **overrideUserInfo**: (Optional) If true, the user's info in your database will be updated with the provider's info every time they sign in. Defaults to `false`.
 
-## Security: Issuer Validation
+Security: Issuer Validation [#security-issuer-validation]
 
 Better Auth validates the OAuth provider's issuer to protect against mix-up attacks ([RFC 9207](https://datatracker.ietf.org/doc/html/rfc9207)). A mix-up attack occurs when a malicious authorization server tricks your application into sending an authorization code to the wrong token endpoint.
 
-### How It Works
+How It Works [#how-it-works]
 
 When an OAuth provider supports RFC 9207, it includes an `iss` (issuer) parameter in the authorization response. Better Auth validates this parameter against the expected issuer to ensure the response came from the intended provider.
 
-### Configuration Examples
+Configuration Examples [#configuration-examples]
 
 **Auto-discovery (recommended for OIDC providers):**
 
@@ -430,7 +430,7 @@ genericOAuth({
 })
 ```
 
-### Validation Behavior
+Validation Behavior [#validation-behavior]
 
 | Scenario               | `requireIssuerValidation` | Result                        |
 | ---------------------- | ------------------------- | ----------------------------- |
@@ -443,9 +443,9 @@ genericOAuth({
   For maximum security with modern OAuth/OIDC providers (Google, Auth0, Okta, etc.), we recommend enabling `requireIssuerValidation: true`.
 </Callout>
 
-## Advanced Usage
+Advanced Usage [#advanced-usage]
 
-### Custom Token Exchange
+Custom Token Exchange [#custom-token-exchange]
 
 For providers with non-standard token endpoints that use GET requests or custom parameters, you can provide a custom `getToken` function:
 
@@ -506,7 +506,7 @@ genericOAuth({
 });
 ```
 
-### Custom User Info Fetching
+Custom User Info Fetching [#custom-user-info-fetching]
 
 You can provide a custom `getUserInfo` function to handle specific provider requirements:
 
@@ -531,7 +531,7 @@ genericOAuth({
 })
 ```
 
-### Map User Info Fields
+Map User Info Fields [#map-user-info-fields]
 
 If the user info returned by the provider does not match the expected format, or you need to map additional fields, you can use the `mapProfileToUser`:
 
@@ -552,7 +552,7 @@ genericOAuth({
 })
 ```
 
-### Accessing Raw Token Data
+Accessing Raw Token Data [#accessing-raw-token-data]
 
 The `tokens` parameter includes a `raw` field that preserves the original token response from the provider. This is useful for accessing provider-specific fields:
 
@@ -570,7 +570,7 @@ getUserInfo: async (tokens) => {
 }
 ```
 
-### Error Handling
+Error Handling [#error-handling]
 
 The plugin includes built-in error handling for common OAuth issues. Errors are typically redirected to your application's error page with an appropriate error message in the URL parameters. If the callback URL is not provided, the user will be redirected to Better Auth's default error page.
 

@@ -10,7 +10,7 @@ This guide provides step-by-step instructions for configuring both essential han
   A configured Better Auth instance is required before proceeding. If you haven't set this up yet, please consult our [Installation Guide](/docs/installation).
 </Callout>
 
-### Prerequisites
+Prerequisites [#prerequisites]
 
 Verify the following requirements before integration:
 
@@ -75,7 +75,7 @@ Verify the following requirements before integration:
    for optimal compatibility. 
 </Callout>
 
-### Authentication Handler Setup
+Authentication Handler Setup [#authentication-handler-setup]
 
 Configure Better Auth to process authentication requests by creating a catch-all route:
 
@@ -135,7 +135,7 @@ fastify.listen({ port: 4000 }, (err) => {
 });
 ```
 
-### Trusted origins
+Trusted origins [#trusted-origins]
 
 When a request is made from a different origin, the request will be blocked by default. You can add trusted origins to the `auth` instance.
 
@@ -145,7 +145,7 @@ export const auth = betterAuth({
 });
 ```
 
-### Configuring CORS
+Configuring CORS [#configuring-cors]
 
 Secure your API endpoints with proper CORS configuration:
 
@@ -172,4 +172,25 @@ fastify.register(fastifyCors, {
 <Callout type="warning">
    Always restrict CORS origins in production environments. Use environment variables for dynamic configuration. 
 </Callout>
+
+Getting the User Session [#getting-the-user-session]
+
+To retrieve the user's session in your Fastify routes, use the `auth.api.getSession` method. Better Auth provides a `fromNodeHeaders` helper function that converts Node.js request headers to the format expected by Better Auth.
+
+```ts title="server.ts"
+import { fromNodeHeaders } from "better-auth/node";
+import { auth } from "./auth"; // Your Better Auth instance
+
+fastify.get("/api/me", async (request, reply) => {
+  const session = await auth.api.getSession({
+    headers: fromNodeHeaders(request.headers),
+  });
+
+  if (!session) {
+    return reply.status(401).send({ error: "Unauthorized" });
+  }
+
+  return reply.send(session);
+});
+```
 

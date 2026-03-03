@@ -10,26 +10,26 @@ The JWT plugin provides endpoints to retrieve a JWT token and a JWKS endpoint to
   This plugin is not meant as a replacement for the session. It's meant to be used for services that require JWT tokens. If you're looking to use JWT tokens for authentication, check out the [Bearer Plugin](/docs/plugins/bearer).
 </Callout>
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the plugin to your **auth** config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth"
-    import { jwt } from "better-auth/plugins"
+    import { jwt } from "better-auth/plugins" // [!code highlight]
 
     export const auth = betterAuth({
-        plugins: [ // [!code highlight]
+        plugins: [
             jwt(), // [!code highlight]
-        ] // [!code highlight]
+        ]
     })
     ```
   </Step>
 
   <Step>
-    ### Migrate the database
+    Migrate the database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary fields and tables to the database.
 
@@ -56,25 +56,25 @@ The JWT plugin provides endpoints to retrieve a JWT token and a JWKS endpoint to
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -102,25 +102,25 @@ The JWT plugin provides endpoints to retrieve a JWT token and a JWKS endpoint to
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -129,36 +129,38 @@ The JWT plugin provides endpoints to retrieve a JWT token and a JWKS endpoint to
 
     See the [Schema](#schema) section to add the fields manually.
   </Step>
+
+  <Step>
+    Add the client plugin to your auth client [#add-the-client-plugin-to-your-auth-client]
+
+    ```ts title="auth-client.ts"
+    import { createAuthClient } from "better-auth/client"
+    import { jwtClient } from "better-auth/client/plugins" // [!code highlight]
+
+    export const authClient = createAuthClient({
+      plugins: [
+        jwtClient() // [!code highlight]
+      ]
+    })
+    ```
+  </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
 Once you've installed the plugin, you can start using the JWT & JWKS plugin to get the token and the JWKS through their respective endpoints.
 
-## JWT
+JWT [#jwt]
 
-### Retrieve the token
+Retrieve the token [#retrieve-the-token]
 
 There are multiple ways to retrieve JWT tokens:
 
 1. **Using the client plugin (recommended)**
 
-Add the `jwtClient` plugin to your auth client configuration:
-
-```ts title="auth-client.ts"
-import { createAuthClient } from "better-auth/client"
-import { jwtClient } from "better-auth/client/plugins" // [!code highlight]
-
-export const authClient = createAuthClient({
-  plugins: [
-    jwtClient() // [!code highlight]
-  ]
-})
-```
-
-Then use the client to get JWT tokens:
-
 ```ts
+import { authClient } from "@/lib/auth-client"
+
 const { data, error } = await authClient.token()
 if (error) {
   // handle error
@@ -196,6 +198,8 @@ await fetch("/api/auth/token", {
 When you call `getSession` method, a JWT is returned in the `set-auth-jwt` header, which you can use to send to your services directly.
 
 ```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.getSession({
   fetchOptions: {
     onSuccess: (ctx)=>{
@@ -205,7 +209,7 @@ await authClient.getSession({
 })
 ```
 
-### Verifying the token
+Verifying the token [#verifying-the-token]
 
 The token can be verified in your own service, without the need for an additional verify call or database check.
 For this JWKS is used. The public key can be fetched from the `/api/auth/jwks` endpoint.
@@ -227,7 +231,7 @@ In case a JWT with a different `kid` is received, it is recommended to fetch the
   }
 ```
 
-#### Example using jose with remote JWKS
+Example using jose with remote JWKS [#example-using-jose-with-remote-jwks]
 
 ```ts
 import { jwtVerify, createRemoteJWKSet } from 'jose'
@@ -253,7 +257,7 @@ const token = 'your.jwt.token' // this is the token you get from the /api/auth/t
 const payload = await validateToken(token)
 ```
 
-#### Example with local JWKS
+Example with local JWKS [#example-with-local-jwks]
 
 ```ts
 import { jwtVerify, createLocalJWKSet } from 'jose'
@@ -289,11 +293,13 @@ const token = 'your.jwt.token' // this is the token you get from the /api/auth/t
 const payload = await validateToken(token)
 ```
 
-### OAuth Provider Mode
+OAuth Provider Mode [#oauth-provider-mode]
 
 If you are making your system oAuth compliant (such as when utilizing the OIDC or MCP plugins), you **MUST** disable the `/token` endpoint (oAuth equivalent `/oauth2/token`) and disable setting the jwt header (oAuth equivalent `/oauth2/userinfo`).
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 betterAuth({
   disabledPaths: [
     "/token",
@@ -304,7 +310,7 @@ betterAuth({
 })
 ```
 
-### Remote JWKS Url
+Remote JWKS Url [#remote-jwks-url]
 
 Disables the `/jwks` endpoint and uses this endpoint in any discovery such as OIDC.
 
@@ -323,7 +329,7 @@ jwt({
 })
 ```
 
-### Custom JWKS Path
+Custom JWKS Path [#custom-jwks-path]
 
 By default, the JWKS endpoint is available at `/jwks`. You can customize this path using the `jwksPath` option.
 
@@ -375,7 +381,7 @@ if (data) {
   The `jwksPath` configured on the client **MUST** match the server configuration. If they don't match, the client will not be able to fetch the JWKS.
 </Callout>
 
-### Custom Signing
+Custom Signing [#custom-signing]
 
 This is an advanced feature. Configuration outside of this plugin **MUST** be provided.
 
@@ -385,7 +391,7 @@ Implementers:
 * If using localized approach, ensure server uses the latest private key when rotated. Depending on deployment, the server may need to be restarted.
 * When using remote approach, verify the payload is unchanged after transit. Use integrity validation like CRC32 or SHA256 checks if available.
 
-#### Localized Signing
+Localized Signing [#localized-signing]
 
 ```ts title="auth.ts"
 jwt({
@@ -410,7 +416,7 @@ jwt({
 })
 ```
 
-#### Remote Signing
+Remote Signing [#remote-signing]
 
 Useful if you are using a remote Key Management Service such as [Google KMS](https://cloud.google.com/kms/docs/encrypt-decrypt-rsa#kms-encrypt-asymmetric-nodejs), [Amazon KMS](https://docs.aws.amazon.com/kms/latest/APIReference/API_Sign.html), or [Azure Key Vault](https://learn.microsoft.com/en-us/rest/api/keyvault/keys/sign/sign?view=rest-keyvault-keys-7.4\&tabs=HTTP).
 
@@ -443,11 +449,11 @@ jwt({
 })
 ```
 
-## Schema
+Schema [#schema]
 
 The JWT plugin adds the following tables to the database:
 
-### JWKS
+JWKS [#jwks]
 
 Table Name: `jwks`
 
@@ -487,9 +493,9 @@ Table Name: `jwks`
   You can customize the table name and fields for the `jwks` table. See the [Database concept documentation](/docs/concepts/database#custom-table-names) for more information on how to customize plugin schema.
 </Callout>
 
-## Options
+Options [#options]
 
-### Algorithm of the Key Pair
+Algorithm of the Key Pair [#algorithm-of-the-key-pair]
 
 The algorithm used for the generation of the key pair. The default is **EdDSA** with the **Ed25519** curve. Below are the available options:
 
@@ -504,40 +510,40 @@ jwt({
 })
 ```
 
-#### EdDSA
+EdDSA [#eddsa]
 
 * **Default Curve**: `Ed25519`
 * **Optional Property**: `crv`
   * Available options: `Ed25519`, `Ed448`
   * Default: `Ed25519`
 
-#### ES256
+ES256 [#es256]
 
 * No additional properties
 
-#### RSA256
+RSA256 [#rsa256]
 
 * **Optional Property**: `modulusLength`
   * Expects a number
   * Default: `2048`
 
-#### PS256
+PS256 [#ps256]
 
 * **Optional Property**: `modulusLength`
   * Expects a number
   * Default: `2048`
 
-#### ECDH-ES
+ECDH-ES [#ecdh-es]
 
 * **Optional Property**: `crv`
   * Available options: `P-256`, `P-384`, `P-521`
   * Default: `P-256`
 
-#### ES512
+ES512 [#es512]
 
 * No additional properties
 
-### Disable private key encryption
+Disable private key encryption [#disable-private-key-encryption]
 
 By default, the private key is encrypted using AES256 GCM. You can disable this by setting the `disablePrivateKeyEncryption` option to `true`.
 
@@ -551,7 +557,7 @@ jwt({
 })
 ```
 
-### Key Rotation
+Key Rotation [#key-rotation]
 
 You can enable key rotation by setting the `rotationInterval` option. This will automatically rotate the key pair at the specified interval.
 
@@ -569,7 +575,7 @@ jwt({
 * `rotationInterval`: The interval in seconds to rotate the key pair.
 * `gracePeriod`: The period in seconds to keep the old key pair valid after rotation. This is useful to allow clients to verify tokens signed by the old key pair. The default value is 30 days.
 
-### Modify JWT payload
+Modify JWT payload [#modify-jwt-payload]
 
 By default the entire user object is added to the JWT payload. You can modify the payload by providing a function to the `definePayload` option.
 
@@ -587,7 +593,7 @@ jwt({
 })
 ```
 
-### Modify Issuer, Audience, Subject or Expiration time
+Modify Issuer, Audience, Subject or Expiration time [#modify-issuer-audience-subject-or-expiration-time]
 
 If none is given, the `BASE_URL` is used as the issuer and the audience is set to the `BASE_URL`. The expiration time is set to 15 minutes.
 
@@ -605,7 +611,7 @@ jwt({
 })
 ```
 
-### Custom Adapter
+Custom Adapter [#custom-adapter]
 
 By default, the JWT plugin stores and retrieves JWKS from your database. You can provide a custom adapter to override this behavior, allowing you to store JWKS in alternative locations such as Redis, external services, or in-memory storage.
 

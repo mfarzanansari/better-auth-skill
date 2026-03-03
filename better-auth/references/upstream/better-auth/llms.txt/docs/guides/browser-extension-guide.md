@@ -17,7 +17,7 @@ If you would like to view a completed example, you can check out the <Link href=
 
 <Steps>
   <Step>
-    ## Setup & Installations
+    Setup & Installations [#setup--installations]
 
     Initialize a new Plasmo project with TailwindCSS and a src directory.
 
@@ -39,7 +39,7 @@ If you would like to view a completed example, you can check out the <Link href=
   </Step>
 
   <Step>
-    ## Configure tsconfig
+    Configure tsconfig [#configure-tsconfig]
 
     Configure the `tsconfig.json` file to include `strict` mode.
 
@@ -61,7 +61,7 @@ If you would like to view a completed example, you can check out the <Link href=
   </Step>
 
   <Step>
-    ## Create the client auth instance
+    Create the client auth instance [#create-the-client-auth-instance]
 
     Create a new file at `src/auth/auth-client.ts` and add the following code.
 
@@ -84,7 +84,7 @@ If you would like to view a completed example, you can check out the <Link href=
   </Step>
 
   <Step>
-    ## Configure the manifest
+    Configure the manifest [#configure-the-manifest]
 
     We must ensure the extension knows the URL to the Better Auth backend.
 
@@ -103,7 +103,7 @@ If you would like to view a completed example, you can check out the <Link href=
   </Step>
 
   <Step>
-    ## You're now ready!
+    You're now ready! [#youre-now-ready]
 
     You have now set up Better Auth for your browser extension.
 
@@ -135,7 +135,7 @@ If you would like to view a completed example, you can check out the <Link href=
   </Step>
 
   <Step>
-    ## Bundle your extension
+    Bundle your extension [#bundle-your-extension]
 
     To get a production build, run the following command.
 
@@ -155,7 +155,7 @@ If you would like to view a completed example, you can check out the <Link href=
   </Step>
 
   <Step>
-    ## Configure the server auth instance
+    Configure the server auth instance [#configure-the-server-auth-instance]
 
     First, we will need your extension URL.
 
@@ -197,13 +197,13 @@ If you would like to view a completed example, you can check out the <Link href=
   </Step>
 
   <Step>
-    ## That's it!
+    That's it! [#thats-it]
 
     Everything is set up! You can now start developing your extension. 🎉
   </Step>
 </Steps>
 
-## Wrapping Up
+Wrapping Up [#wrapping-up]
 
 Congratulations! You've successfully created a browser extension using Better Auth and Plasmo.
 We highly recommend you visit the <Link href="https://docs.plasmo.com/">Plasmo documentation</Link> to learn more about the framework.

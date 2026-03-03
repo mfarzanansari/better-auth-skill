@@ -8,20 +8,20 @@ Better Auth supports a wide range of database dialects out of the box thanks to 
 
 Any dialect supported by Kysely can be utilized with Better Auth, including capabilities for generating and migrating database schemas through the <Link href="/docs/concepts/cli">CLI</Link>.
 
-## Core Dialects
+Core Dialects [#core-dialects]
 
 * [MySQL](/docs/adapters/mysql)
 * [SQLite](/docs/adapters/sqlite)
 * [PostgreSQL](/docs/adapters/postgresql)
 * [MS SQL](/docs/adapters/mssql)
 
-## Kysely Organization Dialects
+Kysely Organization Dialects [#kysely-organization-dialects]
 
 * [Postgres.js](https://github.com/kysely-org/kysely-postgres-js)
 * [SingleStore Data API](https://github.com/kysely-org/kysely-singlestore)
 * [Supabase](https://github.com/kysely-org/kysely-supabase)
 
-## Kysely Community dialects
+Kysely Community dialects [#kysely-community-dialects]
 
 * [PlanetScale Serverless Driver](https://github.com/depot/kysely-planetscale)
 * [Cloudflare D1](https://github.com/aidenwallis/kysely-d1)

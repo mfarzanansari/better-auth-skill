@@ -14,26 +14,26 @@ This is a plugin that provides an Open API reference for Better Auth. It shows a
   This plugin is still in the early stages of development. We are working on adding more features to it and filling in the gaps.
 </Callout>
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the plugin to your **auth** config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     ```ts title="auth.ts"
     import { betterAuth } from "better-auth"
-    import { openAPI } from "better-auth/plugins"
+    import { openAPI } from "better-auth/plugins" // [!code highlight]
 
     export const auth = betterAuth({
-        plugins: [ // [!code highlight]
+        plugins: [
             openAPI(), // [!code highlight]
-        ] // [!code highlight]
+        ]
     })
     ```
   </Step>
 
   <Step>
-    ### Navigate to `/api/auth/reference` to view the Open API reference
+    Navigate to /api/auth/reference to view the Open API reference [#navigate-to-apiauthreference-to-view-the-open-api-reference]
 
     Each plugin endpoints are grouped by the plugin name. The core endpoints are grouped under the `Default` group. And Model schemas are grouped under the `Models` group.
 
@@ -41,7 +41,7 @@ This is a plugin that provides an Open API reference for Better Auth. It shows a
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
 The Open API reference is generated using the [OpenAPI 3.0](https://swagger.io/specification/) specification. You can use the reference to generate client libraries, documentation, and more.
 
@@ -49,18 +49,18 @@ The reference is generated using the [Scalar](https://scalar.com/) library. Scal
 
 <img alt="Open API reference" src={__img1} placeholder="blur" />
 
-### Generated Schema
+Generated Schema [#generated-schema]
 
 To get the generated Open API schema directly as JSON, you can do `auth.api.generateOpenAPISchema()`. This will return the Open API schema as a JSON object.
 
 ```ts
-import { auth } from "~/lib/auth"
+import { auth } from "@/lib/auth"
 
 const openAPISchema = await auth.api.generateOpenAPISchema()
 console.log(openAPISchema)
 ```
 
-### Using Scalar with Multiple Sources
+Using Scalar with Multiple Sources [#using-scalar-with-multiple-sources]
 
 If you're using Scalar for your API documentation, you can add Better Auth as an additional source alongside your main API:
 
@@ -77,7 +77,7 @@ app.get("/docs", Scalar({
 }));
 ```
 
-## Configuration
+Configuration [#configuration]
 
 `path` - The path where the Open API reference is served. Default is `/api/auth/reference`. You can change it to any path you like, but keep in mind that it will be appended to the base path of your auth server.
 

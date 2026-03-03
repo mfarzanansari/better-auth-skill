@@ -10,24 +10,29 @@ The user table stores the authentication data of the user [Click here to view th
 
 The user table can be extended using [additional fields](/docs/concepts/database#extending-core-schema) or by plugins to store additional data.
 
-## Update User
+Update User [#update-user]
 
-### Update User Information
+Update User Information [#update-user-information]
 
 To update user information, you can use the `updateUser` function provided by the client. The `updateUser` function takes an object with the following properties:
 
 ```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.updateUser({
     image: "https://example.com/image.jpg",
     name: "John Doe",
 })
 ```
 
-### Change Email
+Change Email [#change-email]
 
 To allow users to change their email, first enable the `changeEmail` feature, which is disabled by default. Set `changeEmail.enabled` to `true`:
 
-```ts
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+import { sendEmail } from './email'; // your email sending function
+
 export const auth = betterAuth({
     user: {
         changeEmail: {
@@ -53,12 +58,15 @@ export const auth = betterAuth({
 By default, when a user requests to change their email, a verification email is sent to the **new** email address.
 The email is only updated after the user verifies the new email.
 
-#### Confirming with Current Email
+Confirming with Current Email [#confirming-with-current-email]
 
 For added security, you can require users to confirm the change via their **current** email before
 the verification email is sent to the new address. To do this, provide the `sendChangeEmailConfirmation` function.
 
-```ts
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+import { sendEmail } from './email'; // your email sending function
+
 export const auth = betterAuth({
     user: {
         changeEmail: {
@@ -76,11 +84,13 @@ export const auth = betterAuth({
 })
 ```
 
-#### Updating Without Verification
+Updating Without Verification [#updating-without-verification]
 
 If you want to allow users to update their email immediately without verification (only if their current email is NOT verified), you can enable `updateEmailWithoutVerification`.
 
-```ts
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     user: {
         changeEmail: {
@@ -95,18 +105,20 @@ export const auth = betterAuth({
   If `updateEmailWithoutVerification` is false (default), the email will not be updated until the new email is verified, even if the current email is unverified.
 </Callout>
 
-#### Client Usage
+Client Usage [#client-usage]
 
 Use the `changeEmail` function on the client to initiate the process.
 
 ```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.changeEmail({
     newEmail: "new-email@email.com",
     callbackURL: "/dashboard", // to redirect after verification
 });
 ```
 
-### Change Password
+Change Password [#change-password]
 
 A user's password isn't stored in the user table. Instead, it's stored in the account table. To change the password of a user, you can use one of the following approaches:
 
@@ -156,11 +168,13 @@ type changePassword = {
 ```
 
 
-### Set Password
+Set Password [#set-password]
 
 If a user was registered using OAuth or other providers, they won't have a password or a credential account. In this case, you can use the `setPassword` action to set a password for the user. For security reasons, this function can only be called from the server. We recommend having users go through a 'forgot password' flow to set a password for their account.
 
-```ts
+```ts title="set-password.ts"
+import { auth } from "@/lib/auth"
+
 await auth.api.setPassword({
     body: {
         newPassword: "new-password",
@@ -169,11 +183,13 @@ await auth.api.setPassword({
 });
 ```
 
-### Verify Password
+Verify Password [#verify-password]
 
 The `verifyPassword` function allows you to verify a user's current password. This is useful for confirming user identity before performing sensitive operations like updating security settings. This function can only be called from the server.
 
-```ts
+```ts title="verify-password.ts"
+import { auth } from "@/lib/auth"
+
 await auth.api.verifyPassword({
     body: {
         password: "user-password" // required
@@ -186,11 +202,13 @@ await auth.api.verifyPassword({
   For OAuth users who don't have passwords, consider using email verification or fresh session checks for sensitive operations instead.
 </Callout>
 
-## Delete User
+Delete User [#delete-user]
 
 Better Auth provides a utility to hard delete a user from your database. It's disabled by default, but you can enable it easily by passing `enabled:true`
 
-```ts
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     //...other config
     user: {
@@ -203,14 +221,16 @@ export const auth = betterAuth({
 
 Once enabled, you can call `authClient.deleteUser` to permanently delete user data from your database.
 
-### Adding Verification Before Deletion
+Adding Verification Before Deletion [#adding-verification-before-deletion]
 
 For added security, you’ll likely want to confirm the user’s intent before deleting their account. A common approach is to send a verification email. Better Auth provides a `sendDeleteAccountVerification` utility for this purpose.
 This is especially needed if you have OAuth setup and want them to be able to delete their account without forcing them to login again for a fresh session.
 
 Here’s how you can set it up:
 
-```ts
+```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     user: {
         deleteUser: {
@@ -235,7 +255,9 @@ export const auth = betterAuth({
 
 * **Callback URL**: The URL provided in `sendDeleteAccountVerification` is a pre-generated link that deletes the user data when accessed.
 
-```ts title="delete-user.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.deleteUser({
     callbackURL: "/goodbye" // you can provide a callback URL to redirect after deletion
 });
@@ -246,13 +268,15 @@ await authClient.deleteUser({
 
 If you have sent a custom URL, you can use the `deleteUser` method with the token to delete the user.
 
-```ts title="delete-user.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.deleteUser({
     token
 });
 ```
 
-### Authentication Requirements
+Authentication Requirements [#authentication-requirements]
 
 To delete a user, the user must meet one of the following requirements:
 
@@ -260,7 +284,9 @@ To delete a user, the user must meet one of the following requirements:
 
 if the user has a password, they can delete their account by providing the password.
 
-```ts title="delete-user.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.deleteUser({
     password: "password"
 });
@@ -274,7 +300,9 @@ The user must have a `fresh` session token, meaning the user must have signed in
   By default `session.freshAge` is set to `60 * 60 * 24` (1 day). You can change this value by passing the `session` object to the `auth` configuration. If it is set to `0`, the freshness check is disabled. It is recommended not to disable this check if you are not using email verification for deleting the account.
 </Callout>
 
-```ts title="delete-user.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.deleteUser();
 ```
 
@@ -282,24 +310,30 @@ await authClient.deleteUser();
 
 As OAuth users don't have a password, we need to send a verification email to confirm the user's intent to delete their account. If you have already added the `sendDeleteAccountVerification` callback, you can just call the `deleteUser` method without providing any other information.
 
-```ts title="delete-user.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.deleteUser();
 ```
 
 4. If you have a custom delete account page and sent that url via the `sendDeleteAccountVerification` callback.
    Then you need to call the `deleteUser` method with the token to complete the deletion.
 
-```ts title="delete-user.ts"
+```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.deleteUser({
     token
 });
 ```
 
-### Callbacks
+Callbacks [#callbacks]
 
 **beforeDelete**: This callback is called before the user is deleted. You can use this callback to perform any cleanup or additional checks before deleting the user.
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     user: {
         deleteUser: {
@@ -337,6 +371,8 @@ export const auth = betterAuth({
 **afterDelete**: This callback is called after the user is deleted. You can use this callback to perform any cleanup or additional actions after the user is deleted.
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     user: {
         deleteUser: {
@@ -349,7 +385,7 @@ export const auth = betterAuth({
 });
 ```
 
-## Accounts
+Accounts [#accounts]
 
 Better Auth supports multiple authentication methods. Each authentication method is called a provider. For example, email and password authentication is a provider, Google authentication is a provider, etc.
 
@@ -357,19 +393,23 @@ When a user signs in using a provider, an account is created for the user. The a
 
 The account table stores the authentication data of the user [Click here to view the schema](/docs/concepts/database#account)
 
-### List User Accounts
+List User Accounts [#list-user-accounts]
 
 To list user accounts you can use `client.user.listAccounts` method. Which will return all accounts associated with a user.
 
 ```ts
+import { authClient } from "@/lib/auth-client"
+
 const accounts = await authClient.listAccounts();
 ```
 
-### Token Encryption
+Token Encryption [#token-encryption]
 
 Better Auth doesn’t encrypt tokens by default and that’s intentional. We want you to have full control over how encryption and decryption are handled, rather than baking in behavior that could be confusing or limiting. If you need to store encrypted tokens (like accessToken or refreshToken), you can use databaseHooks to encrypt them before they’re saved to your database.
 
 ```ts
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     databaseHooks: {
         account: {
@@ -396,13 +436,15 @@ export const auth = betterAuth({
 
 Then whenever you retrieve back the account make sure to decrypt the tokens before using them.
 
-### Account Linking
+Account Linking [#account-linking]
 
 Account linking is [enabled by default](https://www.better-auth.com/docs/reference/options#accountlinking) and lets users associate multiple authentication methods with a single account. With Better Auth, users can connect additional social sign-ons or OAuth providers to their existing accounts if the provider confirms the user's email as verified.
 
 If account linking is disabled, no accounts can be linked, regardless of the provider or email verification status.
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     account: {
         accountLinking: {
@@ -412,11 +454,13 @@ export const auth = betterAuth({
 });
 ```
 
-#### Forced Linking
+Forced Linking [#forced-linking]
 
 You can specify a list of "trusted providers." When a user logs in using a trusted provider, their account will be automatically linked even if the provider doesn’t confirm the email verification status. Use this with caution as it may increase the risk of account takeover.
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     account: {
         accountLinking: {
@@ -427,13 +471,15 @@ export const auth = betterAuth({
 });
 ```
 
-#### Manually Linking Accounts
+Manually Linking Accounts [#manually-linking-accounts]
 
 Users already signed in can manually link their account to additional social providers or credential-based accounts.
 
 * **Linking Social Accounts:** Use the `linkSocial` method on the client to link a social provider to the user's account.
 
   ```ts
+  import { authClient } from "@/lib/auth-client"
+
   await authClient.linkSocial({
       provider: "google", // Provider to link
       callbackURL: "/callback" // Callback URL after linking completes
@@ -443,6 +489,8 @@ Users already signed in can manually link their account to additional social pro
   You can also request specific scopes when linking a social account, which can be different from the scopes used during the initial authentication:
 
   ```ts
+  import { authClient } from "@/lib/auth-client"
+
   await authClient.linkSocial({
       provider: "google",
       callbackURL: "/callback",
@@ -453,6 +501,8 @@ Users already signed in can manually link their account to additional social pro
   You can also link accounts using ID tokens directly, without redirecting to the provider's OAuth flow:
 
   ```ts
+  import { authClient } from "@/lib/auth-client"
+
   await authClient.linkSocial({
       provider: "google",
       idToken: {
@@ -475,6 +525,8 @@ Users already signed in can manually link their account to additional social pro
   If you want your users to be able to link a social account with a different email address than the user, or if you want to use a provider that does not return email addresses, you will need to enable this in the account linking settings.
 
   ```ts title="auth.ts"
+  import { betterAuth } from "better-auth";
+
   export const auth = betterAuth({
       account: {
           accountLinking: {
@@ -487,6 +539,8 @@ Users already signed in can manually link their account to additional social pro
   If you want the newly linked accounts to update the user information, you need to enable this in the account linking settings.
 
   ```ts title="auth.ts"
+  import { betterAuth } from "better-auth";
+
   export const auth = betterAuth({
       account: {
           accountLinking: {
@@ -498,7 +552,9 @@ Users already signed in can manually link their account to additional social pro
 
 * **Linking Credential-Based Accounts:** To link a credential-based account (e.g., email and password), users can initiate a "forgot password" flow, or you can call the `setPassword` method on the server.
 
-  ```ts
+  ```ts title="set-password.ts"
+  import { auth } from "@/lib/auth"
+
   await auth.api.setPassword({
     body: {
         newPassword: "new-password", // required
@@ -511,11 +567,13 @@ Users already signed in can manually link their account to additional social pro
   `setPassword` can't be called from the client for security reasons.
 </Callout>
 
-### Account Unlinking
+Account Unlinking [#account-unlinking]
 
 You can unlink a user account by providing a `providerId`.
 
 ```ts
+import { authClient } from "@/lib/auth-client"
+
 await authClient.unlinkAccount({
     providerId: "google"
 });
@@ -530,6 +588,8 @@ await authClient.unlinkAccount({
 If the account doesn't exist, it will throw an error. Additionally, if the user only has one account, unlinking will be prevented to stop account lockout (unless `allowUnlinkingAll` is set to `true`).
 
 ```ts title="auth.ts"
+import { betterAuth } from "better-auth";
+
 export const auth = betterAuth({
     account: {
         accountLinking: {

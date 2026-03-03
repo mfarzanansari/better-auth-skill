@@ -6,7 +6,7 @@ Integrate Better Auth with Waku.
 
 Better Auth can be easily integrated with Waku. Before you start, make sure you have a Better Auth instance configured. If you haven't done that yet, check out the [installation](/docs/installation).
 
-## Create auth instance
+Create auth instance [#create-auth-instance]
 
 Create a file named `auth.ts` in your application. Import Better Auth and create your instance.
 
@@ -25,7 +25,7 @@ export const auth = betterAuth({
 })
 ```
 
-## Create API Route
+Create API Route [#create-api-route]
 
 We need to mount the handler to a API route. Create a directory for Waku's file system router at `src/pages/api/auth`. Create a catch-all route file `[...route].ts` inside the `src/pages/api/auth` directory. And add the following code:
 
@@ -45,7 +45,7 @@ export const POST = async (request: Request): Promise<Response> => {
   You can change the path on your better-auth configuration but it's recommended to keep it as `src/pages/_api/api/auth/[...route].ts`
 </Callout>
 
-## Create a client
+Create a client [#create-a-client]
 
 Create a client instance. Here we are creating `auth-client.ts` file inside the `lib/` directory.
 
@@ -64,7 +64,7 @@ Some of the actions are reactive. The client uses [nano-store](https://github.co
 
 The client also uses [better-fetch](https://github.com/bekacru/better-fetch) to make the requests. You can pass the fetch configuration to the client.
 
-## RSC and Server actions
+RSC and Server actions [#rsc-and-server-actions]
 
 The `api` object exported from the auth instance contains all the actions that you can perform on the server. Every endpoint made inside Better Auth is a invocable as a function. Including plugins endpoints.
 
@@ -115,7 +115,7 @@ export async function ServerComponent() {
    will not be refreshed until the server is interacted with from the client via Server Actions or Route Handlers.
 </Callout>
 
-### Server Action Cookies
+Server Action Cookies [#server-action-cookies]
 
 When you call a function that needs to set cookies, like `signInEmail` or `signUpEmail` in a server action, cookies won’t be set.
 
@@ -175,7 +175,7 @@ const signIn = async () => {
 }
 ```
 
-### Middleware
+Middleware [#middleware]
 
 In Waku middleware, it's recommended to only check for the existence of a session cookie to handle redirection. This avoids blocking requests by making API or database calls.
 
@@ -276,7 +276,7 @@ export default authMiddleware;
 
 If you place your middleware file in `./src/middleware`, it will automatically get loaded by Waku's default server adapter.
 
-### How to handle auth checks in each page/route
+How to handle auth checks in each page/route [#how-to-handle-auth-checks-in-each-pageroute]
 
 In this example, we are using the `auth.api.getSession` function within a server component to get the session object,
 then we are checking if the session is valid. If it's not, we are redirecting the user to the sign-in page.
@@ -325,9 +325,9 @@ export default async function DashboardPage() {
 }
 ```
 
-### Example usage
+Example usage [#example-usage]
 
-#### Sign Up
+Sign Up [#sign-up]
 
 ```ts title="src/components/signup.tsx"
 "use client"
@@ -399,7 +399,7 @@ export default function SignUp() {
 
 ```
 
-#### Sign In
+Sign In [#sign-in]
 
 ```ts title="src/components/signin.tsx"
 "use client"

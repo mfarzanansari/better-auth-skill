@@ -6,7 +6,7 @@ Built-in CLI for managing your project.
 
 Better Auth comes with a built-in CLI to help you manage the database schemas, initialize your project, generate a secret key for your application, and gather diagnostic information about your setup.
 
-## Generate
+Generate [#generate]
 
 The `generate` command creates the schema required by Better Auth. If you're using a database adapter like Prisma or Drizzle, this command will generate the right schema for your ORM. If you're using the built-in Kysely adapter, it will generate an SQL file you can run directly on your database.
 
@@ -31,36 +31,36 @@ The `generate` command creates the schema required by Better Auth. If you're usi
 
   <CodeBlockTab value="npm">
     ```bash title="Terminal"
-    npx @better-auth/cli@latest generate
+    npx auth@latest generate
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="pnpm">
     ```bash title="Terminal"
-    pnpm dlx @better-auth/cli@latest generate
+    pnpm dlx auth@latest generate
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="yarn">
     ```bash title="Terminal"
-    yarn dlx @better-auth/cli@latest generate
+    yarn dlx auth@latest generate
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="bun">
     ```bash title="Terminal"
-    bun x @better-auth/cli@latest generate
+    bun x auth@latest generate
     ```
   </CodeBlockTab>
 </CodeBlockTabs>
 
-### Options
+Options [#options]
 
 * `--output` - Where to save the generated schema. For Prisma, it will be saved in prisma/schema.prisma. For Drizzle, it goes to schema.ts in your project root. For Kysely, it's an SQL file saved as schema.sql in your project root.
 * `--config` - The path to your Better Auth config file. By default, the CLI will search for an auth.ts file in **./**, **./utils**, **./lib**, or any of these directories under the `src` directory.
 * `--yes` - Skip the confirmation prompt and generate the schema directly.
 
-## Migrate
+Migrate [#migrate]
 
 The migrate command applies the Better Auth schema directly to your database. This is available if you're using the built-in Kysely adapter. For other adapters, you'll need to apply the schema using your ORM's migration tool.
 
@@ -85,30 +85,30 @@ The migrate command applies the Better Auth schema directly to your database. Th
 
   <CodeBlockTab value="npm">
     ```bash title="Terminal"
-    npx @better-auth/cli@latest migrate
+    npx auth@latest migrate
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="pnpm">
     ```bash title="Terminal"
-    pnpm dlx @better-auth/cli@latest migrate
+    pnpm dlx auth@latest migrate
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="yarn">
     ```bash title="Terminal"
-    yarn dlx @better-auth/cli@latest migrate
+    yarn dlx auth@latest migrate
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="bun">
     ```bash title="Terminal"
-    bun x @better-auth/cli@latest migrate
+    bun x auth@latest migrate
     ```
   </CodeBlockTab>
 </CodeBlockTabs>
 
-### Options
+Options [#options-1]
 
 * `--config` - The path to your Better Auth config file. By default, the CLI will search for an auth.ts file in **./**, **./utils**, **./lib**, or any of these directories under the `src` directory.
 * `--yes` - Skip the confirmation prompt and apply the schema directly.
@@ -119,7 +119,7 @@ The migrate command applies the Better Auth schema directly to your database. Th
   The migrate command automatically detects your configured `search_path` and creates tables in the correct schema. See the [PostgreSQL adapter documentation](/docs/adapters/postgresql#use-a-non-default-schema) for configuration details.
 </Callout>
 
-## Init
+Init [#init]
 
 The `init` command allows you to initialize Better Auth in your project.
 
@@ -144,30 +144,30 @@ The `init` command allows you to initialize Better Auth in your project.
 
   <CodeBlockTab value="npm">
     ```bash title="Terminal"
-    npx @better-auth/cli@latest init
+    npx auth@latest init
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="pnpm">
     ```bash title="Terminal"
-    pnpm dlx @better-auth/cli@latest init
+    pnpm dlx auth@latest init
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="yarn">
     ```bash title="Terminal"
-    yarn dlx @better-auth/cli@latest init
+    yarn dlx auth@latest init
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="bun">
     ```bash title="Terminal"
-    bun x @better-auth/cli@latest init
+    bun x auth@latest init
     ```
   </CodeBlockTab>
 </CodeBlockTabs>
 
-### Options
+Options [#options-2]
 
 * `--name` - The name of your application. (defaults to the `name` property in your `package.json`).
 * `--framework` - The framework your codebase is using. Currently, the only supported framework is `Next.js`.
@@ -175,7 +175,7 @@ The `init` command allows you to initialize Better Auth in your project.
 * `--database` - The database you want to use. Currently, the only supported database is `SQLite`.
 * `--package-manager` - The package manager you want to use. Currently, the only supported package managers are `npm`, `pnpm`, `yarn`, `bun` (defaults to the manager you used to initialize the CLI).
 
-## Info
+Info [#info]
 
 The `info` command provides diagnostic information about your Better Auth setup and environment. Useful for debugging and sharing when seeking support.
 
@@ -200,30 +200,30 @@ The `info` command provides diagnostic information about your Better Auth setup 
 
   <CodeBlockTab value="npm">
     ```bash title="Terminal"
-    npx @better-auth/cli@latest info
+    npx auth@latest info
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="pnpm">
     ```bash title="Terminal"
-    pnpm dlx @better-auth/cli@latest info
+    pnpm dlx auth@latest info
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="yarn">
     ```bash title="Terminal"
-    yarn dlx @better-auth/cli@latest info
+    yarn dlx auth@latest info
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="bun">
     ```bash title="Terminal"
-    bun x @better-auth/cli@latest info
+    bun x auth@latest info
     ```
   </CodeBlockTab>
 </CodeBlockTabs>
 
-### Output
+Output [#output]
 
 The command displays:
 
@@ -233,27 +233,27 @@ The command displays:
 * **Frameworks**: Detected frameworks (Next.js, React, Vue, etc.)
 * **Databases**: Database clients and ORMs (Prisma, Drizzle, etc.)
 
-### Options
+Options [#options-3]
 
 * `--config` - Path to your Better Auth config file
 * `--json` - Output as JSON for sharing or programmatic use
 
-### Examples
+Examples [#examples]
 
 ```bash
 # Basic usage
-npx @better-auth/cli@latest info
+npx auth@latest info
 
 # Custom config path
-npx @better-auth/cli@latest info --config ./config/auth.ts
+npx auth@latest info --config ./config/auth.ts
 
 # JSON output
-npx @better-auth/cli@latest info --json > auth-info.json
+npx auth@latest info --json > auth-info.json
 ```
 
 Sensitive data like secrets, API keys, and database URLs are automatically replaced with `[REDACTED]` for safe sharing.
 
-## Secret
+Secret [#secret]
 
 The CLI also provides a way to generate a secret key for your Better Auth instance.
 
@@ -278,30 +278,30 @@ The CLI also provides a way to generate a secret key for your Better Auth instan
 
   <CodeBlockTab value="npm">
     ```bash title="Terminal"
-    npx @better-auth/cli@latest secret
+    npx auth@latest secret
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="pnpm">
     ```bash title="Terminal"
-    pnpm dlx @better-auth/cli@latest secret
+    pnpm dlx auth@latest secret
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="yarn">
     ```bash title="Terminal"
-    yarn dlx @better-auth/cli@latest secret
+    yarn dlx auth@latest secret
     ```
   </CodeBlockTab>
 
   <CodeBlockTab value="bun">
     ```bash title="Terminal"
-    bun x @better-auth/cli@latest secret
+    bun x auth@latest secret
     ```
   </CodeBlockTab>
 </CodeBlockTabs>
 
-## Common Issues
+Common Issues [#common-issues]
 
 **Error: Cannot find module X**
 

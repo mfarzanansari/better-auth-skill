@@ -6,7 +6,7 @@ Figma provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Credentials
+    Get your Credentials [#get-your-credentials]
 
     1. Sign in to your Figma account and go to the [Developer Apps page](https://www.figma.com/developers/apps)
     2. Click "Create new app"
@@ -22,7 +22,7 @@ Figma provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -41,7 +41,7 @@ Figma provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Figma
+    Sign In with Figma [#sign-in-with-figma]
 
     To sign in with Figma, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

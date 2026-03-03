@@ -14,13 +14,13 @@ In this guide, we'll walk through the steps to migrate a project from Supabase A
   **Back up your database before running any migration scripts.** This guide modifies production data. Create a full backup of both your Supabase database and target database before proceeding.
 </Callout>
 
-## Before You Begin
+Before You Begin [#before-you-begin]
 
 Before starting the migration process, set up Better Auth in your project. Follow the [installation guide](/docs/installation) to get started.
 
 <Steps>
   <Step>
-    ### Connect to your database
+    Connect to your database [#connect-to-your-database]
 
     You'll need to connect to your database to migrate the users and accounts. Copy your `DATABASE_URL` from your Supabase project and use it to connect to your database. And for this example, we'll need to install `pg` to connect to the database.
 
@@ -83,7 +83,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Enable Email and Password
+    Enable Email and Password [#enable-email-and-password]
 
     Enable the email and password in your auth config.
 
@@ -107,7 +107,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Setup Social Providers (Optional)
+    Setup Social Providers (Optional) [#setup-social-providers-optional]
 
     Add all the social providers used in Supabase to the auth config. Missing any may cause user data loss during migration.
 
@@ -133,7 +133,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Add plugins based on your Supabase features
+    Add plugins based on your Supabase features [#add-plugins-based-on-your-supabase-features]
 
     Add plugins that match the features you used in Supabase. Include only what you need:
 
@@ -169,7 +169,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Add the additional fields
+    Add the additional fields [#add-the-additional-fields]
 
     To minimize data loss from Supabase Auth, the following additional fields are required. You can adjust them as needed after the migration is complete.
 
@@ -221,12 +221,12 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Run the migration
+    Run the migration [#run-the-migration]
 
     Run the migration to create the necessary tables in your database.
 
     ```bash title="Terminal"
-    npx @better-auth/cli migrate
+    npx auth migrate
     ```
 
     This will create the necessary tables in the `public` schema of your Better Auth instance.
@@ -235,7 +235,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Copy the migration script
+    Copy the migration script [#copy-the-migration-script]
 
     First, set up the environment variables used by the script.
 
@@ -989,7 +989,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Run the migration script
+    Run the migration script [#run-the-migration-script]
 
     <Callout type="info">
       The migration script uses **keyset pagination** (cursor-based) which efficiently handles large datasets without loading everything into memory. For very large migrations (500k+ users), you may need to increase Node's memory limit with `NODE_OPTIONS="--max-old-space-size=8192"`.
@@ -1005,7 +1005,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Change password hashing algorithm
+    Change password hashing algorithm [#change-password-hashing-algorithm]
 
     By default, Better Auth uses the `scrypt` algorithm to hash passwords. Since Supabase uses `bcrypt`, you'll need to configure Better Auth to use bcrypt for password verification.
 
@@ -1096,7 +1096,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 
   <Step>
-    ### Update your code
+    Update your code [#update-your-code]
 
     Update your codebase from Supabase auth calls to Better Auth API.
 
@@ -1121,7 +1121,7 @@ Before starting the migration process, set up Better Auth in your project. Follo
   </Step>
 </Steps>
 
-## Migrating Enterprise SSO
+Migrating Enterprise SSO [#migrating-enterprise-sso]
 
 <Callout type="info">
   **Skip this section** if you're not using Supabase's Enterprise SSO feature. This section is only for users who have SAML SSO providers configured in Supabase.
@@ -1135,7 +1135,7 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
 
 <Steps>
   <Step>
-    ### Install the SSO plugin
+    Install the SSO plugin [#install-the-sso-plugin]
 
     Install the Better Auth SSO package:
 
@@ -1209,17 +1209,17 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
   </Step>
 
   <Step>
-    ### Run the SSO database migration
+    Run the SSO database migration [#run-the-sso-database-migration]
 
     Run the migration to create the `ssoProvider` table:
 
     ```bash title="Terminal"
-    npx @better-auth/cli migrate
+    npx auth migrate
     ```
   </Step>
 
   <Step>
-    ### Export your Supabase SSO providers
+    Export your Supabase SSO providers [#export-your-supabase-sso-providers]
 
     List and export your existing SSO providers from Supabase using the CLI:
 
@@ -1259,7 +1259,7 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
   </Step>
 
   <Step>
-    ### Add SSO types to the migration script
+    Add SSO types to the migration script [#add-sso-types-to-the-migration-script]
 
     Add these type definitions to your migration script:
 
@@ -1297,7 +1297,7 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
   </Step>
 
   <Step>
-    ### Add the SSO provider migration function
+    Add the SSO provider migration function [#add-the-sso-provider-migration-function]
 
     Add this function to migrate your SSO providers:
 
@@ -1407,7 +1407,7 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
   </Step>
 
   <Step>
-    ### Update user migration to link SSO accounts
+    Update user migration to link SSO accounts [#update-user-migration-to-link-sso-accounts]
 
     In the `processBatch` function, add handling for SSO identities. Find the section that processes identities and add:
 
@@ -1437,7 +1437,7 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
   </Step>
 
   <Step>
-    ### Run the SSO migration
+    Run the SSO migration [#run-the-sso-migration]
 
     Create a separate script or add to your main migration to run the SSO provider migration:
 
@@ -1472,7 +1472,7 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
   </Step>
 
   <Step>
-    ### Update your Identity Provider
+    Update your Identity Provider [#update-your-identity-provider]
 
     After migrating, you need to update your IdP (Okta, Azure AD, Google Workspace, etc.) with the new Better Auth endpoints.
 
@@ -1494,7 +1494,7 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
   </Step>
 
   <Step>
-    ### Update your client code
+    Update your client code [#update-your-client-code]
 
     Replace Supabase SSO authentication calls with Better Auth:
 
@@ -1542,7 +1542,7 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
   </Step>
 
   <Step>
-    ### Test the SSO flow
+    Test the SSO flow [#test-the-sso-flow]
 
     Before going live, test the complete SSO flow:
 
@@ -1562,7 +1562,7 @@ If you're using Supabase's Enterprise SSO (SAML), follow these additional steps 
   </Step>
 </Steps>
 
-### SSO Migration Checklist
+SSO Migration Checklist [#sso-migration-checklist]
 
 Use this checklist to ensure a complete SSO migration:
 
@@ -1579,7 +1579,7 @@ Use this checklist to ensure a complete SSO migration:
 - [ ] New SSO users can be created
 ```
 
-### Troubleshooting SSO
+Troubleshooting SSO [#troubleshooting-sso]
 
 <Callout type="warn">
   **SAML Signature Errors**: If you see signature validation errors, ensure your IdP's certificate is current. Some IdPs rotate certificates periodically—check the metadata URL for the latest certificate.
@@ -1595,11 +1595,11 @@ Use this checklist to ensure a complete SSO migration:
 
 Learn more about SSO configuration in the [SSO Plugin Documentation](/docs/plugins/sso).
 
-### Auth Protection
+Auth Protection [#auth-protection]
 
 To protect routes with proxy(middleware), refer to the [Next.js Auth Protection Guide](/docs/integrations/next#auth-protection) or your framework's documentation.
 
-## Wrapping Up
+Wrapping Up [#wrapping-up]
 
 Congratulations! You've successfully migrated from Supabase Auth to Better Auth.
 

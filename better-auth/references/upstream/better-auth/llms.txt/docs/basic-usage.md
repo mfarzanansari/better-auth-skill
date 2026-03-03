@@ -11,7 +11,7 @@ Better Auth provides built-in authentication support for:
 
 But also can easily be extended using plugins, such as: [username](/docs/plugins/username), [magic link](/docs/plugins/magic-link), [passkey](/docs/plugins/passkey), [email-otp](/docs/plugins/email-otp), and more.
 
-## Email & Password
+Email & Password [#email--password]
 
 To enable email and password authentication:
 
@@ -25,7 +25,7 @@ export const auth = betterAuth({
 })
 ```
 
-### Sign Up
+Sign Up [#sign-up]
 
 To sign up a user you need to call the client method `signUp.email` with the user's information.
 
@@ -65,7 +65,7 @@ export const auth = betterAuth({
 })
 ```
 
-### Sign In
+Sign In [#sign-in]
 
 To sign a user in, you can use the `signIn.email` function provided by the client.
 
@@ -97,7 +97,7 @@ const { data, error } = await authClient.signIn.email({
   Always invoke client methods from the client side. Don't call them from the server.
 </Callout>
 
-### Server-Side Authentication
+Server-Side Authentication [#server-side-authentication]
 
 To authenticate a user on the server, you can use the `auth.api` methods.
 
@@ -117,7 +117,7 @@ const response = await auth.api.signInEmail({
   If the server cannot return a response object, you'll need to manually parse and set cookies. But for frameworks like Next.js we provide [a plugin](/docs/integrations/next#server-action-cookies) to handle this automatically
 </Callout>
 
-## Social Sign-On
+Social Sign-On [#social-sign-on]
 
 Better Auth supports multiple social providers, including Google, GitHub, Apple, Discord, and more. To use a social provider, you need to configure the ones you need in the `socialProviders` option on your `auth` object.
 
@@ -134,7 +134,7 @@ export const auth = betterAuth({
 })
 ```
 
-### Sign in with social providers
+Sign in with social providers [#sign-in-with-social-providers]
 
 To sign in using a social provider you need to call `signIn.social`. It takes an object with the following properties:
 
@@ -170,7 +170,7 @@ await authClient.signIn.social({
 
 You can also authenticate using `idToken` or `accessToken` from the social provider instead of redirecting the user to the provider's site. See social providers documentation for more details.
 
-## Signout
+Signout [#signout]
 
 To signout a user, you can use the `signOut` function provided by the client.
 
@@ -190,13 +190,13 @@ await authClient.signOut({
 });
 ```
 
-## Session
+Session [#session]
 
 Once a user is signed in, you'll want to access the user session. Better Auth allows you to easily access the session data from both the server and client sides.
 
-### Client Side
+Client Side [#client-side]
 
-#### Use Session
+Use Session [#use-session]
 
 Better Auth provides a `useSession` hook to easily access session data on the client side. This hook is implemented using nanostore and has support for each supported framework and vanilla client, ensuring that any changes to the session (such as signing out) are immediately reflected in your UI.
 
@@ -279,7 +279,7 @@ Better Auth provides a `useSession` hook to easily access session data on the cl
   </Tab>
 </Tabs>
 
-#### Get Session
+Get Session [#get-session]
 
 If you prefer not to use the hook, you can use the `getSession` method provided by the client.
 
@@ -291,7 +291,7 @@ const { data: session, error } = await authClient.getSession()
 
 You can also use it with client-side data-fetching libraries like [TanStack Query](https://tanstack.com/query/latest).
 
-### Server Side
+Server Side [#server-side]
 
 The server provides a `session` object that you can use to access the session data. It requires request headers object to be passed to the `getSession` method.
 
@@ -309,7 +309,7 @@ The server provides a `session` object that you can use to access the session da
     ```
   </Tab>
 
-  <Tab value="Remix">
+  <Tab value="react-router">
     ```ts title="route.ts"
     import { auth } from "lib/auth"; // path to your Better Auth server instance
 
@@ -399,7 +399,7 @@ The server provides a `session` object that you can use to access the session da
   For more details check [session-management](/docs/concepts/session-management) documentation.
 </Callout>
 
-## Using Plugins
+Using Plugins [#using-plugins]
 
 One of the unique features of Better Auth is a plugins ecosystem. It allows you to add complex auth related functionality with small lines of code.
 
@@ -407,7 +407,7 @@ Below is an example of how to add two factor authentication using two factor plu
 
 <Steps>
   <Step>
-    ### Server Configuration
+    Server Configuration [#server-configuration]
 
     To add a plugin, you need to import the plugin and pass it to the `plugins` option of the auth instance. For example, to add two factor authentication, you can use the following code:
 
@@ -427,20 +427,20 @@ Below is an example of how to add two factor authentication using two factor plu
   </Step>
 
   <Step>
-    ### Migrate Database
+    Migrate Database [#migrate-database]
 
     After adding the plugin, you'll need to add the required tables to your database. You can do this by running the `migrate` command, or by using the `generate` command to create the schema and handle the migration manually.
 
     generating the schema:
 
     ```bash title="terminal"
-    npx @better-auth/cli generate
+    npx auth generate
     ```
 
     using the `migrate` command:
 
     ```bash title="terminal"
-    npx @better-auth/cli migrate
+    npx auth migrate
     ```
 
     <Callout>
@@ -449,7 +449,7 @@ Below is an example of how to add two factor authentication using two factor plu
   </Step>
 
   <Step>
-    ### Client Configuration
+    Client Configuration [#client-configuration]
 
     Once we're done with the server, we need to add the plugin to the client. To do this, you need to import the plugin and pass it to the `plugins` option of the auth client. For example, to add two factor authentication, you can use the following code:
 

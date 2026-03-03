@@ -6,7 +6,7 @@ Paybin provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Paybin credentials
+    Get your Paybin credentials [#get-your-paybin-credentials]
 
     To use Paybin sign in, you need to create an OAuth 2.0 Client through your Paybin Portfolio application.
 
@@ -24,7 +24,7 @@ Paybin provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -43,7 +43,7 @@ Paybin provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Paybin
+    Sign In with Paybin [#sign-in-with-paybin]
 
     To sign in with Paybin, you can use the `signIn.social` function provided by the client, where the `provider` should be set to `paybin`.
 
@@ -60,9 +60,9 @@ Paybin provider setup and usage.
   </Step>
 </Steps>
 
-## Additional Configuration
+Additional Configuration [#additional-configuration]
 
-### Scopes
+Scopes [#scopes]
 
 By default, Paybin provider requests the following scopes: `openid`, `email`, and `profile`. You can customize the scopes based on your application's needs.
 
@@ -80,7 +80,7 @@ export const auth = betterAuth({
 })
 ```
 
-### User Profile Mapping
+User Profile Mapping [#user-profile-mapping]
 
 Paybin returns user information in the ID token following OpenID Connect standards. The provider automatically extracts:
 

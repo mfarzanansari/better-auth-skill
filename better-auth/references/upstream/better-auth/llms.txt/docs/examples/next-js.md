@@ -27,7 +27,7 @@ See [Demo](https://demo.better-auth.com)
   sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
 />
 
-## How to run
+How to run [#how-to-run]
 
 1. Clone the code sandbox (or the repo) and open it in your code editor
 2. Move .env.example to .env and provide necessary variables
@@ -38,11 +38,11 @@ See [Demo](https://demo.better-auth.com)
    ```
 4. Open the browser and navigate to `http://localhost:3000`
 
-### SSO Login Example
+SSO Login Example [#sso-login-example]
 
 For this example, we utilize DummyIDP. Initiate the login from the [DummyIDP login](https://dummyidp.com/apps/app_01k16v4vb5yytywqjjvv2b3435/login), click "Proceed", and from here it will direct you to user's dashboard.
 
-### SCIM Sync Example
+SCIM Sync Example [#scim-sync-example]
 
 For this example, we utilize DummyIDP. Head out to the [IDP dashboard](https://dummyidp.com/apps/app_01k16v4vb5yytywqjjvv2b3435) and try to add, update or remove users, then go to the admin page or directly to your database and watch the synchronization work.
 

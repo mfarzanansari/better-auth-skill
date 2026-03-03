@@ -6,7 +6,7 @@ Dropbox provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Dropbox credentials
+    Get your Dropbox credentials [#get-your-dropbox-credentials]
 
     To use Dropbox sign in, you need a client ID and client secret. You can get them from the [Dropbox Developer Portal](https://www.dropbox.com/developers). You can Allow "Implicit Grant & PKCE" for the application in the App Console.
 
@@ -16,7 +16,7 @@ Dropbox provider setup and usage.
   If you need deeper dive into Dropbox Authentication, you can check out the [official documentation](https://developers.dropbox.com/oauth-guide).
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -35,7 +35,7 @@ Dropbox provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Dropbox
+    Sign In with Dropbox [#sign-in-with-dropbox]
 
     To sign in with Dropbox, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

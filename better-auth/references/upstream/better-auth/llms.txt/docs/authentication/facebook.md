@@ -6,7 +6,7 @@ Facebook provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Facebook credentials
+    Get your Facebook credentials [#get-your-facebook-credentials]
 
     To use Facebook sign in, you need a client ID and client Secret. You can get them from the [Facebook Developer Portal](https://developers.facebook.com/).
     Select your app, navigate to **App Settings > Basic**, locate the following:
@@ -22,7 +22,7 @@ Facebook provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -46,7 +46,7 @@ Facebook provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Facebook
+    Sign In with Facebook [#sign-in-with-facebook]
 
     To sign in with Facebook, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -65,9 +65,9 @@ Facebook provider setup and usage.
   </Step>
 </Steps>
 
-## Additional Configuration
+Additional Configuration [#additional-configuration]
 
-### Scopes
+Scopes [#scopes]
 
 By default, Facebook provides basic user information. If you need additional permissions, you can specify scopes in your auth configuration:
 
@@ -91,7 +91,7 @@ Additional options:
 * `fields`: Extend list of fields to retrieve from the Facebook user profile (assignment).
   * Default: `"id", "name", "email", "picture"`
 
-### Sign In with Facebook With ID or Access Token
+Sign In with Facebook With ID or Access Token [#sign-in-with-facebook-with-id-or-access-token]
 
 To sign in with Facebook using the ID Token, you can use the `signIn.social` function to pass the ID Token.
 

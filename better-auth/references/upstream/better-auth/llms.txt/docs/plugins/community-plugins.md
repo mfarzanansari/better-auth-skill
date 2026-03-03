@@ -8,11 +8,11 @@ import { CommunityPluginsTable } from "@/components/community-plugins-table";
 
 This page showcases a list of recommended community made plugins. We encourage you to create custom plugins and maybe get added to the list!
 
-## Create Your Own Plugin
+Create Your Own Plugin [#create-your-own-plugin]
 
 To create your own custom plugin, get started by reading our [plugins documentation](/docs/concepts/plugins). And if you want to share your plugin with the community, please open a pull request to add it to this list.
 
-## Browse Community Plugins
+Browse Community Plugins [#browse-community-plugins]
 
 <CommunityPluginsTable />
 

@@ -6,7 +6,7 @@ Zoom provider setup and usage.
 
 <Steps>
   <Step>
-    ### Create a Zoom App from Marketplace
+    Create a Zoom App from Marketplace [#create-a-zoom-app-from-marketplace]
 
     1. Visit [Zoom Marketplace](https://marketplace.zoom.us).
 
@@ -16,7 +16,7 @@ Zoom provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure your Zoom App
+    Configure your Zoom App [#configure-your-zoom-app]
 
     Ensure that you are in the `Basic Information` of your app settings.
 
@@ -43,7 +43,7 @@ Zoom provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -62,7 +62,7 @@ Zoom provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Zoom
+    Sign In with Zoom [#sign-in-with-zoom]
 
     To sign in with Zoom, you can use the `signIn.social` function provided by the client.
     You will need to specify `zoom` as the provider.

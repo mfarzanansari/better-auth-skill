@@ -6,11 +6,11 @@ Admin plugin for Better Auth
 
 The Admin plugin provides a set of administrative functions for user management in your application. It allows administrators to perform various operations such as creating users, managing user roles, banning/unbanning users, impersonating users, and more.
 
-## Installation
+Installation [#installation]
 
 <Steps>
   <Step>
-    ### Add the plugin to your auth config
+    Add the plugin to your auth config [#add-the-plugin-to-your-auth-config]
 
     To use the Admin plugin, add it to your auth config.
 
@@ -28,7 +28,7 @@ The Admin plugin provides a set of administrative functions for user management 
   </Step>
 
   <Step>
-    ### Migrate the database
+    Migrate the database [#migrate-the-database]
 
     Run the migration or generate the schema to add the necessary fields and tables to the database.
 
@@ -55,25 +55,25 @@ The Admin plugin provides a set of administrative functions for user management 
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli migrate
+            npx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli migrate
+            pnpm dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli migrate
+            yarn dlx auth migrate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli migrate
+            bun x auth migrate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -101,25 +101,25 @@ The Admin plugin provides a set of administrative functions for user management 
 
           <CodeBlockTab value="npm">
             ```bash
-            npx @better-auth/cli generate
+            npx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="pnpm">
             ```bash
-            pnpm dlx @better-auth/cli generate
+            pnpm dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="yarn">
             ```bash
-            yarn dlx @better-auth/cli generate
+            yarn dlx auth generate
             ```
           </CodeBlockTab>
 
           <CodeBlockTab value="bun">
             ```bash
-            bun x @better-auth/cli generate
+            bun x auth generate
             ```
           </CodeBlockTab>
         </CodeBlockTabs>
@@ -130,28 +130,28 @@ The Admin plugin provides a set of administrative functions for user management 
   </Step>
 
   <Step>
-    ### Add the client plugin
+    Add the client plugin [#add-the-client-plugin]
 
     Next, include the admin client plugin in your authentication client instance.
 
     ```ts title="auth-client.ts"
     import { createAuthClient } from "better-auth/client"
-    import { adminClient } from "better-auth/client/plugins"
+    import { adminClient } from "better-auth/client/plugins"  // [!code highlight]
 
     export const authClient = createAuthClient({
         plugins: [
-            adminClient()
+            adminClient()  // [!code highlight]
         ]
     })
     ```
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
 Before performing any admin operations, the user must be authenticated with an admin account. An admin is any user assigned the `admin` role or any user whose ID is included in the `adminUserIds` option.
 
-### Create User
+Create User [#create-user]
 
 Allows an admin to create a new user.
 
@@ -210,7 +210,7 @@ type createUser = {
 ```
 
 
-### List Users
+List Users [#list-users]
 
 Allows an admin to list all users in the database.
 
@@ -292,21 +292,21 @@ type listUsers = {
     /**
      * The value to filter by. 
      */
-    filterValue?: string | number | boolean = "hello@example.com"
+    filterValue?: string | number | boolean | string[] | number[] = "hello@example.com"
     /**
-     * The operator to use for the filter. 
+     * The operator to use for the filter.
      */
-    filterOperator?: "eq" | "ne" | "lt" | "lte" | "gt" | "gte" = "eq"
+    filterOperator?: "eq" | "ne" | "lt" | "lte" | "gt" | "gte" | "in" | "not_in" | "contains" | "starts_with" | "ends_with" = "eq"
   
 }
 ```
 
 
-#### Query Filtering
+Query Filtering [#query-filtering]
 
 The `listUsers` function supports various filter operators including `eq`, `contains`, `starts_with`, and `ends_with`.
 
-#### Pagination
+Pagination [#pagination]
 
 The `listUsers` function supports pagination by returning metadata alongside the user list. The response includes the following fields:
 
@@ -319,7 +319,7 @@ The `listUsers` function supports pagination by returning metadata alongside the
 }
 ```
 
-##### How to Implement Pagination
+How to Implement Pagination [#how-to-implement-pagination]
 
 To paginate results, use the `total`, `limit`, and `offset` values to calculate:
 
@@ -328,11 +328,13 @@ To paginate results, use the `total`, `limit`, and `offset` values to calculate:
 * **Next page offset:** `Math.min(offset + limit, (total - 1))` – The value to use as `offset` for the next page, ensuring it does not exceed the total number of pages.
 * **Previous page offset:** `Math.max(0, offset - limit)` – The value to use as `offset` for the previous page (ensuring it doesn’t go below zero).
 
-##### Example Usage
+Example Usage [#example-usage]
 
 Fetching the second page with 10 users per page:
 
-```ts title="admin.ts"
+```ts
+import { authClient } from "@/lib/auth-client";
+
 const pageSize = 10;
 const currentPage = 2;
 
@@ -347,7 +349,7 @@ const totalUsers = users.total;
 const totalPages = Math.ceil(totalUsers / pageSize)
 ```
 
-### Get User
+Get User [#get-user]
 
 Fetches a user's information using an id.
 
@@ -385,7 +387,7 @@ type getUser = {
 ```
 
 
-#### Returns
+Returns [#returns]
 
 On success, `data` contains the user object. On failure, `error` is populated by `code`, `message`, `status`, and `statusText`.
 
@@ -400,7 +402,7 @@ type GetUserResponse = {
 }
 ```
 
-### Set User Role
+Set User Role [#set-user-role]
 
 Changes the role of a user.
 
@@ -444,7 +446,7 @@ type setRole = {
 ```
 
 
-### Set User Password
+Set User Password [#set-user-password]
 
 Changes the password of a user.
 
@@ -488,7 +490,7 @@ type setUserPassword = {
 ```
 
 
-### Update user
+Update user [#update-user]
 
 Update a user's details.
 
@@ -531,7 +533,7 @@ type adminUpdateUser = {
 ```
 
 
-### Ban User
+Ban User [#ban-user]
 
 Bans a user, preventing them from signing in and revokes all of their existing sessions.
 
@@ -581,7 +583,7 @@ type banUser = {
 ```
 
 
-### Unban User
+Unban User [#unban-user]
 
 Removes the ban from a user, allowing them to sign in again.
 
@@ -619,7 +621,7 @@ type unbanUser = {
 ```
 
 
-### List User Sessions
+List User Sessions [#list-user-sessions]
 
 Lists all sessions for a user.
 
@@ -657,7 +659,7 @@ type listUserSessions = {
 ```
 
 
-### Revoke User Session
+Revoke User Session [#revoke-user-session]
 
 Revokes a specific session for a user.
 
@@ -695,7 +697,7 @@ type revokeUserSession = {
 ```
 
 
-### Revoke All Sessions for a User
+Revoke All Sessions for a User [#revoke-all-sessions-for-a-user]
 
 Revokes all sessions for a user.
 
@@ -733,7 +735,7 @@ type revokeUserSessions = {
 ```
 
 
-### Impersonate User
+Impersonate User [#impersonate-user]
 
 This feature allows an admin to create a session that mimics the specified user. The session will remain active until either the browser session ends or it reaches 1 hour. You can change this duration by setting the `impersonationSessionDuration` option.
 
@@ -771,7 +773,20 @@ type impersonateUser = {
 ```
 
 
-### Stop Impersonating User
+By default, admins cannot impersonate other admin users. To allow this, grant the `impersonate-admins` permission to a role:
+
+```ts title="auth.ts"
+const superAdmin = ac.newRole({
+  ...adminAc.statements,
+  user: ["impersonate-admins", ...adminAc.statements.user],
+});
+```
+
+<Callout type="info">
+  The legacy `allowImpersonatingAdmins` option is still supported, but is deprecated and will be removed in a future version.
+</Callout>
+
+Stop Impersonating User [#stop-impersonating-user]
 
 To stop impersonating a user and continue with the admin account, you can use `stopImpersonating`
 
@@ -801,7 +816,7 @@ type stopImpersonating = {
 ```
 
 
-### Remove User
+Remove User [#remove-user]
 
 Hard deletes a user from the database.
 
@@ -839,11 +854,11 @@ type removeUser = {
 ```
 
 
-## Access Control
+Access Control [#access-control]
 
 The admin plugin offers a highly flexible access control system, allowing you to manage user permissions based on their role. You can define custom permission sets to fit your needs.
 
-### Roles
+Roles [#roles]
 
 By default, there are two roles:
 
@@ -855,25 +870,25 @@ By default, there are two roles:
   A user can have multiple roles. Multiple roles are stored as string separated by comma (",").
 </Callout>
 
-### Permissions
+Permissions [#permissions]
 
 By default, there are two resources with up to six permissions.
 
 **user**:
-`create` `list` `set-role` `ban` `impersonate` `delete` `set-password`
+`create` `list` `set-role` `ban` `impersonate` `impersonate-admins` `delete` `set-password`
 
 **session**:
 `list` `revoke` `delete`
 
 Users with the admin role have full control over all the resources and actions. Users with the user role have no control over any of those actions.
 
-### Custom Permissions
+Custom Permissions [#custom-permissions]
 
 The plugin provides an easy way to define your own set of permissions for each role.
 
 <Steps>
   <Step>
-    #### Create Access Control
+    Create Access Control [#create-access-control]
 
     You first need to create an access controller by calling the `createAccessControl` function and passing the statement object. The statement object should have the resource name as the key and the array of actions as the value.
 
@@ -896,7 +911,7 @@ The plugin provides an easy way to define your own set of permissions for each r
   </Step>
 
   <Step>
-    #### Create Roles
+    Create Roles [#create-roles]
 
     Once you have created the access controller you can create roles with the permissions you have defined.
 
@@ -944,7 +959,7 @@ The plugin provides an easy way to define your own set of permissions for each r
   </Step>
 
   <Step>
-    #### Pass Roles to the Plugin
+    Pass Roles to the Plugin [#pass-roles-to-the-plugin]
 
     Once you have created the roles you can pass them to the admin plugin both on the client and the server.
 
@@ -990,7 +1005,7 @@ The plugin provides an easy way to define your own set of permissions for each r
   </Step>
 </Steps>
 
-### Access Control Usage
+Access Control Usage [#access-control-usage]
 
 **Has Permission**:
 
@@ -1042,7 +1057,9 @@ type userHasPermission = {
 
 Example usage:
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client";
+
 const canCreateProject = await authClient.admin.hasPermission({
   permissions: {
     project: ["create"],
@@ -1060,8 +1077,8 @@ const canCreateProjectAndCreateSale = await authClient.admin.hasPermission({
 
 If you want to check a user's permissions server-side, you can use the `userHasPermission` action provided by the `api` to check the user's permissions.
 
-```ts title="api.ts"
-import { auth } from "@/auth";
+```ts title="permission.ts"
+import { auth } from "@/lib/auth"
 
 await auth.api.userHasPermission({
   body: {
@@ -1100,7 +1117,9 @@ Use the `checkRolePermission` function on the client side to verify whether a gi
 
 Note that this function does **not** check the permissions of the currently logged-in user directly. Instead, it checks what permissions are assigned to a specified role. The function is synchronous, so you don't need to use `await` when calling it.
 
-```ts title="auth-client.ts"
+```ts
+import { authClient } from "@/lib/auth-client";
+
 const canCreateProject = authClient.admin.checkRolePermission({
   permissions: {
     user: ["delete"],
@@ -1118,7 +1137,7 @@ const canDeleteUserAndRevokeSession = authClient.admin.checkRolePermission({
 });
 ```
 
-## Schema
+Schema [#schema]
 
 This plugin adds the following fields to the `user` table:
 
@@ -1165,9 +1184,33 @@ And adds one field in the `session` table:
 ]}
 />
 
-## Options
+Email Enumeration Protection [#email-enumeration-protection]
 
-### Default Role
+If you use [email enumeration protection](/docs/authentication/email-password#email-enumeration-protection) (`requireEmailVerification` or `autoSignIn: false`), you need to configure `customSyntheticUser` to include the admin plugin fields in the fake sign-up response:
+
+```ts title="auth.ts"
+export const auth = betterAuth({
+  emailAndPassword: {
+    enabled: true,
+    requireEmailVerification: true,
+    customSyntheticUser: ({ coreFields, additionalFields, id }) => ({
+      ...coreFields,
+      // Admin plugin fields (in schema order)
+      role: "user", // or your configured defaultRole
+      banned: false,
+      banReason: null,
+      banExpires: null,
+      ...additionalFields,
+      id,
+    }),
+  },
+  plugins: [admin()],
+});
+```
+
+Options [#options]
+
+Default Role [#default-role]
 
 The default role for a user. Defaults to `user`.
 
@@ -1177,7 +1220,7 @@ admin({
 });
 ```
 
-### Admin Roles
+Admin Roles [#admin-roles]
 
 Specifies which roles are considered admin roles. Defaults to `["admin"]`. Custom roles (for example, `superadmin`) must be defined in custom access control.
 
@@ -1194,7 +1237,7 @@ admin({
   **Warning:** When **not** using custom access control, only `admin` and `user` exist as valid roles. Any role that isn't in the `adminRoles` list will **not** be able to perform admin operations.
 </Callout>
 
-### Admin userIds
+Admin userIds [#admin-userids]
 
 You can pass an array of userIds that should be considered as admin. Default to `[]`
 
@@ -1206,7 +1249,7 @@ admin({
 
 If a user is in the `adminUserIds` list, they will be able to perform any admin operation.
 
-### impersonationSessionDuration
+impersonationSessionDuration [#impersonationsessionduration]
 
 The duration of the impersonation session in seconds. Defaults to 1 hour.
 
@@ -1216,7 +1259,7 @@ admin({
 });
 ```
 
-### Default Ban Reason
+Default Ban Reason [#default-ban-reason]
 
 The default ban reason for a user created by the admin. Defaults to `No reason`.
 
@@ -1226,7 +1269,7 @@ admin({
 });
 ```
 
-### Default Ban Expires In
+Default Ban Expires In [#default-ban-expires-in]
 
 The default ban expires in for a user created by the admin in seconds. Defaults to `undefined` (meaning the ban never expires).
 
@@ -1236,23 +1279,13 @@ admin({
 });
 ```
 
-### bannedUserMessage
+bannedUserMessage [#bannedusermessage]
 
 The message to show when a banned user tries to sign in. Defaults to "You have been banned from this application. Please contact support if you believe this is an error."
 
 ```ts title="auth.ts"
 admin({
   bannedUserMessage: "Custom banned user message",
-});
-```
-
-### allowImpersonatingAdmins
-
-Whether to allow impersonating other admin users. Defaults to `false`.
-
-```ts title="auth.ts"
-admin({
-  allowImpersonatingAdmins: true,
 });
 ```
 

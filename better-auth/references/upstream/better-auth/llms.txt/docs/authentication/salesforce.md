@@ -6,7 +6,7 @@ Salesforce provider setup and usage.
 
 <Steps>
   <Step>
-    ### Get your Salesforce Credentials
+    Get your Salesforce Credentials [#get-your-salesforce-credentials]
 
     1. Log into your Salesforce org (Production or Developer Edition)
     2. Navigate to **Setup > App Manager**
@@ -38,7 +38,7 @@ Salesforce provider setup and usage.
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to import the provider and pass it to the `socialProviders` option of the auth instance.
 
@@ -56,7 +56,7 @@ Salesforce provider setup and usage.
     })
     ```
 
-    #### Configuration Options
+    Configuration Options [#configuration-options]
 
     * `clientId`: Your Connected App's Consumer Key
     * `clientSecret`: Your Connected App's Consumer Secret
@@ -64,7 +64,7 @@ Salesforce provider setup and usage.
     * `loginUrl`: Custom My Domain URL (without `https://`) - overrides environment setting
     * `redirectURI`: Override the auto-generated redirect URI if needed
 
-    #### Advanced Configuration
+    Advanced Configuration [#advanced-configuration]
 
     ```ts title="auth.ts"
     export const auth = betterAuth({
@@ -88,7 +88,7 @@ Salesforce provider setup and usage.
   </Step>
 
   <Step>
-    ### Environment Variables
+    Environment Variables [#environment-variables]
 
     Add the following environment variables to your `.env.local` file:
 
@@ -108,7 +108,7 @@ Salesforce provider setup and usage.
   </Step>
 
   <Step>
-    ### Sign In with Salesforce
+    Sign In with Salesforce [#sign-in-with-salesforce]
 
     To sign in with Salesforce, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 
@@ -127,9 +127,9 @@ Salesforce provider setup and usage.
   </Step>
 
   <Step>
-    ### Troubleshooting
+    Troubleshooting [#troubleshooting]
 
-    #### Redirect URI Mismatch Error
+    Redirect URI Mismatch Error [#redirect-uri-mismatch-error]
 
     If you encounter a `redirect_uri_mismatch` error:
 
@@ -146,13 +146,13 @@ Salesforce provider setup and usage.
     }
     ```
 
-    #### Environment Issues
+    Environment Issues [#environment-issues]
 
     * **Production**: Use `environment: "production"` (default) with `login.salesforce.com`
     * **Sandbox**: Use `environment: "sandbox"` with `test.salesforce.com`
     * **My Domain**: Use `loginUrl: "yourcompany.my.salesforce.com"` for custom domains
 
-    #### PKCE Requirements
+    PKCE Requirements [#pkce-requirements]
 
     Salesforce requires PKCE (Proof Key for Code Exchange) which is automatically handled by this provider. Make sure PKCE is enabled in your Connected App settings.
 

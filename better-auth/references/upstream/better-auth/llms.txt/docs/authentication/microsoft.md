@@ -8,7 +8,7 @@ Enabling OAuth with Microsoft Azure Entra ID (formerly Active Directory) allows 
 
 <Steps>
   <Step>
-    ### Get your Microsoft credentials
+    Get your Microsoft credentials [#get-your-microsoft-credentials]
 
     To use Microsoft as a social provider, you need to get your Microsoft credentials. Which involves generating your own Client ID and Client Secret using your Microsoft Entra ID dashboard account.
 
@@ -18,7 +18,7 @@ Enabling OAuth with Microsoft Azure Entra ID (formerly Active Directory) allows 
   </Step>
 
   <Step>
-    ### Configure the provider
+    Configure the provider [#configure-the-provider]
 
     To configure the provider, you need to pass the `clientId` and `clientSecret` to `socialProviders.microsoft` in your auth configuration.
 
@@ -43,7 +43,7 @@ Enabling OAuth with Microsoft Azure Entra ID (formerly Active Directory) allows 
   </Step>
 </Steps>
 
-## Sign In with Microsoft
+Sign In with Microsoft [#sign-in-with-microsoft]
 
 To sign in with Microsoft, you can use the `signIn.social` function provided by the client. The `signIn` function takes an object with the following properties:
 

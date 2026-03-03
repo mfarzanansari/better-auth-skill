@@ -18,7 +18,7 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
   We're online to help you with any questions you have.
 </Card>
 
-## Features
+Features [#features]
 
 * One function for all checkout, subscription and payment flows
 * No webhooks required: query Autumn for the data you need
@@ -28,13 +28,13 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 
 <Steps>
   <Step>
-    ### Setup Autumn Account
+    Setup Autumn Account [#setup-autumn-account]
 
     First, create your pricing plans in Autumn's [dashboard](https://app.useautumn.com), where you define what each plan and product gets access to and how it should be billed. In this example, we're handling the free and pro plans for an AI chatbot, which comes with a number of `messages` per month.
   </Step>
 
   <Step>
-    ### Install Autumn SDK
+    Install Autumn SDK [#install-autumn-sdk]
 
     <CodeBlockTabs defaultValue="npm" groupId="persist-install" persist>
       <CodeBlockTabsList>
@@ -86,7 +86,7 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
   </Step>
 
   <Step>
-    ### Add `AUTUMN_SECRET_KEY` to your environment variables
+    Add AUTUMN_SECRET_KEY to your environment variables [#add-autumn_secret_key-to-your-environment-variables]
 
     You can find it in Autumn's dashboard under "[Developer](https://app.useautumn.com/sandbox/onboarding)".
 
@@ -96,7 +96,7 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
   </Step>
 
   <Step>
-    ### Add the Autumn plugin to your `auth` config
+    Add the Autumn plugin to your auth config [#add-the-autumn-plugin-to-your-auth-config]
 
     <Tabs items={["User", "Organization", "User & Organization", "Custom"]}>
       <Tab value="User">
@@ -170,7 +170,7 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
   </Step>
 
   <Step>
-    ### Add `<AutumnProvider />`
+    Add <AutumnProvider /> [#add-autumnprovider-]
 
     Client side, wrap your application with the AutumnProvider component, and pass in the `baseUrl` that you define within better-auth's `authClient`.
 
@@ -197,9 +197,9 @@ import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
   </Step>
 </Steps>
 
-## Usage
+Usage [#usage]
 
-### Handle payments
+Handle payments [#handle-payments]
 
 Call `attach` to redirect the customer to a Stripe checkout page when they want to purchase the Pro plan.
 
@@ -237,7 +237,7 @@ export default function PurchaseButton() {
 The AttachDialog component can be used directly from the `autumn-js/react`
 library (as shown in the example above), or downloaded as a [shadcn/ui component](https://docs.useautumn.com/quickstart/shadcn) to customize.
 
-### Integrate Pricing Logic
+Integrate Pricing Logic [#integrate-pricing-logic]
 
 Integrate your client and server pricing tiers logic with the following functions:
 
@@ -304,9 +304,9 @@ Server-side, you can access Autumn's functions through the `auth` object.
   </Tab>
 </Tabs>
 
-### Additional Functions
+Additional Functions [#additional-functions]
 
-#### openBillingPortal()
+openBillingPortal() [#openbillingportal]
 
 Opens a billing portal where the customer can update their payment method or cancel their plan.
 
@@ -330,7 +330,7 @@ export default function BillingSettings() {
 }
 ```
 
-#### cancel()
+cancel() [#cancel]
 
 Cancel a product or subscription.
 
@@ -352,7 +352,7 @@ export default function CancelSubscription() {
 }
 ```
 
-#### Get invoice history
+Get invoice history [#get-invoice-history]
 
 Pass in an `expand` param into `useCustomer` to get additional information. You can expand `invoices`, `trials_used`, `payment_method`, or `rewards`.
 

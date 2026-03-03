@@ -6,9 +6,9 @@ Better Auth TypeScript integration.
 
 Better Auth is designed to be type-safe. Both the client and server are built with TypeScript, allowing you to easily infer types.
 
-## TypeScript Config
+TypeScript Config [#typescript-config]
 
-### Strict Mode
+Strict Mode [#strict-mode]
 
 Better Auth is designed to work with TypeScript's strict mode. We recommend enabling strict mode in your TypeScript config file:
 
@@ -35,7 +35,7 @@ if you can't set `strict` to `true`, you can enable `strictNullChecks`:
   then please make sure you're following the instructions above, as well as ensuring that both `declaration` and `composite` are not enabled.
 </Callout>
 
-## Inferring Types
+Inferring Types [#inferring-types]
 
 Both the client SDK and the server offer types that can be inferred using the `$Infer` property. Plugins can extend base types like `User` and `Session`, and you can use `$Infer` to infer these types. Additionally, plugins can provide extra types that can also be inferred through `$Infer`.
 
@@ -62,11 +62,11 @@ export const auth = betterAuth({
 type Session = typeof auth.$Infer.Session
 ```
 
-## Additional Fields
+Additional Fields [#additional-fields]
 
 Better Auth allows you to add additional fields to the user and session objects. All additional fields are properly inferred and available on the server and client side.
 
-```ts
+```ts title="auth.ts"
 import { betterAuth } from "better-auth"
 import Database from "better-sqlite3"
 
@@ -88,7 +88,7 @@ type Session = typeof auth.$Infer.Session
 
 In the example above, we added a `role` field to the user object. This field is now available on the `Session` type.
 
-### The `input` property
+The input property [#the-input-property]
 
 The `input` property in an additional field configuration determines whether the field should be included in the user input. This property defaults to `true`, meaning the field will be part of the user input during operations like registration.
 
@@ -107,7 +107,7 @@ When `input` is set to `false`, the field will be excluded from user input, prev
 
 By default, additional fields are included in the user input, which can lead to security vulnerabilities if not handled carefully. For fields that should not be set by the user, like a `role`, it is crucial to set `input: false` in the configuration.
 
-### Inferring Additional Fields on Client
+Inferring Additional Fields on Client [#inferring-additional-fields-on-client]
 
 To make sure proper type inference for additional fields on the client side, you need to inform the client about these fields. There are two approaches to achieve this, depending on your project structure:
 
@@ -115,10 +115,10 @@ To make sure proper type inference for additional fields on the client side, you
 
 If your server and client code reside in the same project, you can use the `inferAdditionalFields` plugin to automatically infer the additional fields from your server configuration.
 
-```ts
+```ts title="auth-client.ts"
 import { inferAdditionalFields } from "better-auth/client/plugins";
-import { createAuthClient } from "better-auth/react";
-import type { auth } from "./auth";
+import { createAuthClient } from "better-auth/client";
+import type { auth } from "@/lib/auth"; // Import the auth instance as a type
 
 export const authClient = createAuthClient({
   plugins: [inferAdditionalFields<typeof auth>()],
@@ -129,7 +129,8 @@ export const authClient = createAuthClient({
 
 If your client and server are in separate projects, you'll need to manually specify the additional fields when creating the auth client.
 
-```ts
+```ts title="auth-client.ts"
+import { createAuthClient } from "better-auth/client";
 import { inferAdditionalFields } from "better-auth/client/plugins";
 
 export const authClient = createAuthClient({
